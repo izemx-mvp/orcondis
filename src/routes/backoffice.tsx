@@ -1,5 +1,6 @@
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { BOProvider } from "@/lib/bo-store";
+import { OpsProvider } from "@/lib/bo/ops-store";
 import { BOLayout } from "@/components/bo/BOLayout";
 
 export const Route = createFileRoute("/backoffice")({
