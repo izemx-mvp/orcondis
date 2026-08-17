@@ -2,6 +2,9 @@
 // Données simulées cohérentes, aucune valeur tarifaire codée en dur dans la logique :
 // tous les montants proviennent des règles de tarification configurables ci-dessous.
 
+import { seedConversations, type Conversation } from "./bo-whatsapp";
+export type { Conversation };
+
 export const iso = (d: Date) => d.toISOString().slice(0, 10);
 export const today = () => iso(new Date());
 export const daysAgo = (n: number) => iso(new Date(Date.now() - n * 86400000));
@@ -532,6 +535,7 @@ export type BOData = {
   notifications: Notification[];
   audit: AuditEntry[];
   messages: MessageClient[];
+  conversations: Conversation[];
   services: ServiceParam[];
   typesCourse: Referentiel[];
   typesClient: Referentiel[];
@@ -1128,6 +1132,7 @@ export function seedBO(): BOData {
   ];
 
   return {
+    conversations: seedConversations(),
     clients,
     dossiers,
     coursiers,
