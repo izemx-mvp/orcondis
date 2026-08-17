@@ -53,7 +53,7 @@ function Demande() {
   const { creerDemande } = useStore();
   const [submitted, setSubmitted] = useState<ReturnType<typeof creerDemande> | null>(null);
   const [form, setForm] = useState(initial);
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errors, setErrors] = useState<Partial<Record<"nom" | "prenom" | "telephone" | "email" | "service" | "messageInitial", string>>>({});
 
   const setField = (field: keyof typeof form, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));

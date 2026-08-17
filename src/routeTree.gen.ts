@@ -11,9 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as BackOfficeRouteImport } from './routes/back-office'
 import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DemandeRouteImport } from './routes/demande'
 import { Route as ServicesRouteImport } from './routes/services'
 
 const IndexRoute = IndexRouteImport.update({
@@ -24,6 +26,11 @@ const IndexRoute = IndexRouteImport.update({
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BackOfficeRoute = BackOfficeRouteImport.update({
+  id: '/back-office',
+  path: '/back-office',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
@@ -41,6 +48,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DemandeRoute = DemandeRouteImport.update({
+  id: '/demande',
+  path: '/demande',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
@@ -50,26 +62,32 @@ const ServicesRoute = ServicesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/back-office': typeof BackOfficeRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
+  '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/back-office': typeof BackOfficeRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
+  '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/back-office': typeof BackOfficeRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
+  '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
 }
 export interface FileRouteTypes {
@@ -77,34 +95,42 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/back-office'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
+    | '/demande'
     | '/services'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/a-propos'
+    | '/back-office'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
+    | '/demande'
     | '/services'
   id:
     | '__root__'
     | '/'
     | '/a-propos'
+    | '/back-office'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
+    | '/demande'
     | '/services'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
+  BackOfficeRoute: typeof BackOfficeRoute
   CommentCaMarcheRoute: typeof CommentCaMarcheRoute
   ConnexionRoute: typeof ConnexionRoute
   ContactRoute: typeof ContactRoute
+  DemandeRoute: typeof DemandeRoute
   ServicesRoute: typeof ServicesRoute
 }
 
@@ -122,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/a-propos'
       fullPath: '/a-propos'
       preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/back-office': {
+      id: '/back-office'
+      path: '/back-office'
+      fullPath: '/back-office'
+      preLoaderRoute: typeof BackOfficeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comment-ca-marche': {
@@ -145,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/demande': {
+      id: '/demande'
+      path: '/demande'
+      fullPath: '/demande'
+      preLoaderRoute: typeof DemandeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
@@ -158,9 +198,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
+  BackOfficeRoute: BackOfficeRoute,
   CommentCaMarcheRoute: CommentCaMarcheRoute,
   ConnexionRoute: ConnexionRoute,
   ContactRoute: ContactRoute,
+  DemandeRoute: DemandeRoute,
   ServicesRoute: ServicesRoute,
 }
 export const routeTree = rootRouteImport
