@@ -158,7 +158,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                         nouveau: nomCoursier(nouveau),
                         motif,
                         commentaire,
-                        date: horodatage().split(" ")[0],
+                        date: horodatage().split(" ")[0] ?? "",
                         heure: new Date().toTimeString().slice(0, 5),
                         utilisateur: "Yassine Bennani",
                       },

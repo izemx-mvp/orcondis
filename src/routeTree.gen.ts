@@ -19,6 +19,12 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemandeRouteImport } from './routes/demande'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
+import { Route as BackofficeDemandesRouteImport } from './routes/backoffice.demandes'
+import { Route as BackofficeDocumentsRouteImport } from './routes/backoffice.documents'
+import { Route as BackofficeDossiersRouteImport } from './routes/backoffice.dossiers'
+import { Route as BackofficeFournisseursRouteImport } from './routes/backoffice.fournisseurs'
+import { Route as BackofficePaiementsRouteImport } from './routes/backoffice.paiements'
+import { Route as BackofficeRapportsRouteImport } from './routes/backoffice.rapports'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +76,36 @@ const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const BackofficeDemandesRoute = BackofficeDemandesRouteImport.update({
+  id: '/demandes',
+  path: '/demandes',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeDocumentsRoute = BackofficeDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeDossiersRoute = BackofficeDossiersRouteImport.update({
+  id: '/dossiers',
+  path: '/dossiers',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeFournisseursRoute = BackofficeFournisseursRouteImport.update({
+  id: '/fournisseurs',
+  path: '/fournisseurs',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficePaiementsRoute = BackofficePaiementsRouteImport.update({
+  id: '/paiements',
+  path: '/paiements',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeRapportsRoute = BackofficeRapportsRouteImport.update({
+  id: '/rapports',
+  path: '/rapports',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +117,12 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/demandes': typeof BackofficeDemandesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/dossiers': typeof BackofficeDossiersRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
+  '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,6 +134,12 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/demandes': typeof BackofficeDemandesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/dossiers': typeof BackofficeDossiersRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
+  '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice': typeof BackofficeIndexRoute
 }
 export interface FileRoutesById {
@@ -105,6 +153,12 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/demandes': typeof BackofficeDemandesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/dossiers': typeof BackofficeDossiersRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
+  '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +173,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/demandes'
+    | '/backoffice/documents'
+    | '/backoffice/dossiers'
+    | '/backoffice/fournisseurs'
+    | '/backoffice/paiements'
+    | '/backoffice/rapports'
     | '/backoffice/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -130,6 +190,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/demandes'
+    | '/backoffice/documents'
+    | '/backoffice/dossiers'
+    | '/backoffice/fournisseurs'
+    | '/backoffice/paiements'
+    | '/backoffice/rapports'
     | '/backoffice'
   id:
     | '__root__'
@@ -142,6 +208,12 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/demandes'
+    | '/backoffice/documents'
+    | '/backoffice/dossiers'
+    | '/backoffice/fournisseurs'
+    | '/backoffice/paiements'
+    | '/backoffice/rapports'
     | '/backoffice/'
   fileRoutesById: FileRoutesById
 }
@@ -229,14 +301,68 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeIndexRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/demandes': {
+      id: '/backoffice/demandes'
+      path: '/demandes'
+      fullPath: '/backoffice/demandes'
+      preLoaderRoute: typeof BackofficeDemandesRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/documents': {
+      id: '/backoffice/documents'
+      path: '/documents'
+      fullPath: '/backoffice/documents'
+      preLoaderRoute: typeof BackofficeDocumentsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/dossiers': {
+      id: '/backoffice/dossiers'
+      path: '/dossiers'
+      fullPath: '/backoffice/dossiers'
+      preLoaderRoute: typeof BackofficeDossiersRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/fournisseurs': {
+      id: '/backoffice/fournisseurs'
+      path: '/fournisseurs'
+      fullPath: '/backoffice/fournisseurs'
+      preLoaderRoute: typeof BackofficeFournisseursRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/paiements': {
+      id: '/backoffice/paiements'
+      path: '/paiements'
+      fullPath: '/backoffice/paiements'
+      preLoaderRoute: typeof BackofficePaiementsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/rapports': {
+      id: '/backoffice/rapports'
+      path: '/rapports'
+      fullPath: '/backoffice/rapports'
+      preLoaderRoute: typeof BackofficeRapportsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
   }
 }
 
 interface BackofficeRouteChildren {
+  BackofficeDemandesRoute: typeof BackofficeDemandesRoute
+  BackofficeDocumentsRoute: typeof BackofficeDocumentsRoute
+  BackofficeDossiersRoute: typeof BackofficeDossiersRoute
+  BackofficeFournisseursRoute: typeof BackofficeFournisseursRoute
+  BackofficePaiementsRoute: typeof BackofficePaiementsRoute
+  BackofficeRapportsRoute: typeof BackofficeRapportsRoute
   BackofficeIndexRoute: typeof BackofficeIndexRoute
 }
 
 const BackofficeRouteChildren: BackofficeRouteChildren = {
+  BackofficeDemandesRoute: BackofficeDemandesRoute,
+  BackofficeDocumentsRoute: BackofficeDocumentsRoute,
+  BackofficeDossiersRoute: BackofficeDossiersRoute,
+  BackofficeFournisseursRoute: BackofficeFournisseursRoute,
+  BackofficePaiementsRoute: BackofficePaiementsRoute,
+  BackofficeRapportsRoute: BackofficeRapportsRoute,
   BackofficeIndexRoute: BackofficeIndexRoute,
 }
 
