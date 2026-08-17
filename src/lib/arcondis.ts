@@ -139,7 +139,7 @@ const JOURS = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "S
 
 export function jourDe(dateIso: string) {
   const d = new Date(dateIso + "T12:00:00");
-  return JOURS[d.getDay()];
+  return JOURS[d.getDay()] ?? "";
 }
 
 export function formatDateFr(dateIso: string) {
