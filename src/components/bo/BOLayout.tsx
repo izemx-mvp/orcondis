@@ -26,7 +26,9 @@ import { Badge } from "@/components/ui/badge";
 import { useBO } from "@/lib/bo-store";
 import { dh } from "@/lib/bo-data";
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
+
+const NAV: NavItem[] = [
   { to: "/backoffice", label: "Tableau de bord", icon: Gauge, exact: true },
   { to: "/backoffice/demandes", label: "Demandes entrantes", icon: Inbox },
   { to: "/backoffice/clients", label: "Clients", icon: Building2 },
@@ -36,13 +38,13 @@ const NAV = [
   { to: "/backoffice/coursiers", label: "Coursiers", icon: Truck },
   { to: "/backoffice/procedures", label: "Procédures", icon: ClipboardList },
   { to: "/backoffice/whatsapp", label: "WhatsApp", icon: MessageCircle },
-  { to: "/backoffice/fournisseurs", label: "Fournisseurs", icon: Building2 },
+  { to: "/backoffice/fournisseurs", label: "Fournisseurs & Paiements", icon: Building2 },
   { to: "/backoffice/paiements", label: "Paiements", icon: Wallet },
   { to: "/backoffice/documents", label: "Documents", icon: FileText },
   { to: "/backoffice/facturation", label: "Facturation", icon: Receipt },
   { to: "/backoffice/rapports", label: "Rapports", icon: Gauge },
   { to: "/backoffice/parametres", label: "Paramètres", icon: Settings },
-] as const;
+];
 
 function GlobalSearch() {
   const { data } = useBO();
