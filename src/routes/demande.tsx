@@ -53,19 +53,28 @@ function Demande() {
   const { creerDemande } = useStore();
   const [submitted, setSubmitted] = useState<ReturnType<typeof creerDemande> | null>(null);
   const [form, setForm] = useState(initial);
-  const [errors, setErrors] = useState<Partial<Record<"nom" | "prenom" | "telephone" | "email" | "service" | "messageInitial", string>>>({});
+  const [errors, setErrors] = useState<{
+    nom?: string;
+    prenom?: string;
+    telephone?: string;
+    email?: string;
+    service?: string;
+    messageInitial?: string;
+  }>({});
 
   const setField = (field: keyof typeof form, value: string | boolean) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => {
-      const next = { ...prev };
-      delete next[field];
-      return next;
-    });
+    if (field in errors) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[field as keyof typeof errors];
+        return next;
+      });
+    }
   };
 
   const validate = () => {
-    const next: Record<string, string> = {};
+    const next: typeof errors = {};
     if (!form.nom.trim()) next.nom = "Le nom est requis.";
     if (!form.prenom.trim()) next.prenom = "Le prénom est requis.";
     if (!form.telephone.trim()) next.telephone = "Le téléphone est requis.";
