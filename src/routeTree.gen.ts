@@ -19,6 +19,8 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemandeRouteImport } from './routes/demande'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
+import { Route as BackofficeDocumentsRouteImport } from './routes/backoffice.documents'
+import { Route as BackofficeFournisseursRouteImport } from './routes/backoffice.fournisseurs'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -70,6 +72,16 @@ const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const BackofficeDocumentsRoute = BackofficeDocumentsRouteImport.update({
+  id: '/documents',
+  path: '/documents',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeFournisseursRoute = BackofficeFournisseursRouteImport.update({
+  id: '/fournisseurs',
+  path: '/fournisseurs',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,6 +93,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,6 +106,8 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice': typeof BackofficeIndexRoute
 }
 export interface FileRoutesById {
@@ -105,6 +121,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/documents': typeof BackofficeDocumentsRoute
+  '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,6 +137,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/documents'
+    | '/backoffice/fournisseurs'
     | '/backoffice/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -130,6 +150,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/documents'
+    | '/backoffice/fournisseurs'
     | '/backoffice'
   id:
     | '__root__'
@@ -142,6 +164,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/documents'
+    | '/backoffice/fournisseurs'
     | '/backoffice/'
   fileRoutesById: FileRoutesById
 }
@@ -229,14 +253,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeIndexRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/documents': {
+      id: '/backoffice/documents'
+      path: '/documents'
+      fullPath: '/backoffice/documents'
+      preLoaderRoute: typeof BackofficeDocumentsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/fournisseurs': {
+      id: '/backoffice/fournisseurs'
+      path: '/fournisseurs'
+      fullPath: '/backoffice/fournisseurs'
+      preLoaderRoute: typeof BackofficeFournisseursRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
   }
 }
 
 interface BackofficeRouteChildren {
+  BackofficeDocumentsRoute: typeof BackofficeDocumentsRoute
+  BackofficeFournisseursRoute: typeof BackofficeFournisseursRoute
   BackofficeIndexRoute: typeof BackofficeIndexRoute
 }
 
 const BackofficeRouteChildren: BackofficeRouteChildren = {
+  BackofficeDocumentsRoute: BackofficeDocumentsRoute,
+  BackofficeFournisseursRoute: BackofficeFournisseursRoute,
   BackofficeIndexRoute: BackofficeIndexRoute,
 }
 
