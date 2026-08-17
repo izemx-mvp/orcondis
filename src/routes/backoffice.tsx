@@ -22,9 +22,11 @@ export const Route = createFileRoute("/backoffice")({
 function BackOfficeLayout() {
   return (
     <BOProvider>
-      <BOLayout>
-        <Outlet />
-      </BOLayout>
+      <OpsProvider>
+        <BOLayout>
+          <Outlet />
+        </BOLayout>
+      </OpsProvider>
     </BOProvider>
   );
 }
