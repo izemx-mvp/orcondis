@@ -12,11 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as BackOfficeRouteImport } from './routes/back-office'
+import { Route as BackofficeRouteImport } from './routes/backoffice'
 import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemandeRouteImport } from './routes/demande'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,6 +33,11 @@ const AProposRoute = AProposRouteImport.update({
 const BackOfficeRoute = BackOfficeRouteImport.update({
   id: '/back-office',
   path: '/back-office',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BackofficeRoute = BackofficeRouteImport.update({
+  id: '/backoffice',
+  path: '/backoffice',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
@@ -58,16 +65,23 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/back-office': typeof BackOfficeRoute
+  '/backoffice': typeof BackofficeRouteWithChildren
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,17 +92,20 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice': typeof BackofficeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
   '/back-office': typeof BackOfficeRoute
+  '/backoffice': typeof BackofficeRouteWithChildren
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -96,11 +113,13 @@ export interface FileRouteTypes {
     | '/'
     | '/a-propos'
     | '/back-office'
+    | '/backoffice'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,22 +130,26 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice'
   id:
     | '__root__'
     | '/'
     | '/a-propos'
     | '/back-office'
+    | '/backoffice'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
   BackOfficeRoute: typeof BackOfficeRoute
+  BackofficeRoute: typeof BackofficeRouteWithChildren
   CommentCaMarcheRoute: typeof CommentCaMarcheRoute
   ConnexionRoute: typeof ConnexionRoute
   ContactRoute: typeof ContactRoute
@@ -155,6 +178,13 @@ declare module '@tanstack/react-router' {
       path: '/back-office'
       fullPath: '/back-office'
       preLoaderRoute: typeof BackOfficeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backoffice': {
+      id: '/backoffice'
+      path: '/backoffice'
+      fullPath: '/backoffice'
+      preLoaderRoute: typeof BackofficeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comment-ca-marche': {
@@ -192,13 +222,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/backoffice/': {
+      id: '/backoffice/'
+      path: '/'
+      fullPath: '/backoffice/'
+      preLoaderRoute: typeof BackofficeIndexRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
   }
 }
+
+interface BackofficeRouteChildren {
+  BackofficeIndexRoute: typeof BackofficeIndexRoute
+}
+
+const BackofficeRouteChildren: BackofficeRouteChildren = {
+  BackofficeIndexRoute: BackofficeIndexRoute,
+}
+
+const BackofficeRouteWithChildren = BackofficeRoute._addFileChildren(
+  BackofficeRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
   BackOfficeRoute: BackOfficeRoute,
+  BackofficeRoute: BackofficeRouteWithChildren,
   CommentCaMarcheRoute: CommentCaMarcheRoute,
   ConnexionRoute: ConnexionRoute,
   ContactRoute: ContactRoute,
