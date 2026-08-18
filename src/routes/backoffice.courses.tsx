@@ -84,15 +84,6 @@ import {
 import { CalendarContainer, type CalendarViewType } from "@/components/bo/ops/calendar";
 
 
-export const Route = createFileRoute("/backoffice/courses")({
-  head: () => ({
-    meta: [
-      { title: "Courses — Back-Office ORCONDIS" },
-      { name: "description", content: "Gestion des courses ORCONDIS : affectation coursier, suivi, kilométrage et documents." },
-    ],
-  }),
-  component: CoursesPage,
-});
 
 function courseVide(numero: string): CourseOps {
   return {
