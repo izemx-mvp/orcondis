@@ -15,24 +15,34 @@ const NAV = [
 ] as const;
 
 export function Logo({ backoffice = false, className }: { backoffice?: boolean; className?: string }) {
+  if (backoffice) {
+    return (
+      <div className={cn("flex flex-col items-center gap-3 group transition-transform duration-500", className)}>
+        <div className="bg-white p-3.5 rounded-2xl shadow-xl shadow-black/10 transition-all group-hover:scale-105 group-hover:shadow-black/20">
+          <img 
+            src="/assets/orcondis-logo.png" 
+            alt="ORCONDIS" 
+            className="h-10 w-auto object-contain"
+            style={{ maxWidth: '160px' }}
+          />
+        </div>
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-colors">
+          Back-Office
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div className={cn("flex flex-col items-center gap-1 group transition-transform hover:scale-105 duration-300", className)}>
       <div className="relative">
         <img 
           src="/assets/orcondis-logo.png" 
           alt="ORCONDIS" 
-          className={cn(
-            "object-contain transition-all",
-            backoffice ? "h-12 w-auto brightness-0 invert opacity-80" : "h-14 md:h-16 lg:h-20 w-auto"
-          )}
-          style={{ maxWidth: backoffice ? '180px' : '210px' }}
+          className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all"
+          style={{ maxWidth: '210px' }}
         />
       </div>
-      {backoffice && (
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-white mt-2">
-          Back-Office
-        </span>
-      )}
     </div>
   );
 }

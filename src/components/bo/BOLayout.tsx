@@ -181,11 +181,11 @@ export function BOLayout({ children }: { children: ReactNode }) {
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex min-h-[120px] flex-col items-center justify-center px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10 py-6">
+        <div className="flex min-h-[160px] flex-col items-center justify-center px-8 border-b border-sidebar-border/10 bg-white/5 backdrop-blur-xl sticky top-0 z-10 py-8">
           <Link to="/backoffice/dashboard" className="flex flex-col items-center">
-            <Logo backoffice className="scale-90" />
+            <Logo backoffice />
           </Link>
-          <button className="lg:hidden p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
+          <button className="lg:hidden absolute top-4 right-4 p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
           </button>
         </div>

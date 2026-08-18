@@ -20,15 +20,22 @@ function AccessSelectionPage() {
     <div className="relative flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 overflow-hidden">
       <AnimatedBackground variant="expressive" />
       
-      <div className="mb-16 text-center relative z-10 flex flex-col items-center">
-        <div className="mb-12 transition-all hover:scale-105 duration-500">
-          <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-32 w-auto object-contain drop-shadow-2xl" />
+      <div className="mb-12 text-center relative z-10 flex flex-col items-center">
+        <div className="mb-8 transition-all hover:scale-105 duration-700 ease-in-out">
+          <img 
+            src="/assets/orcondis-logo.png" 
+            alt="ORCONDIS" 
+            className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)]" 
+          />
         </div>
-        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-6xl max-w-2xl mx-auto leading-[1.1]">
-          Bienvenue sur ORCONDIS
-        </h1>
-        <p className="mt-6 text-lg text-muted-foreground font-semibold max-w-lg mx-auto">
-          Choisissez votre portail d'accès sécurisé.
+        <div className="flex flex-col items-center gap-2">
+          <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-6xl max-w-2xl mx-auto leading-[1.1]">
+            Bienvenue sur <span className="text-primary">ORCONDIS</span>
+          </h1>
+          <div className="h-1 w-20 bg-primary/20 rounded-full mt-2" />
+        </div>
+        <p className="mt-8 text-lg text-muted-foreground font-semibold max-w-lg mx-auto opacity-80">
+          Choisissez votre portail d'accès sécurisé
         </p>
       </div>
 
