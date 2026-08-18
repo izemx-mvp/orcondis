@@ -597,7 +597,7 @@ export function Inbox({
                     {conv.clientNom}
                   </Link>
                 ) : (
-                  <span className="text-amber-700">{conv.clientNom} (non créé)</span>
+                  <span className="text-warning">{conv.clientNom} (non créé)</span>
                 )}
               </p>
               <p>
