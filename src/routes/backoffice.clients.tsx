@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import {
   CATEGORIES_CLIENT,
+  SOUS_TYPES_AUTRES,
   ZONES,
   horodatage,
   nomClient,
@@ -247,14 +248,15 @@ function ClientsPage() {
             <Champ label="Quartier" value={form.quartier} onChange={(v) => setForm({ ...form, quartier: v })} />
             <Champ label="Adresse complète" value={form.adresseComplete} onChange={(v) => setForm({ ...form, adresseComplete: v })} />
           </Grille>
-          <Grille cols={4}>
+          <Grille cols={3}>
             <Champ label="Rue" value={form.rue} onChange={(v) => setForm({ ...form, rue: v })} />
             <Champ label="N°" value={form.numeroRue} onChange={(v) => setForm({ ...form, numeroRue: v })} />
             <Champ label="Étage" value={form.etage} onChange={(v) => setForm({ ...form, etage: v })} />
-            <Champ label="N° Appartement" value={form.appartement} onChange={(v) => setForm({ ...form, appartement: v })} />
           </Grille>
-          <Grille cols={3}>
+          <Grille cols={2}>
+            <Champ label="N° Appartement" value={form.appartement} onChange={(v) => setForm({ ...form, appartement: v })} />
             <Champ label="Pays" value={form.pays} onChange={(v) => setForm({ ...form, pays: v })} />
+          </Grille>
             <Champ label="Site" value={form.site} onChange={(v) => setForm({ ...form, site: v })} />
             <Champ label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
           </Grille>
