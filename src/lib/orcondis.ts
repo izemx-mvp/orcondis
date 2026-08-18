@@ -309,11 +309,12 @@ export function seedDemandes(): Demande[] {
         },
       ],
       qualification: {
+        ...emptyQualification(),
         typeClient: "Entreprise",
         denomination: "Atlas Industrie",
         raisonSociale: "Atlas Industrie SARL",
-        typeCourse: "Récupération + paiement fournisseur",
-        niveauImportance: "Élevé",
+        typeCourse: "Collecte",
+        niveauImportance: "Urgente",
         instructionsSpeciales: "Chèque à remettre en main propre au service comptabilité.",
         retrait: {
           ville: "Casablanca",
