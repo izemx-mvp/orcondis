@@ -146,7 +146,7 @@ function NotificationCenter() {
               <li key={n.id} className={`px-3 py-2 text-sm ${n.lue ? "opacity-60" : ""}`}>
                 <button className="w-full text-left" onClick={() => marquerLue(n.id)}>
                   <p className="flex items-center gap-2 font-medium text-navy">
-                    {n.gravite !== "info" && <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />}
+                    {n.gravite !== "info" && <AlertTriangle className="h-3.5 w-3.5 text-warning" />}
                     {n.titre}
                   </p>
                   <p className="text-xs text-muted-foreground">{n.detail}</p>

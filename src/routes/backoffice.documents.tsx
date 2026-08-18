@@ -197,7 +197,7 @@ function Documents() {
             {[...stats.parSource.entries()].sort((a, b) => b[1] - a[1]).map(([k, v]) => (
               <div key={k} className="space-y-1">
                 <div className="flex justify-between text-xs"><span>{k}</span><span className="text-muted-foreground">{v}</span></div>
-                <div className="h-2 rounded-full bg-surface"><div className="h-2 rounded-full bg-emerald-500" style={{ width: `${(v / Math.max(1, stats.total)) * 100}%` }} /></div>
+                <div className="h-2 rounded-full bg-surface"><div className="h-2 rounded-full bg-success" style={{ width: `${(v / Math.max(1, stats.total)) * 100}%` }} /></div>
               </div>
             ))}
           </div>
