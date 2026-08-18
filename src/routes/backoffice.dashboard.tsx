@@ -136,7 +136,7 @@ function Dashboard() {
           titre="Paiements fournisseurs"
           actions={
             <Button asChild variant="ghost" size="sm">
-              <Link to="/backoffice/paiements">Ouvrir</Link>
+              <Link to="/backoffice/fournisseurs">Ouvrir</Link>
             </Button>
           }
         >
