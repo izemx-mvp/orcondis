@@ -11,9 +11,9 @@ import {
   type MessageWhatsApp,
   type Qualification,
   type Statut,
-} from "./arcondis";
+} from "./orcondis";
 
-const STORAGE_KEY = "arcondis.demandes.v1";
+const STORAGE_KEY = "orcondis.demandes.v1";
 
 type NouvelleDemande = {
   typeClient: "Client existant" | "Nouveau client";

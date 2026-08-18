@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
-import { SERVICES } from "@/lib/arcondis";
+import { SERVICES } from "@/lib/orcondis";
 
 export const Route = createFileRoute("/services")({
   head: () => ({

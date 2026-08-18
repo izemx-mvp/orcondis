@@ -13,7 +13,7 @@ interface ThemeCtx {
 const ThemeContext = createContext<ThemeCtx | null>(null);
 
 
-const STORAGE_KEY = "arcondis.theme";
+const STORAGE_KEY = "orcondis.theme";
 
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "system";

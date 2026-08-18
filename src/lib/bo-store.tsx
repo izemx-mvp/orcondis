@@ -9,7 +9,7 @@ import {
 } from "react";
 import { seedBO, uid, type AuditEntry, type BOData } from "./bo-data";
 
-const STORAGE_KEY = "arcondis.backoffice.v1";
+const STORAGE_KEY = "orcondis.backoffice.v1";
 
 type CollectionKey = {
   [K in keyof BOData]: BOData[K] extends Array<{ id: string }> ? K : never;

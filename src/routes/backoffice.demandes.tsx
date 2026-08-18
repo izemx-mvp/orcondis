@@ -21,9 +21,9 @@ import {
   type CourseOps,
   type DossierOps,
 } from "@/lib/bo/ops-data";
-import type { Demande, Statut } from "@/lib/arcondis";
-import { STATUSES, statutTone } from "@/lib/arcondis";
-import { SERVICES } from "@/lib/arcondis";
+import type { Demande, Statut } from "@/lib/orcondis";
+import { STATUSES, statutTone } from "@/lib/orcondis";
+import { SERVICES } from "@/lib/orcondis";
 import { Button } from "@/components/ui/button";
 import {
   PageHeader,

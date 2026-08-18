@@ -24,7 +24,7 @@ import {
   type StatutCourse,
 } from "./ops-data";
 
-const STORAGE_KEY = "arcondis.ops.v1";
+const STORAGE_KEY = "orcondis.ops.v1";
 
 type Collections = "clients" | "contacts" | "dossiers" | "courses" | "coursiers" | "procedures";
 

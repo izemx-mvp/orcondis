@@ -1,4 +1,4 @@
-import { statutTone, type Completion, type Statut } from "@/lib/arcondis";
+import { statutTone, type Completion, type Statut } from "@/lib/orcondis";
 import { cn } from "@/lib/utils";
 
 export function StatusBadge({ statut, className }: { statut: Statut; className?: string }) {
