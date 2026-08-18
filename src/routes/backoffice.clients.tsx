@@ -494,13 +494,37 @@ function ClientDetail({
         titre="Ajouter un contact"
         onSubmit={ajouterContact}
         submitLabel="Ajouter"
+        large
       >
-        <Grille>
-          <Champ label="Nom" value={contactForm.nom} onChange={(v) => setContactForm({ ...contactForm, nom: v })} />
-          <Champ label="Prénom" value={contactForm.prenom} onChange={(v) => setContactForm({ ...contactForm, prenom: v })} />
-          <Champ label="GSM" value={contactForm.gsm} onChange={(v) => setContactForm({ ...contactForm, gsm: v })} />
-          <Champ label="Email" value={contactForm.email} onChange={(v) => setContactForm({ ...contactForm, email: v })} />
+        <Grille cols={3}>
+          <ChampSelect 
+            label="Type / rôle du contact" 
+            value={contactForm.role} 
+            onChange={(v) => setContactForm({ ...contactForm, role: v as RoleContact })} 
+            options={ROLES_CONTACT} 
+          />
+          {contactForm.role === "Autres" && (
+            <Champ label="Précisez le rôle" value={contactForm.autreRole} onChange={(v) => setContactForm({ ...contactForm, autreRole: v })} />
+          )}
         </Grille>
+        <Grille cols={2}>
+          <Champ label="Nom" value={contactForm.nom} onChange={(v) => setFormContactField("nom", v)} />
+          <Champ label="Prénom" value={contactForm.prenom} onChange={(v) => setFormContactField("prenom", v)} />
+        </Grille>
+        <Grille cols={2}>
+          <Champ label="Service" value={contactForm.service} onChange={(v) => setFormContactField("service", v)} />
+          <Champ label="Fonction" value={contactForm.fonction} onChange={(v) => setFormContactField("fonction", v)} />
+        </Grille>
+        <Grille cols={3}>
+          <Champ label="GSM" value={contactForm.gsm} onChange={(v) => setFormContactField("gsm", v)} />
+          <Champ label="Téléphone fixe" value={contactForm.fixe} onChange={(v) => setFormContactField("fixe", v)} />
+          <Champ label="Fax" value={contactForm.fax} onChange={(v) => setFormContactField("fax", v)} />
+        </Grille>
+        <Grille cols={2}>
+          <Champ label="Email" value={contactForm.email} onChange={(v) => setFormContactField("email", v)} />
+          <Champ label="WhatsApp" value={contactForm.whatsapp} onChange={(v) => setFormContactField("whatsapp", v)} />
+        </Grille>
+        <ChampTexte label="Notes spéciales" value={contactForm.notes} onChange={(v) => setFormContactField("notes", v)} />
       </FormDialog>
     </>
   );
