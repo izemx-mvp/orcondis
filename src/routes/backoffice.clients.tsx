@@ -257,6 +257,7 @@ function ClientsPage() {
             <Champ label="N° Appartement" value={form.appartement} onChange={(v) => setForm({ ...form, appartement: v })} />
             <Champ label="Pays" value={form.pays} onChange={(v) => setForm({ ...form, pays: v })} />
           </Grille>
+          <Grille cols={2}>
             <Champ label="Site" value={form.site} onChange={(v) => setForm({ ...form, site: v })} />
             <Champ label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
           </Grille>
