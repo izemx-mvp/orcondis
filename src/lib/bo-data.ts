@@ -161,7 +161,7 @@ export type Course = {
   demandeNumero: string;
   service: string;
   typeCourse: string;
-  priorite: "Normale" | "Urgente";
+  priorite: "Normale" | "Urgente" | "Exclusive";
   transport: string;
   date: string;
   trancheHoraire: string;
@@ -1171,7 +1171,7 @@ export function seedBO(): BOData {
       { id: "ZN-4", nom: "Zone D", ville: "Rabat", quartiers: "Agdal, Hassan, Souissi", description: "Hors Casablanca", actif: true, archive: false },
     ],
     transports: [ref("TR-1", "Moto"), ref("TR-2", "Bicyclette"), ref("TR-3", "Voiture")],
-    priorites: [ref("PR-1", "Normale"), ref("PR-2", "Urgente")],
+    priorites: [ref("PR-1", "Normale"), ref("PR-2", "Urgente"), ref("PR-3", "Exclusive")],
     tranchesHoraires: [
       ref("TH-1", "Matin (08h – 12h)"),
       ref("TH-2", "Après-midi (14h – 18h)"),

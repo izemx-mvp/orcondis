@@ -69,7 +69,7 @@ function courseVide(numero: string): CourseOps {
     message: "",
     service: "",
     typeCourse: TYPES_COURSE[0],
-    priorite: "Normale",
+    priorite: "Normale" as CourseOps["priorite"],
     dateCourse: todayIso(),
     trancheHoraire: TRANCHES_HORAIRES[0],
     heureFixe: "",

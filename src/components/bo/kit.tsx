@@ -218,7 +218,7 @@ export function tonStatut(s: string) {
     return "border-destructive/30 bg-destructive/15 text-destructive";
   if (["payée", "validée", "validé", "terminée", "effectué", "reçu", "complètes", "émise", "envoyée"].some((k) => v.includes(k)))
     return "border-success/30 bg-success/15 text-success";
-  if (["attente", "à valider", "brouillon", "à facturer", "à payer", "à recevoir", "à affecter", "urgente"].some((k) => v.includes(k)))
+  if (["attente", "à valider", "brouillon", "à facturer", "à payer", "à recevoir", "à affecter", "urgente", "exclusive"].some((k) => v.includes(k)))
     return "border-warning/30 bg-warning/15 text-warning";
   return "border-primary/30 bg-primary/15 text-primary";
 }

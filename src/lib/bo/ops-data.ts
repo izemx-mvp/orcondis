@@ -81,7 +81,7 @@ export type Transport = (typeof TRANSPORTS)[number];
 
 export const TRANCHES_HORAIRES = ["Matin", "Midi", "Après-midi", "Fin de journée"] as const;
 
-export const PRIORITES_COURSE = ["Normale", "Urgente"] as const;
+export const PRIORITES_COURSE = ["Normale", "Urgente", "Exclusive"] as const;
 export type PrioriteCourse = (typeof PRIORITES_COURSE)[number];
 
 export const TYPES_COURSE = [

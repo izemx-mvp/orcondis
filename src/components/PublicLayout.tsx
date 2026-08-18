@@ -16,12 +16,10 @@ const NAV = [
 export function Logo({ dark = false }: { dark?: boolean }) {
   return (
     <span className="flex items-center gap-2">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
+      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-base font-black text-primary-foreground shadow-sm">
         O
       </span>
-      <span
-        className={`text-lg font-semibold tracking-tight ${dark ? "text-navy-foreground" : "text-foreground"}`}
-      >
+      <span className={`text-xl font-black tracking-tighter ${dark ? "text-white" : "text-navy"}`}>
         ORCONDIS
       </span>
     </span>
@@ -105,8 +103,8 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               fournisseurs et le traitement des chèques.
             </p>
             <a
-              href="https://wa.me/212661000000"
-              className="mt-4 inline-flex items-center gap-2 rounded-md bg-whatsapp px-3 py-2 text-sm font-medium text-whatsapp-foreground"
+              href="https://wa.me/212666709941"
+              className="mt-4 inline-flex items-center gap-2 rounded-md bg-whatsapp px-3 py-2 text-sm font-medium text-whatsapp-foreground transition-transform hover:scale-105"
             >
               <MessageCircle className="h-4 w-4" /> WhatsApp ORCONDIS
             </a>
@@ -127,8 +125,8 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             <p className="text-sm font-semibold">Contact</p>
             <ul className="mt-3 space-y-2 text-sm text-navy-foreground/70">
               <li>Casablanca, Maroc</li>
-              <li>+212 661 00 00 00</li>
-              <li>contact@orcondis.ma</li>
+              <li>0666 70 99 41</li>
+              <li>orcondiscourses@gmail.com</li>
               <li>Lundi – Samedi : 08h30 – 19h00</li>
             </ul>
           </div>

@@ -344,7 +344,7 @@ function DemandeDetail({
       message: demande.messageInitial,
       service: demande.service,
       typeCourse: TYPES_COURSE[0],
-      priorite: q.planning.urgence === "Urgente" ? "Urgente" : "Normale",
+      priorite: q.planning.urgence === "Exclusive" ? "Exclusive" : q.planning.urgence === "Urgente" ? "Urgente" : "Normale",
       dateCourse: q.planning.date || todayIso(),
       trancheHoraire: q.planning.trancheHoraire || TRANCHES_HORAIRES[0],
       heureFixe: q.planning.heureFixe,
