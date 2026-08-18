@@ -27,11 +27,14 @@ function Connexion() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <section className="mx-auto flex w-full max-w-md flex-col px-4 sm:px-6">
-        <div className="surface-card p-6">
-          <h1 className="text-xl font-semibold">Connexion collaborateur</h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Accès au back-office ORCONDIS (démonstration).
+        <div className="flex flex-col items-center mb-10">
+          <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-20 w-auto object-contain mb-4" />
+          <h1 className="text-2xl font-black text-navy tracking-tight">Connexion Back-Office</h1>
+          <p className="text-sm text-muted-foreground font-medium">
+            Accès sécurisé réservé aux collaborateurs.
           </p>
+        </div>
+        <div className="surface-card p-8 shadow-elevated border-none bg-white/80 backdrop-blur-xl rounded-[2.5rem]">
           <form
             className="mt-6 space-y-4"
             onSubmit={(e) => {

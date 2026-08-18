@@ -181,9 +181,9 @@ export function BOLayout({ children }: { children: ReactNode }) {
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-24 items-center justify-between px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10">
-          <Link to="/backoffice/dashboard" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
-            <Logo backoffice dark />
+        <div className="flex min-h-[120px] flex-col items-center justify-center px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10 py-6">
+          <Link to="/backoffice/dashboard" className="flex flex-col items-center">
+            <Logo backoffice className="scale-90" />
           </Link>
           <button className="lg:hidden p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
@@ -252,9 +252,12 @@ export function BOLayout({ children }: { children: ReactNode }) {
         </main>
         
         <footer className="border-t border-border px-6 py-8 text-center sm:px-10 bg-muted/20">
-          <span className="inline-block px-4 py-2 rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-md text-[10px] font-black text-muted-foreground/60 uppercase tracking-[0.2em] border border-border/50">
-            © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
-          </span>
+          <div className="flex flex-col items-center gap-4">
+            <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-8 w-auto grayscale opacity-30 brightness-0 dark:invert" />
+            <span className="inline-block px-4 py-2 rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-md text-[10px] font-black text-muted-foreground/60 uppercase tracking-[0.2em] border border-border/50">
+              © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
+            </span>
+          </div>
         </footer>
       </div>
     </div>
