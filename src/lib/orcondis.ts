@@ -9,8 +9,8 @@ export const SERVICES = [
   "Récupération de chèques",
   "Dépôt de chèques",
   "Procédures administratives",
-  "Procédure provisoire",
   "Vérification / contrôle",
+  "Exclusive (Tizzla & Serve)",
   "Autres prestations",
 ] as const;
 
@@ -93,7 +93,7 @@ export type Qualification = {
     date: string;
     trancheHoraire: string;
     heureFixe: string;
-    urgence: "Normale" | "Urgente";
+    urgence: "Normale" | "Urgente" | "Exclusive";
   };
   resumeIA: string;
 };
@@ -178,6 +178,17 @@ export function statutTone(statut: Statut) {
       return "bg-primary/12 text-primary border-primary/35";
     case "Annulée":
       return "bg-muted text-muted-foreground border-border line-through";
+  }
+}
+
+export function urgenceTone(urgence: string) {
+  switch (urgence) {
+    case "Exclusive":
+      return "bg-amber-500/10 text-amber-700 border-amber-500/30 font-bold";
+    case "Urgente":
+      return "bg-destructive/10 text-destructive border-destructive/30";
+    default:
+      return "bg-primary/10 text-primary border-primary/30";
   }
 }
 
