@@ -21,12 +21,14 @@ function AccessSelectionPage() {
       <AnimatedBackground variant="expressive" className="opacity-20" />
       
       <div className="mb-12 text-center relative z-10 flex flex-col items-center">
-        <div className="mb-8 transition-all hover:scale-105 duration-700 ease-in-out">
-          <img 
-            src="/assets/orcondis-logo.png" 
-            alt="ORCONDIS" 
-            className="h-28 sm:h-36 w-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.1)]" 
-          />
+        <div className="mb-10 transition-all hover:scale-105 duration-700 ease-in-out">
+          <div className="bg-white p-6 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+            <img 
+              src="/assets/orcondis-logo.png" 
+              alt="ORCONDIS" 
+              className="h-24 sm:h-32 w-auto object-contain" 
+            />
+          </div>
         </div>
         <div className="flex flex-col items-center gap-2">
           <h1 className="text-4xl font-black tracking-tighter text-white sm:text-6xl max-w-2xl mx-auto leading-[1.1]">
