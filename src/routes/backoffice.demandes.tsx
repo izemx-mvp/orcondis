@@ -147,11 +147,11 @@ function DemandesPage() {
       titre: "Informations",
       rendu: (d) =>
         d.informationsManquantes.length > 0 ? (
-          <StatutBadge ton="border-amber-300 bg-amber-50 text-amber-700">
+          <StatutBadge ton="border-warning/30 bg-warning/15 text-warning">
             {d.informationsManquantes.length} manquante(s)
           </StatutBadge>
         ) : (
-          <StatutBadge ton="border-emerald-300 bg-emerald-50 text-emerald-700">Complètes</StatutBadge>
+          <StatutBadge ton="border-success/30 bg-success/15 text-success">Complètes</StatutBadge>
         ),
     },
     { cle: "statut", titre: "Statut", rendu: (d) => <StatutBadge ton={statutTone(d.statut)}>{d.statut}</StatutBadge> },
@@ -397,7 +397,7 @@ function DemandeDetail({
           <div className="flex flex-wrap items-center gap-2">
             <StatutBadge ton={statutTone(demande.statut)}>{demande.statut}</StatutBadge>
             {demande.informationsManquantes.length > 0 && (
-              <StatutBadge ton="border-amber-300 bg-amber-50 text-amber-700">
+              <StatutBadge ton="border-warning/30 bg-warning/15 text-warning">
                 Informations manquantes : {demande.informationsManquantes.join(", ")}
               </StatutBadge>
             )}
@@ -464,7 +464,7 @@ function DemandeDetail({
             <>
               <StatutBadge>{conversation.statut}</StatutBadge>
               {conversation.manquantes.length > 0 && (
-                <p className="text-sm text-amber-700">Manquant : {conversation.manquantes.join(", ")}</p>
+                <p className="text-sm text-warning">Manquant : {conversation.manquantes.join(", ")}</p>
               )}
               <ul className="space-y-2">
                 {conversation.messages.map((m) => (
