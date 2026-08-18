@@ -16,7 +16,6 @@ import {
   Search,
   Settings,
   Truck,
-  Users,
   Wallet,
   X,
 } from "lucide-react";
@@ -29,10 +28,9 @@ import { dh } from "@/lib/bo-data";
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
 
 const NAV: NavItem[] = [
-  { to: "/backoffice", label: "Tableau de bord", icon: Gauge, exact: true },
+  { to: "/backoffice/dashboard", label: "Tableau de bord", icon: Gauge },
   { to: "/backoffice/demandes", label: "Demandes entrantes", icon: Inbox },
   { to: "/backoffice/clients", label: "Clients", icon: Building2 },
-  { to: "/backoffice/contacts", label: "Contacts", icon: Users },
   { to: "/backoffice/dossiers", label: "Dossiers", icon: FolderKanban },
   { to: "/backoffice/courses", label: "Courses", icon: RouteIcon },
   { to: "/backoffice/coursiers", label: "Coursiers", icon: Truck },
@@ -62,7 +60,7 @@ function GlobalSearch() {
         out.push({ id: c.id, label: `${c.code} — ${c.raisonSociale}`, detail: "Client", to: "/backoffice/clients" });
       c.contacts.forEach((ct) => {
         if (match(ct.nom, ct.gsm, ct.email))
-          out.push({ id: ct.id, label: ct.nom, detail: `Contact · ${c.raisonSociale}`, to: "/backoffice/contacts" });
+          out.push({ id: ct.id, label: ct.nom, detail: `Contact · ${c.raisonSociale}`, to: "/backoffice/clients" });
       });
     });
     data.dossiers.forEach((d) => {
@@ -179,9 +177,9 @@ export function BOLayout({ children }: { children: ReactNode }) {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4">
-          <Link to="/backoffice" className="flex items-center gap-2">
+          <Link to="/backoffice/dashboard" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-              A
+              O
             </span>
             <span className="text-sm font-semibold tracking-tight">ORCONDIS · Back-Office</span>
           </Link>
