@@ -148,7 +148,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                   auteur: "agent",
                   nom: "Assistant ORCONDIS",
                   heure,
-                  texte: `Bonjour ${input.prenom ? (input.typeClient === "Nouveau client" ? "" : "Monsieur/Madame ") + input.prenom : ""}, nous avons bien reçu votre demande concernant « ${input.service} ». J’ai besoin de quelques informations complémentaires afin de préparer votre demande.`.replace(
+                  texte: `Bonjour ${input.prenom ? "Monsieur/Madame " + input.prenom : ""}, nous avons bien reçu votre demande concernant « ${input.service} ». J’ai besoin de quelques informations complémentaires afin de préparer votre demande.`.replace(
                     /\s+,/,
                     ",",
                   ),

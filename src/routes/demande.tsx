@@ -155,18 +155,17 @@ function Demande() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-12 surface-card p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-border/50">
-          <div className="grid gap-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <Label>Je suis</Label>
-              <div className="mt-2 flex gap-4">
-                {(["Nouveau client", "Client existant"] as const).map((opt) => (
+              <Label>Vous êtes :</Label>
+              <div className="mt-2 flex flex-wrap gap-4">
+                {CATEGORIES_CLIENT.map((opt) => (
                   <label key={opt} className="flex items-center gap-2 text-sm">
                     <input
                       type="radio"
-                      name="typeClient"
+                      name="categorie"
                       value={opt}
-                      checked={form.typeClient === opt}
-                      onChange={() => setField("typeClient", opt)}
+                      checked={form.categorie === opt}
+                      onChange={() => setField("categorie", opt)}
                       className="h-4 w-4 text-primary"
                     />
                     {opt}
