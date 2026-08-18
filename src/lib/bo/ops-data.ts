@@ -1211,11 +1211,12 @@ export function seedOps(): OpsData {
       date: todayIso(),
       heure: "11:02",
       duree: "0:21",
-
       transcription: "Le guichet du tribunal est fermé pour inventaire, j’attends vos instructions.",
       lu: false,
+      type: "Réponse",
     },
   ];
+
 
   const notifications: NotificationOps[] = [
     { id: oid("ntf"), titre: "Course urgente non affectée", detail: "C-2026-0085 — Atlas Industrie", date: horodatage(), gravite: "critique", lue: false },
