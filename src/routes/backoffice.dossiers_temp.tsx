@@ -37,7 +37,7 @@ import {
   type Colonne,
 } from "@/components/bo/kit";
 
-export const Route = createFileRoute("/backoffice/dossiers")({
+export const Route = createFileRoute("/backoffice/dossiers_temp")({
   head: () => ({
     meta: [
       { title: "Dossiers — Back-Office ORCONDIS" },

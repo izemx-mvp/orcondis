@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
 import { CATEGORIES_DOC, SOURCES_DOC, fr, uid, type DocumentBO } from "@/lib/bo-data";
 
-export const Route = createFileRoute("/backoffice/documents")({
+export const Route = createFileRoute("/backoffice/documents_temp")({
   head: () => ({
     meta: [
       { title: "Documents — Back-Office ORCONDIS" },
