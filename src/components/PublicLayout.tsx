@@ -22,14 +22,14 @@ export function Logo({ dark = false, backoffice = false, className }: { dark?: b
           src="/assets/orcondis-logo.png" 
           alt="ORCONDIS" 
           className={cn(
-            "object-contain transition-all",
-            backoffice ? "h-12 w-auto" : "h-14 md:h-16 lg:h-20 w-auto"
+            "object-contain transition-all contrast-[1.1]",
+            backoffice ? "h-12 w-auto brightness-0 invert" : "h-14 md:h-16 lg:h-20 w-auto"
           )}
           style={{ maxWidth: backoffice ? '180px' : '210px' }}
         />
       </div>
       {backoffice && (
-        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-white mt-1">
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-white mt-2">
           Back-Office
         </span>
       )}
@@ -108,7 +108,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.02),transparent)]" />
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-20 relative z-10 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Logo dark />
+            <Logo className="items-start" />
             <p className="mt-6 max-w-sm text-base text-white/50 font-medium">
               ORCONDIS est votre partenaire de confiance pour toutes vos courses professionnelles, démarches administratives et prestations de proximité à Casablanca.
             </p>
