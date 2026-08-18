@@ -314,7 +314,7 @@ function Rapports() {
   }
 
   function RapportDispatch() {
-    const courses = opsData.courses.filter(c => !voirArchives && !c.archive);
+    const courses = opsData.courses.filter(c => !c.archive);
     const total = courses.length;
     const confirmes = courses.filter(c => c.dispatch.statut === "Confirmée").length;
     const refuses = courses.filter(c => c.dispatch.statut === "Refusée").length;
