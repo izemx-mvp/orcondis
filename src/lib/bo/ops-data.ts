@@ -887,6 +887,12 @@ export function seedOps(): OpsData {
     reaffectations: [],
     historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: "Course créée" }],
     archive: false,
+    poids: 0,
+    volume: "",
+    manutention: false,
+    precautions: "",
+    formalitesAdministratives: "",
+    quantite: 1,
     ...over,
   });
 

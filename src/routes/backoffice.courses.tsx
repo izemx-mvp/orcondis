@@ -415,7 +415,7 @@ function CoursesPage() {
         {detailDialog.item && (
           <div className="space-y-4">
             <Onglets
-              items={["Informations", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
+              items={["Informations", "Nature", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
               actif={ongletDetail}
               onChange={setOngletDetail}
             />
@@ -453,6 +453,24 @@ function CoursesPage() {
                   >
                     Annuler
                   </Button>
+                </div>
+              </div>
+            )}
+            {ongletDetail === "Nature" && (
+              <div className="space-y-4">
+                <Grille cols={3}>
+                  <Detail label="Genre">{detailDialog.item.genreCourse}</Detail>
+                  <Detail label="Quantité">{detailDialog.item.quantite || "1"}</Detail>
+                  <Detail label="Poids">{detailDialog.item.poids ? `${detailDialog.item.poids} kg` : "—"}</Detail>
+                  <Detail label="Volume">{detailDialog.item.volume || "—"}</Detail>
+                  <Detail label="Manutention">{detailDialog.item.manutention ? "Oui" : "Non"}</Detail>
+                  <Detail label="Transport">{detailDialog.item.transport || "—"}</Detail>
+                </Grille>
+                <div className="border-t pt-4">
+                  <Grille cols={2}>
+                    <Detail label="Précautions">{detailDialog.item.precautions || "—"}</Detail>
+                    <Detail label="Formalités">{detailDialog.item.formalitesAdministratives || "—"}</Detail>
+                  </Grille>
                 </div>
               </div>
             )}
