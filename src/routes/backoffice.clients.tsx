@@ -203,29 +203,76 @@ function ClientsPage() {
         large
       >
         <Grille cols={3}>
-          <ChampSelect label="Catégorie" value={form.categorie} onChange={(v) => setForm({ ...form, categorie: v as CategorieClient })} options={CATEGORIES_CLIENT} />
-          {form.categorie === "Personne physique" ? (
+          <ChampSelect 
+            label="Type de client" 
+            value={form.categorie} 
+            onChange={(v) => setForm({ ...form, categorie: v as CategorieClient, sousType: "", autrePrecision: "" })} 
+            options={CATEGORIES_CLIENT} 
+          />
+          {form.categorie === "Personne physique" && (
             <>
               <Champ label="Nom" value={form.nom} onChange={(v) => setForm({ ...form, nom: v })} />
               <Champ label="Prénom" value={form.prenom} onChange={(v) => setForm({ ...form, prenom: v })} />
             </>
-          ) : (
+          )}
+          {form.categorie === "Entreprise" && (
+            <Champ label="Dénomination" value={form.denomination} onChange={(v) => setForm({ ...form, denomination: v })} />
+          )}
+          {form.categorie === "Société" && (
+            <Champ label="Raison sociale" value={form.raisonSociale} onChange={(v) => setForm({ ...form, raisonSociale: v })} />
+          )}
+          {form.categorie === "Autres" && (
             <>
+              <ChampSelect 
+                label="Type" 
+                value={form.sousType} 
+                onChange={(v) => setForm({ ...form, sousType: v })} 
+                options={SOUS_TYPES_AUTRES} 
+              />
               <Champ label="Dénomination" value={form.denomination} onChange={(v) => setForm({ ...form, denomination: v })} />
-              <Champ label="Raison sociale" value={form.raisonSociale} onChange={(v) => setForm({ ...form, raisonSociale: v })} />
             </>
           )}
         </Grille>
-        <Grille cols={3}>
-          <Champ label="GSM" value={form.gsm} onChange={(v) => setForm({ ...form, gsm: v })} />
-          <Champ label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
-          <Champ label="Email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-        </Grille>
-        <Grille cols={3}>
-          <Champ label="Adresse complète" value={form.adresseComplete} onChange={(v) => setForm({ ...form, adresseComplete: v })} />
-          <Champ label="Ville" value={form.ville} onChange={(v) => setForm({ ...form, ville: v })} />
-          <ChampSelect label="Zone" value={form.zone} onChange={(v) => setForm({ ...form, zone: v })} options={ZONES} />
-        </Grille>
+        
+        {form.categorie === "Autres" && form.sousType === "Autres" && (
+          <Grille cols={1}>
+            <Champ label="Précisez" value={form.autrePrecision} onChange={(v) => setForm({ ...form, autrePrecision: v })} />
+          </Grille>
+        )}
+
+        <div className="mt-4 border-t pt-4">
+          <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Coordonnées</p>
+          <Grille cols={3}>
+            <Champ label="Ville" value={form.ville} onChange={(v) => setForm({ ...form, ville: v })} />
+            <Champ label="Quartier" value={form.quartier} onChange={(v) => setForm({ ...form, quartier: v })} />
+            <Champ label="Adresse complète" value={form.adresseComplete} onChange={(v) => setForm({ ...form, adresseComplete: v })} />
+          </Grille>
+          <Grille cols={4}>
+            <Champ label="Rue" value={form.rue} onChange={(v) => setForm({ ...form, rue: v })} />
+            <Champ label="N°" value={form.numeroRue} onChange={(v) => setForm({ ...form, numeroRue: v })} />
+            <Champ label="Étage" value={form.etage} onChange={(v) => setForm({ ...form, etage: v })} />
+            <Champ label="N° Appartement" value={form.appartement} onChange={(v) => setForm({ ...form, appartement: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="Pays" value={form.pays} onChange={(v) => setForm({ ...form, pays: v })} />
+            <Champ label="Site" value={form.site} onChange={(v) => setForm({ ...form, site: v })} />
+            <Champ label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="Téléphone fixe" value={form.telephoneFixe} onChange={(v) => setForm({ ...form, telephoneFixe: v })} />
+            <Champ label="Fax" value={form.fax} onChange={(v) => setForm({ ...form, fax: v })} />
+            <Champ label="GSM" value={form.gsm} onChange={(v) => setForm({ ...form, gsm: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
+            <Champ label="Facebook" value={form.facebook} onChange={(v) => setForm({ ...form, facebook: v })} />
+            <Champ label="Instagram" value={form.instagram} onChange={(v) => setForm({ ...form, instagram: v })} />
+          </Grille>
+          <div className="mt-2 max-w-xs">
+            <ChampSelect label="Zone" value={form.zone} onChange={(v) => setForm({ ...form, zone: v })} options={ZONES} />
+          </div>
+        </div>
+
         <ChampTexte label="Notes" value={form.notes} onChange={(v) => setForm({ ...form, notes: v })} />
       </FormDialog>
 
