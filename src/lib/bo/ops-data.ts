@@ -115,6 +115,20 @@ export const STATUTS_DISPATCH = [
 ] as const;
 export type StatutDispatch = (typeof STATUTS_DISPATCH)[number];
 
+export function tonStatutDispatch(statut: StatutDispatch) {
+  switch (statut) {
+    case "Accepté": return "positif";
+    case "Refusé":
+    case "Échec d'envoi": return "critique";
+    case "Envoyé":
+    case "Reçu":
+    case "Confirmé": return "alerte";
+    case "Annulé": return "neutre";
+    default: return "neutre";
+  }
+}
+
+
 
 export const TYPES_COURSE = [
   "Collecte",
