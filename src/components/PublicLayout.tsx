@@ -72,8 +72,8 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex rounded-xl font-bold">
-              <Link to="/connexion">Connexion</Link>
+            <Button asChild size="sm" className="hidden lg:inline-flex rounded-xl font-bold bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-5">
+              <Link to="/connexion">ACCÈS BO</Link>
             </Button>
             <Button asChild size="sm" className="rounded-xl font-bold px-6 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
               <Link to="/site/demande">Faire une demande</Link>
@@ -90,24 +90,25 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
         {open && (
-          <nav className="border-t border-border bg-surface px-4 py-2 lg:hidden">
-            {NAV.map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-navy"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <Link
-              to="/connexion"
-              onClick={() => setOpen(false)}
-              className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-navy"
-            >
-              Connexion
-            </Link>
+          <nav className="border-t border-border bg-surface px-4 py-4 lg:hidden animate-in fade-in slide-in-from-top-4 duration-300">
+            <div className="flex flex-col gap-1">
+              {NAV.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-base font-bold text-muted-foreground hover:bg-accent hover:text-navy transition-all"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="my-4 border-t border-border/50" />
+              <Button asChild size="lg" className="w-full rounded-2xl font-black bg-primary text-white shadow-xl shadow-primary/20">
+                <Link to="/connexion" onClick={() => setOpen(false)}>
+                  ACCÈS BACK-OFFICE
+                </Link>
+              </Button>
+            </div>
           </nav>
         )}
       </header>
