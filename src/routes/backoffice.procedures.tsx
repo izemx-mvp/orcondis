@@ -41,8 +41,8 @@ import {
 export const Route = createFileRoute("/backoffice/procedures")({
   head: () => ({
     meta: [
-      { title: "Procédures — Back-Office ARCONDIS" },
-      { name: "description", content: "Suivi des procédures ARCONDIS : étapes, échéances, documents et validation." },
+      { title: "Procédures — Back-Office ORCONDIS" },
+      { name: "description", content: "Suivi des procédures ORCONDIS : étapes, échéances, documents et validation." },
     ],
   }),
   component: ProceduresPage,

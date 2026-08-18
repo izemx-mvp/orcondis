@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
 import { calculerCourse, dh, fr, tarifApplicable, totalFacture } from "@/lib/bo-data";
 
-export const Route = createFileRoute("/backoffice/")({
+export const Route = createFileRoute("/backoffice/dashboard")({
   head: () => ({
     meta: [
       { title: "Tableau de bord — Back-Office ORCONDIS" },

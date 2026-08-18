@@ -20,16 +20,16 @@ import { useStore } from "@/lib/store";
 export const Route = createFileRoute("/demande")({
   head: () => ({
     meta: [
-      { title: "Faire une demande — ARCONDIS" },
+      { title: "Faire une demande — ORCONDIS" },
       {
         name: "description",
         content:
-          "Décrivez votre besoin en quelques minutes. ARCONDIS qualifie votre demande par WhatsApp et prend en charge votre course ou démarche administrative.",
+          "Décrivez votre besoin en quelques minutes. ORCONDIS qualifie votre demande par WhatsApp et prend en charge votre course ou démarche administrative.",
       },
-      { property: "og:title", content: "Faire une demande — ARCONDIS" },
+      { property: "og:title", content: "Faire une demande — ORCONDIS" },
       {
         property: "og:description",
-        content: "Envoyez votre demande de course professionnelle ou démarche administrative à ARCONDIS.",
+        content: "Envoyez votre demande de course professionnelle ou démarche administrative à ORCONDIS.",
       },
     ],
   }),
@@ -135,7 +135,7 @@ function Demande() {
         <div className="text-center">
           <h1 className="text-2xl font-semibold sm:text-3xl">Faire une demande</h1>
           <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-            Décrivez votre besoin. ARCONDIS le qualifie par WhatsApp et vous tient informé à chaque étape.
+            Décrivez votre besoin. ORCONDIS le qualifie par WhatsApp et vous tient informé à chaque étape.
           </p>
         </div>
 
@@ -269,7 +269,7 @@ function Demande() {
                 onCheckedChange={(checked) => setField("consentementWhatsApp", checked === true)}
               />
               <Label htmlFor="consentement" className="cursor-pointer text-sm font-normal leading-relaxed">
-                J’accepte d’être contacté par ARCONDIS via WhatsApp pour qualifier ma demande.
+                J’accepte d’être contacté par ORCONDIS via WhatsApp pour qualifier ma demande.
               </Label>
             </div>
           </div>

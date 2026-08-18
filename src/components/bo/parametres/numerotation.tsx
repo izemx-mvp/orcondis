@@ -1,4 +1,4 @@
-// ARCONDIS — Numérotation automatique (préfixes et prochains numéros par entité).
+// ORCONDIS — Numérotation automatique (préfixes et prochains numéros par entité).
 import { useState } from "react";
 import { useBO } from "@/lib/bo-store";
 import { useParamExtra, apercuNumero, type NumerotationConfig } from "@/lib/bo-param-extra";

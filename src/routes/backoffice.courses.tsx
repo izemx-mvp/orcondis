@@ -47,8 +47,8 @@ import {
 export const Route = createFileRoute("/backoffice/courses")({
   head: () => ({
     meta: [
-      { title: "Courses — Back-Office ARCONDIS" },
-      { name: "description", content: "Gestion des courses ARCONDIS : affectation coursier, suivi, kilométrage et documents." },
+      { title: "Courses — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des courses ORCONDIS : affectation coursier, suivi, kilométrage et documents." },
     ],
   }),
   component: CoursesPage,

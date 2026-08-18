@@ -1,4 +1,4 @@
-// ARCONDIS — Modèle de données opérationnel (Partie 3)
+// ORCONDIS — Modèle de données opérationnel (Partie 3)
 // Données simulées cohérentes, aucune valeur tarifaire codée en dur dans la logique :
 // tous les montants proviennent des règles de tarification configurables ci-dessous.
 
@@ -1084,12 +1084,12 @@ export function seedBO(): BOData {
   ];
 
   const utilisateurs: Utilisateur[] = [
-    { id: "USR-1", nom: "Yassine Bennani", email: "y.bennani@arcondis.ma", gsm: "+212 661 00 00 01", role: "Administrateur", actif: true, archive: false },
-    { id: "USR-2", nom: "Salma Idrissi", email: "s.idrissi@arcondis.ma", gsm: "+212 661 00 00 02", role: "Opérateur", actif: true, archive: false },
-    { id: "USR-3", nom: "Hamza Ouali", email: "h.ouali@arcondis.ma", gsm: "+212 661 00 00 03", role: "Dispatcher", actif: true, archive: false },
-    { id: "USR-4", nom: "Nadia Cherkaoui", email: "n.cherkaoui@arcondis.ma", gsm: "+212 661 00 00 04", role: "Facturation", actif: true, archive: false },
-    { id: "USR-5", nom: "Mehdi Ait Taleb", email: "m.aittaleb@arcondis.ma", gsm: "+212 670 11 22 33", role: "Coursier", actif: true, archive: false },
-    { id: "USR-6", nom: "Sofia Amrani", email: "direction@arcondis.ma", gsm: "+212 661 00 00 05", role: "Direction", actif: true, archive: false },
+    { id: "USR-1", nom: "Yassine Bennani", email: "y.bennani@orcondis.ma", gsm: "+212 661 00 00 01", role: "Administrateur", actif: true, archive: false },
+    { id: "USR-2", nom: "Salma Idrissi", email: "s.idrissi@orcondis.ma", gsm: "+212 661 00 00 02", role: "Opérateur", actif: true, archive: false },
+    { id: "USR-3", nom: "Hamza Ouali", email: "h.ouali@orcondis.ma", gsm: "+212 661 00 00 03", role: "Dispatcher", actif: true, archive: false },
+    { id: "USR-4", nom: "Nadia Cherkaoui", email: "n.cherkaoui@orcondis.ma", gsm: "+212 661 00 00 04", role: "Facturation", actif: true, archive: false },
+    { id: "USR-5", nom: "Mehdi Ait Taleb", email: "m.aittaleb@orcondis.ma", gsm: "+212 670 11 22 33", role: "Coursier", actif: true, archive: false },
+    { id: "USR-6", nom: "Sofia Amrani", email: "direction@orcondis.ma", gsm: "+212 661 00 00 05", role: "Direction", actif: true, archive: false },
   ];
 
   const notifications: Notification[] = [
@@ -1186,7 +1186,7 @@ export function seedBO(): BOData {
       ref("PC-5", "Retrait document", "Présenter la procuration et vérifier la conformité."),
     ],
     modelesNotification: [
-      ref("MN-1", "Demande reçue", "Votre demande a bien été reçue par ARCONDIS."),
+      ref("MN-1", "Demande reçue", "Votre demande a bien été reçue par ORCONDIS."),
       ref("MN-2", "Informations complètes", "Toutes les informations nécessaires sont réunies."),
       ref("MN-3", "Demande prise en charge", "Votre demande est prise en charge par notre équipe."),
       ref("MN-4", "Information complémentaire requise", "Une information complémentaire est nécessaire."),
@@ -1199,7 +1199,7 @@ export function seedBO(): BOData {
       numero: "+212 661 00 00 00",
       agentActif: true,
       messageBienvenue:
-        "Bonjour, ici l’assistant ARCONDIS. Nous avons bien reçu votre demande. Je vais vous poser quelques questions afin de la préparer.",
+        "Bonjour, ici l’assistant ORCONDIS. Nous avons bien reçu votre demande. Je vais vous poser quelques questions afin de la préparer.",
       tonalite: "Professionnelle et courtoise",
       handoffHumain: "Après 2 relances sans réponse ou à la demande du client.",
       horaires: "Lundi – Samedi : 08h30 – 19h00",

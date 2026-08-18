@@ -115,7 +115,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           service: input.service,
           messageInitial: input.messageInitial,
           documents: input.documents ?? [],
-          agentWhatsApp: "Assistant ARCONDIS",
+          agentWhatsApp: "Assistant ORCONDIS",
           responsableHumain: "",
           informationsManquantes: [
             "Adresse de retrait",
@@ -134,7 +134,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                 {
                   id: uid(),
                   auteur: "agent",
-                  nom: "Assistant ARCONDIS",
+                  nom: "Assistant ORCONDIS",
                   heure,
                   texte: `Bonjour ${input.prenom ? (input.typeClient === "Nouveau client" ? "" : "Monsieur/Madame ") + input.prenom : ""}, nous avons bien reçu votre demande concernant « ${input.service} ». J’ai besoin de quelques informations complémentaires afin de préparer votre demande.`.replace(
                     /\s+,/,

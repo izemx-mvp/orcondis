@@ -11,13 +11,13 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — ARCONDIS" },
+      { title: "Contact — ORCONDIS" },
       {
         name: "description",
         content:
-          "Contactez ARCONDIS à Casablanca par téléphone, email ou WhatsApp pour vos courses professionnelles et démarches administratives.",
+          "Contactez ORCONDIS à Casablanca par téléphone, email ou WhatsApp pour vos courses professionnelles et démarches administratives.",
       },
-      { property: "og:title", content: "Contact — ARCONDIS" },
+      { property: "og:title", content: "Contact — ORCONDIS" },
       { property: "og:description", content: "Nos coordonnées et notre formulaire de contact." },
     ],
   }),
@@ -42,7 +42,7 @@ function Contact() {
         <div className="space-y-4">
           {[
             { icon: Phone, label: "Téléphone", valeur: "+212 661 00 00 00" },
-            { icon: Mail, label: "Email", valeur: "contact@arcondis.ma" },
+            { icon: Mail, label: "Email", valeur: "contact@orcondis.ma" },
             { icon: MapPin, label: "Adresse", valeur: "27, boulevard Zerktouni, Casablanca" },
           ].map((item) => (
             <div key={item.label} className="surface-card flex items-start gap-3 p-4">

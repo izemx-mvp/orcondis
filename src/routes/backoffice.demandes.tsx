@@ -49,10 +49,10 @@ import {
 export const Route = createFileRoute("/backoffice/demandes")({
   head: () => ({
     meta: [
-      { title: "Demandes entrantes — Back-Office ARCONDIS" },
+      { title: "Demandes entrantes — Back-Office ORCONDIS" },
       {
         name: "description",
-        content: "Suivi des demandes reçues via le site web ARCONDIS et qualification WhatsApp.",
+        content: "Suivi des demandes reçues via le site web ORCONDIS et qualification WhatsApp.",
       },
     ],
   }),
@@ -180,7 +180,7 @@ function DemandesPage() {
     <div className="space-y-5">
       <PageHeader
         titre="Demandes entrantes"
-        sous="Demandes reçues via le site web ARCONDIS, qualifiées ou en cours de qualification via WhatsApp."
+        sous="Demandes reçues via le site web ORCONDIS, qualifiées ou en cours de qualification via WhatsApp."
         actions={
           <Button asChild size="sm" variant="outline">
             <Link to="/backoffice/whatsapp">Ouvrir la messagerie WhatsApp</Link>

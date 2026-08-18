@@ -4,13 +4,13 @@ import { PublicLayout } from "@/components/PublicLayout";
 export const Route = createFileRoute("/a-propos")({
   head: () => ({
     meta: [
-      { title: "À propos — ARCONDIS" },
+      { title: "À propos — ORCONDIS" },
       {
         name: "description",
         content:
-          "ARCONDIS, bureau de services basé à Casablanca : courses professionnelles, démarches administratives et opérations terrain pour entreprises, cabinets et particuliers.",
+          "ORCONDIS, bureau de services basé à Casablanca : courses professionnelles, démarches administratives et opérations terrain pour entreprises, cabinets et particuliers.",
       },
-      { property: "og:title", content: "À propos — ARCONDIS" },
+      { property: "og:title", content: "À propos — ORCONDIS" },
       {
         property: "og:description",
         content: "Notre métier, nos engagements et notre organisation opérationnelle.",
@@ -25,9 +25,9 @@ function APropos() {
     <PublicLayout>
       <section className="border-b border-border bg-surface">
         <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
-          <h1 className="text-3xl font-semibold sm:text-4xl">À propos d’ARCONDIS</h1>
+          <h1 className="text-3xl font-semibold sm:text-4xl">À propos d’ORCONDIS</h1>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
-            ARCONDIS est un bureau de services spécialisé dans les courses professionnelles et
+            ORCONDIS est un bureau de services spécialisé dans les courses professionnelles et
             particulières, les démarches administratives, la collecte et la remise de documents, le
             paiement de fournisseurs, le traitement des chèques, les procédures provisoires et les
             opérations de terrain réalisées par nos coursiers.

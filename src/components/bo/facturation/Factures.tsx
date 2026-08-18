@@ -39,7 +39,7 @@ function facturePdfTexte(f: Facture, lk: ReturnType<typeof useLookups>) {
   const lignes = f.lignes
     .map((l) => `  - ${l.libelle} : ${dh(l.montant)}`)
     .join("\n");
-  return `ARCONDIS — FACTURE ${f.numero}
+  return `ORCONDIS — FACTURE ${f.numero}
 Client : ${lk.clientNom(f.clientId)}
 Période : ${f.periode} (${fr(f.dateDebut)} → ${fr(f.dateFin)})
 Dossiers : ${f.dossiers.join(", ") || "—"}

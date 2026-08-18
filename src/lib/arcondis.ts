@@ -1,4 +1,4 @@
-// Modèle de données ARCONDIS (Partie 1) — données simulées cohérentes.
+// Modèle de données ORCONDIS (Partie 1) — données simulées cohérentes.
 
 export const SERVICES = [
   "Récupération de documents",
@@ -216,7 +216,7 @@ function base(
     service: "Autres prestations",
     messageInitial: "",
     documents: [],
-    agentWhatsApp: "Assistant ARCONDIS",
+    agentWhatsApp: "Assistant ORCONDIS",
     responsableHumain: "",
     informationsManquantes: [],
     derniereInteraction: `${formatDateFr(partial.date)} ${partial.heure}`,
@@ -265,7 +265,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m1",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "08:45",
           texte:
             "Bonjour Monsieur Karim. Votre demande a bien été reçue. Pouvez-vous m’indiquer l’adresse où le chèque doit être récupéré ?",
@@ -274,7 +274,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m3",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "08:49",
           texte: "Merci. Quel est le nom du fournisseur et son adresse ?",
         },
@@ -282,7 +282,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m5",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "08:54",
           texte:
             "Souhaitez-vous que la mission soit réalisée à une heure précise ou durant la matinée ?",
@@ -291,7 +291,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m7",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "08:58",
           texte:
             "Parfait, toutes les informations nécessaires sont réunies. Votre demande est transmise à notre équipe opérationnelle.",
@@ -342,8 +342,8 @@ export function seedDemandes(): Demande[] {
       ],
       historique: [
         { id: "h1", date: `${formatDateFr(today())} 08:42`, auteur: "Site web", action: "Demande créée" },
-        { id: "h2", date: `${formatDateFr(today())} 08:45`, auteur: "Assistant ARCONDIS", action: "Qualification WhatsApp démarrée" },
-        { id: "h3", date: `${formatDateFr(today())} 08:58`, auteur: "Assistant ARCONDIS", action: "Informations complètes" },
+        { id: "h2", date: `${formatDateFr(today())} 08:45`, auteur: "Assistant ORCONDIS", action: "Qualification WhatsApp démarrée" },
+        { id: "h3", date: `${formatDateFr(today())} 08:58`, auteur: "Assistant ORCONDIS", action: "Informations complètes" },
       ],
     }),
     base({
@@ -366,7 +366,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m1",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "09:22",
           texte:
             "Bonjour Madame Alaoui, nous avons bien reçu votre demande de paiement de factures. Pouvez-vous me préciser où récupérer les avis de paiement ?",
@@ -416,9 +416,9 @@ export function seedDemandes(): Demande[] {
         {
           id: "m2",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "10:36",
-          texte: "Bien entendu Maître, je transmets votre demande à un responsable ARCONDIS.",
+          texte: "Bien entendu Maître, je transmets votre demande à un responsable ORCONDIS.",
         },
       ],
       qualification: {
@@ -441,7 +441,7 @@ export function seedDemandes(): Demande[] {
       ],
       historique: [
         { id: "h1", date: `${formatDateFr(today())} 10:35`, auteur: "WhatsApp", action: "Demande créée" },
-        { id: "h2", date: `${formatDateFr(today())} 10:40`, auteur: "Assistant ARCONDIS", action: "Escalade : intervention humaine requise" },
+        { id: "h2", date: `${formatDateFr(today())} 10:40`, auteur: "Assistant ORCONDIS", action: "Escalade : intervention humaine requise" },
       ],
     }),
     base({
@@ -463,7 +463,7 @@ export function seedDemandes(): Demande[] {
         {
           id: "m1",
           auteur: "agent",
-          nom: "Assistant ARCONDIS",
+          nom: "Assistant ORCONDIS",
           heure: "14:10",
           texte:
             "Bonjour Madame Tazi, il me manque uniquement le contact sur place de la seconde clinique pour finaliser votre demande.",

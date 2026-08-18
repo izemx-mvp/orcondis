@@ -92,7 +92,7 @@ export function Inbox({
     const message = {
       id: uid("msg"),
       auteur,
-      nom: auteur === "Opérateur" ? utilisateurCourant : "Agent ARCONDIS",
+      nom: auteur === "Opérateur" ? utilisateurCourant : "Agent ORCONDIS",
       texte,
       date,
       heure,

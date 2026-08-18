@@ -183,7 +183,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
               A
             </span>
-            <span className="text-sm font-semibold tracking-tight">ARCONDIS · Back-Office</span>
+            <span className="text-sm font-semibold tracking-tight">ORCONDIS · Back-Office</span>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
@@ -232,7 +232,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
         </header>
         <main className="min-w-0 flex-1 px-4 py-6 sm:px-6">{children}</main>
         <footer className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} ARCONDIS — Created by IZEMX
+          © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
         </footer>
       </div>
     </div>

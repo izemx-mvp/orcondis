@@ -26,10 +26,10 @@ import { CATEGORIES_DOC, SOURCES_DOC, fr, uid, type DocumentBO } from "@/lib/bo-
 export const Route = createFileRoute("/backoffice/documents")({
   head: () => ({
     meta: [
-      { title: "Documents — Back-Office ARCONDIS" },
+      { title: "Documents — Back-Office ORCONDIS" },
       { name: "description", content: "Gestion documentaire centralisée : dépôt, prévisualisation, rattachement et archivage." },
-      { property: "og:title", content: "Documents ARCONDIS" },
-      { property: "og:description", content: "Bibliothèque documentaire ARCONDIS." },
+      { property: "og:title", content: "Documents ORCONDIS" },
+      { property: "og:description", content: "Bibliothèque documentaire ORCONDIS." },
     ],
   }),
   component: Documents,

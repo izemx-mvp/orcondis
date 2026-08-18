@@ -1,4 +1,4 @@
-// ARCONDIS — Réglages de l’agent WhatsApp et modèles de messages.
+// ORCONDIS — Réglages de l’agent WhatsApp et modèles de messages.
 import { useState, useEffect } from "react";
 import { useBO } from "@/lib/bo-store";
 import { Panel, PageHeader, Champ, ChampTexte, ChampCase, Grille } from "@/components/bo/kit";

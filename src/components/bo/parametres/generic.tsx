@@ -1,4 +1,4 @@
-// ARCONDIS — Composant générique de gestion des référentiels (CRUD + archivage).
+// ORCONDIS — Composant générique de gestion des référentiels (CRUD + archivage).
 import { useState } from "react";
 import { useBO } from "@/lib/bo-store";
 import { uid, type Referentiel } from "@/lib/bo-data";

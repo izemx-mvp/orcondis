@@ -21,7 +21,7 @@ export function Logo({ dark = false }: { dark?: boolean }) {
       <span
         className={`text-lg font-semibold tracking-tight ${dark ? "text-navy-foreground" : "text-navy"}`}
       >
-        ARCONDIS
+        ORCONDIS
       </span>
     </span>
   );
@@ -106,7 +106,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               href="https://wa.me/212661000000"
               className="mt-4 inline-flex items-center gap-2 rounded-md bg-whatsapp px-3 py-2 text-sm font-medium text-whatsapp-foreground"
             >
-              <MessageCircle className="h-4 w-4" /> WhatsApp ARCONDIS
+              <MessageCircle className="h-4 w-4" /> WhatsApp ORCONDIS
             </a>
           </div>
           <div>
@@ -126,13 +126,13 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             <ul className="mt-3 space-y-2 text-sm text-navy-foreground/70">
               <li>Casablanca, Maroc</li>
               <li>+212 661 00 00 00</li>
-              <li>contact@arcondis.ma</li>
+              <li>contact@orcondis.ma</li>
               <li>Lundi – Samedi : 08h30 – 19h00</li>
             </ul>
           </div>
         </div>
         <div className="border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
-          © {new Date().getFullYear()} ARCONDIS — Created by IZEMX
+          © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
         </div>
       </footer>
     </div>

@@ -1,4 +1,4 @@
-// ARCONDIS — Services et Zones (référentiels avec champs spécifiques).
+// ORCONDIS — Services et Zones (référentiels avec champs spécifiques).
 import { ReferentielTable } from "./generic";
 import type { ServiceParam, ZoneParam } from "@/lib/bo-data";
 import { dh } from "@/lib/bo-data";
