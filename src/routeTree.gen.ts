@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AProposRouteImport } from './routes/a-propos'
+import { Route as AccesRouteImport } from './routes/acces'
 import { Route as BackofficeRouteImport } from './routes/backoffice'
 import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
 import { Route as ConnexionRouteImport } from './routes/connexion'
@@ -41,6 +42,11 @@ const IndexRoute = IndexRouteImport.update({
 const AProposRoute = AProposRouteImport.update({
   id: '/a-propos',
   path: '/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccesRoute = AccesRouteImport.update({
+  id: '/acces',
+  path: '/acces',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BackofficeRoute = BackofficeRouteImport.update({
@@ -152,6 +158,7 @@ const BackofficeWhatsappRoute = BackofficeWhatsappRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/acces': typeof AccesRoute
   '/backoffice': typeof BackofficeRouteWithChildren
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
@@ -177,6 +184,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/acces': typeof AccesRoute
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
   '/contact': typeof ContactRoute
@@ -202,6 +210,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/a-propos': typeof AProposRoute
+  '/acces': typeof AccesRoute
   '/backoffice': typeof BackofficeRouteWithChildren
   '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
@@ -229,6 +238,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/a-propos'
+    | '/acces'
     | '/backoffice'
     | '/comment-ca-marche'
     | '/connexion'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/a-propos'
+    | '/acces'
     | '/comment-ca-marche'
     | '/connexion'
     | '/contact'
@@ -278,6 +289,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/a-propos'
+    | '/acces'
     | '/backoffice'
     | '/comment-ca-marche'
     | '/connexion'
@@ -304,6 +316,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AProposRoute: typeof AProposRoute
+  AccesRoute: typeof AccesRoute
   BackofficeRoute: typeof BackofficeRouteWithChildren
   CommentCaMarcheRoute: typeof CommentCaMarcheRoute
   ConnexionRoute: typeof ConnexionRoute
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       path: '/a-propos'
       fullPath: '/a-propos'
       preLoaderRoute: typeof AProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/acces': {
+      id: '/acces'
+      path: '/acces'
+      fullPath: '/acces'
+      preLoaderRoute: typeof AccesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/backoffice': {
@@ -521,6 +541,7 @@ const BackofficeRouteWithChildren = BackofficeRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AProposRoute: AProposRoute,
+  AccesRoute: AccesRoute,
   BackofficeRoute: BackofficeRouteWithChildren,
   CommentCaMarcheRoute: CommentCaMarcheRoute,
   ConnexionRoute: ConnexionRoute,
