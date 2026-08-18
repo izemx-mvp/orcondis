@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
 import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import { calculerCourse, dh, fr, tarifApplicable, totalFacture } from "@/lib/bo-data";
+import { tonStatutDispatch } from "@/lib/bo/ops-data";
+
 
 
 export const Route = createFileRoute("/backoffice/dashboard")({
@@ -234,8 +236,9 @@ function Dashboard() {
                       Envoi prévu : {c.dispatch.dateEnvoi} {c.dispatch.heureEnvoi} · {c.dispatch.mode}
                     </span>
                   </div>
-                  <Statut ton={tonStatut(c.dispatch.statut)}>{c.dispatch.statut}</Statut>
+                  <Statut ton={tonStatutDispatch(c.dispatch.statut)}>{c.dispatch.statut}</Statut>
                 </li>
+
               ))}
             {opsData.courses.filter(c => c.dispatch.statut === "Programmé").length === 0 && (
               <li className="text-muted-foreground">Aucun envoi programmé.</li>
