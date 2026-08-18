@@ -213,7 +213,7 @@ function DemandesPage() {
           demande={detailDialog.item}
           open={detailDialog.open}
           onOpenChange={detailDialog.setOpen}
-          conversation={conversationDe(detailDialog.item.numero)}
+          {...(() => { const c = conversationDe(detailDialog.item!.numero); return c ? { conversation: c } : {}; })()}
           majDemande={majDemande}
           changerStatut={changerStatut}
           ajouterNote={ajouterNote}

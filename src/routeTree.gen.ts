@@ -28,6 +28,7 @@ import { Route as BackofficeDossiersRouteImport } from './routes/backoffice.doss
 import { Route as BackofficeFacturationRouteImport } from './routes/backoffice.facturation'
 import { Route as BackofficeFournisseursRouteImport } from './routes/backoffice.fournisseurs'
 import { Route as BackofficePaiementsRouteImport } from './routes/backoffice.paiements'
+import { Route as BackofficeParametresRouteImport } from './routes/backoffice.parametres'
 import { Route as BackofficeProceduresRouteImport } from './routes/backoffice.procedures'
 import { Route as BackofficeRapportsRouteImport } from './routes/backoffice.rapports'
 import { Route as BackofficeWhatsappRouteImport } from './routes/backoffice.whatsapp'
@@ -127,6 +128,11 @@ const BackofficePaiementsRoute = BackofficePaiementsRouteImport.update({
   path: '/paiements',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const BackofficeParametresRoute = BackofficeParametresRouteImport.update({
+  id: '/parametres',
+  path: '/parametres',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 const BackofficeProceduresRoute = BackofficeProceduresRouteImport.update({
   id: '/procedures',
   path: '/procedures',
@@ -162,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/backoffice/facturation': typeof BackofficeFacturationRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/parametres': typeof BackofficeParametresRoute
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
@@ -185,6 +192,7 @@ export interface FileRoutesByTo {
   '/backoffice/facturation': typeof BackofficeFacturationRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/parametres': typeof BackofficeParametresRoute
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
@@ -210,6 +218,7 @@ export interface FileRoutesById {
   '/backoffice/facturation': typeof BackofficeFacturationRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/parametres': typeof BackofficeParametresRoute
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
@@ -236,6 +245,7 @@ export interface FileRouteTypes {
     | '/backoffice/facturation'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/parametres'
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
@@ -259,6 +269,7 @@ export interface FileRouteTypes {
     | '/backoffice/facturation'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/parametres'
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
@@ -283,6 +294,7 @@ export interface FileRouteTypes {
     | '/backoffice/facturation'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/parametres'
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
@@ -435,6 +447,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficePaiementsRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/parametres': {
+      id: '/backoffice/parametres'
+      path: '/parametres'
+      fullPath: '/backoffice/parametres'
+      preLoaderRoute: typeof BackofficeParametresRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
     '/backoffice/procedures': {
       id: '/backoffice/procedures'
       path: '/procedures'
@@ -470,6 +489,7 @@ interface BackofficeRouteChildren {
   BackofficeFacturationRoute: typeof BackofficeFacturationRoute
   BackofficeFournisseursRoute: typeof BackofficeFournisseursRoute
   BackofficePaiementsRoute: typeof BackofficePaiementsRoute
+  BackofficeParametresRoute: typeof BackofficeParametresRoute
   BackofficeProceduresRoute: typeof BackofficeProceduresRoute
   BackofficeRapportsRoute: typeof BackofficeRapportsRoute
   BackofficeWhatsappRoute: typeof BackofficeWhatsappRoute
@@ -487,6 +507,7 @@ const BackofficeRouteChildren: BackofficeRouteChildren = {
   BackofficeFacturationRoute: BackofficeFacturationRoute,
   BackofficeFournisseursRoute: BackofficeFournisseursRoute,
   BackofficePaiementsRoute: BackofficePaiementsRoute,
+  BackofficeParametresRoute: BackofficeParametresRoute,
   BackofficeProceduresRoute: BackofficeProceduresRoute,
   BackofficeRapportsRoute: BackofficeRapportsRoute,
   BackofficeWhatsappRoute: BackofficeWhatsappRoute,

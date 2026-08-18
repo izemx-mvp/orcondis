@@ -5,7 +5,6 @@ import {
   oid,
   toneCoursier,
   toneCourse,
-  tonStatut as _unused,
   prochainCodeCoursier,
   todayIso,
   STATUTS_COURSIER,
@@ -242,7 +241,7 @@ function CoursiersPage() {
         open={detailDialog.open}
         onOpenChange={detailDialog.setOpen}
         titre={`${detailDialog.item?.prenom ?? ""} ${detailDialog.item?.nom ?? ""}`}
-        description={detailDialog.item?.code}
+        {...(detailDialog.item?.code ? { description: detailDialog.item.code } : {})}
         large
       >
         {detailDialog.item && (

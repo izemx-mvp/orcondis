@@ -272,7 +272,7 @@ function CoursesPage() {
             titre={`Destination ${i + 1}`}
             point={d}
             onChange={(p) => majDestination(d.id, p)}
-            onSupprimer={form.destinations.length > 1 ? () => retirerDestination(d.id) : undefined}
+            {...(form.destinations.length > 1 ? { onSupprimer: () => retirerDestination(d.id) } : {})}
           />
         ))}
       </div>

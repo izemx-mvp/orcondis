@@ -700,7 +700,7 @@ export function Inbox({
                 {conv.handoffs.map((h) => (
                   <li key={h.id} className="rounded-md border border-border bg-surface/60 px-2 py-1.5">
                     <p className="font-medium text-navy">
-                      {h.motif ?? h.raison} — {h.operateur}
+                      {h.raison} — {h.operateur}
                     </p>
                     <p className="text-muted-foreground">
                       {h.date} {h.heure}
