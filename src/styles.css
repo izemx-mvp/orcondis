@@ -181,8 +181,7 @@
   }
 }
 
-
-@layer base {
+@layer utilities {
   .dark .text-navy {
     color: var(--color-foreground);
   }
