@@ -1234,7 +1234,21 @@ export function seedOps(): OpsData {
     audios,
     notifications,
     audit: [{ id: oid("ev"), date: horodatage(), auteur: "Système", action: "Données de démonstration chargées" }],
+    dispatchLogs: [],
+    settingsAgent: {
+      actif: true,
+      canalPrincipal: "WhatsApp",
+      modeParDefaut: "Texte + Audio",
+      programmationParDefaut: "Immédiatement après affectation",
+      heureLaVeille: "17:00",
+      confirmationObligatoire: true,
+      relanceAuto: true,
+      delaiRelance: 30,
+      nbRelancesMax: 2,
+      ton: "Professionnel",
+    },
   };
+
 }
 
 /* ------------------------------------------------------------------ */
