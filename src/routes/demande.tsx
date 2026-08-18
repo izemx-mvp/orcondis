@@ -203,7 +203,7 @@ function Demande() {
                 value={form.telephone}
                 onChange={(e) => setField("telephone", e.target.value)}
                 className="mt-1.5"
-                placeholder="+212 661 00 00 00"
+                placeholder="0666 70 99 41"
               />
               {errors.telephone && <p className="mt-1 text-xs text-destructive">{errors.telephone}</p>}
             </div>
@@ -216,7 +216,7 @@ function Demande() {
                 value={form.whatsapp}
                 onChange={(e) => setField("whatsapp", e.target.value)}
                 className="mt-1.5"
-                placeholder="+212 661 00 00 00"
+                placeholder="0666 70 99 41"
               />
             </div>
 
@@ -228,7 +228,7 @@ function Demande() {
                 value={form.email}
                 onChange={(e) => setField("email", e.target.value)}
                 className="mt-1.5"
-                placeholder="contact@exemple.ma"
+                placeholder="votre@email.com"
               />
               {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
             </div>
@@ -279,7 +279,7 @@ function Demande() {
               Envoyer ma demande <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <Button asChild type="button" variant="outline" size="lg">
-              <a href="https://wa.me/212661000000">
+              <a href="https://wa.me/212666709941">
                 <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
               </a>
             </Button>
