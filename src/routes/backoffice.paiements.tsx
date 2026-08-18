@@ -28,7 +28,7 @@ import {
 export const Route = createFileRoute("/backoffice/paiements")({
   head: () => ({
     meta: [
-      { title: "Paiements & Chèques — Back-Office ARCONDIS" },
+      { title: "Paiements & Chèques — Back-Office ORCONDIS" },
       {
         name: "description",
         content: "Suivi des chèques et paiements fournisseurs : réception, affectation, validation.",

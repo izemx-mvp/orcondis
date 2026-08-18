@@ -39,8 +39,8 @@ import {
 export const Route = createFileRoute("/backoffice/clients")({
   head: () => ({
     meta: [
-      { title: "Clients — Back-Office ARCONDIS" },
-      { name: "description", content: "Gestion des fiches clients ARCONDIS : coordonnées, contacts, dossiers et courses." },
+      { title: "Clients — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des fiches clients ORCONDIS : coordonnées, contacts, dossiers et courses." },
     ],
   }),
   component: ClientsPage,
@@ -170,7 +170,7 @@ function ClientsPage() {
     <div className="space-y-5">
       <PageHeader
         titre="Clients"
-        sous="Fiches clients ARCONDIS : personnes physiques, entreprises, sociétés et autres organisations."
+        sous="Fiches clients ORCONDIS : personnes physiques, entreprises, sociétés et autres organisations."
         actions={<Button onClick={ouvrirCreation}>Nouveau client</Button>}
       />
 

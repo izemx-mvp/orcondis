@@ -30,10 +30,10 @@ import {
 export const Route = createFileRoute("/backoffice/fournisseurs")({
   head: () => ({
     meta: [
-      { title: "Fournisseurs & Paiements — Back-Office ARCONDIS" },
+      { title: "Fournisseurs & Paiements — Back-Office ORCONDIS" },
       {
         name: "description",
-        content: "Gestion des fournisseurs ARCONDIS : coordonnées, contacts, documents et paiements liés.",
+        content: "Gestion des fournisseurs ORCONDIS : coordonnées, contacts, documents et paiements liés.",
       },
     ],
   }),

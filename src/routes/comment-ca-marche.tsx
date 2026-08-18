@@ -5,16 +5,16 @@ import { Button } from "@/components/ui/button";
 export const Route = createFileRoute("/comment-ca-marche")({
   head: () => ({
     meta: [
-      { title: "Comment ça marche — ARCONDIS" },
+      { title: "Comment ça marche — ORCONDIS" },
       {
         name: "description",
         content:
-          "Demande en ligne, qualification par notre assistant WhatsApp, prise en charge par ARCONDIS et clôture de la prestation.",
+          "Demande en ligne, qualification par notre assistant WhatsApp, prise en charge par ORCONDIS et clôture de la prestation.",
       },
-      { property: "og:title", content: "Comment ça marche — ARCONDIS" },
+      { property: "og:title", content: "Comment ça marche — ORCONDIS" },
       {
         property: "og:description",
-        content: "Le parcours d’une demande ARCONDIS, du formulaire à la clôture de la prestation.",
+        content: "Le parcours d’une demande ORCONDIS, du formulaire à la clôture de la prestation.",
       },
     ],
   }),
@@ -38,7 +38,7 @@ const ETAPES = [
       "Adresse de retrait, destinations, contacts sur place, date et tranche horaire, documents utiles.",
   },
   {
-    titre: "ARCONDIS prend en charge votre demande.",
+    titre: "ORCONDIS prend en charge votre demande.",
     detail: "La demande qualifiée est transmise à l’équipe opérationnelle pour affectation.",
   },
   {

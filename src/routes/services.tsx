@@ -6,16 +6,16 @@ import { SERVICES } from "@/lib/arcondis";
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Nos services — ARCONDIS" },
+      { title: "Nos services — ORCONDIS" },
       {
         name: "description",
         content:
           "Récupération et livraison de documents, courses administratives, paiement de factures et fournisseurs, chèques, procédures et vérifications terrain.",
       },
-      { property: "og:title", content: "Nos services — ARCONDIS" },
+      { property: "og:title", content: "Nos services — ORCONDIS" },
       {
         property: "og:description",
-        content: "Le catalogue complet des prestations ARCONDIS pour entreprises et particuliers.",
+        content: "Le catalogue complet des prestations ORCONDIS pour entreprises et particuliers.",
       },
     ],
   }),
@@ -48,7 +48,7 @@ function Services() {
         <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
           <h1 className="text-3xl font-semibold sm:text-4xl">Nos services</h1>
           <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-            ARCONDIS réalise vos opérations terrain avec un cadre professionnel : mission qualifiée,
+            ORCONDIS réalise vos opérations terrain avec un cadre professionnel : mission qualifiée,
             coursier affecté, justificatifs remis et traçabilité complète.
           </p>
         </div>

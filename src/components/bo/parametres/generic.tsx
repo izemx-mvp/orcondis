@@ -1,4 +1,4 @@
-// ARCONDIS — Composant générique de gestion des référentiels (CRUD + archivage).
+// ORCONDIS — Composant générique de gestion des référentiels (CRUD + archivage).
 import { useState } from "react";
 import { useBO } from "@/lib/bo-store";
 import { uid, type Referentiel } from "@/lib/bo-data";
@@ -83,7 +83,7 @@ export function ReferentielTable<T extends Referentiel>({
         utilisateur: UTILISATEUR_COURANT,
         action: `Modification — ${entiteLabel}`,
         ancienneValeur: String((dlg.item as any).nom ?? ""),
-        nouvelleValeur: String(form.nom ?? ""),
+        nouvelleValeur: String(form["nom"] ?? ""),
       });
     } else {
       const item = { id: uid(idPrefix), archive: false, ...form } as unknown as T;
@@ -94,7 +94,7 @@ export function ReferentielTable<T extends Referentiel>({
         utilisateur: UTILISATEUR_COURANT,
         action: `Création — ${entiteLabel}`,
         ancienneValeur: "—",
-        nouvelleValeur: String(form.nom ?? ""),
+        nouvelleValeur: String(form["nom"] ?? ""),
       });
     }
   };
@@ -189,7 +189,7 @@ export function ReferentielTable<T extends Referentiel>({
     <div className="space-y-4">
       <PageHeader
         titre={titre}
-        sous={sous}
+        {...(sous ? { sous } : {})}
         actions={
           <Button onClick={ouvrirNouveau}>
             <Plus className="mr-2 h-4 w-4" />
@@ -212,7 +212,7 @@ export function ReferentielTable<T extends Referentiel>({
         onSubmit={enregistrer}
       >
         <Grille>
-          <Champ label="Nom" value={form.nom ?? ""} onChange={(v) => setForm((f) => ({ ...f, nom: v }))} />
+          <Champ label="Nom" value={form["nom"] ?? ""} onChange={(v) => setForm((f) => ({ ...f, nom: v }))} />
           {fields.map((f) =>
             f.type === "checkbox" ? (
               <ChampCase
@@ -244,10 +244,10 @@ export function ReferentielTable<T extends Referentiel>({
           ))}
         <ChampTexte
           label="Description"
-          value={form.description ?? ""}
+          value={form["description"] ?? ""}
           onChange={(v) => setForm((f) => ({ ...f, description: v }))}
         />
-        <ChampCase label="Actif" checked={form.actif ?? true} onChange={(v) => setForm((f) => ({ ...f, actif: v }))} />
+        <ChampCase label="Actif" checked={form["actif"] ?? true} onChange={(v) => setForm((f) => ({ ...f, actif: v }))} />
       </FormDialog>
     </div>
   );

@@ -1,4 +1,4 @@
-// ARCONDIS — Réglages complémentaires du module Paramètres (numérotation, notifications internes).
+// ORCONDIS — Réglages complémentaires du module Paramètres (numérotation, notifications internes).
 // Stockage local dédié : ne modifie pas bo-data.ts / bo-store.tsx (gérés par un autre agent).
 import {
   createContext,

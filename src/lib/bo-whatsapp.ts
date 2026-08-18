@@ -1,4 +1,4 @@
-// ARCONDIS — Module WhatsApp : conversations, agent IA, handoff humain.
+// ORCONDIS — Module WhatsApp : conversations, agent IA, handoff humain.
 
 export const RAISONS_HANDOFF = [
   "Demande ambiguë",
@@ -135,10 +135,10 @@ export function seedConversations(): Conversation[] {
       },
       manquantes: ["Tranche horaire", "Heure", "Documents", "Instructions"],
       messages: [
-        msg("Agent IA", "Agent ARCONDIS", "Bonjour, ici l’assistant ARCONDIS. Nous avons bien reçu votre demande du site web.", "09:02"),
-        msg("Agent IA", "Agent ARCONDIS", "Merci de confirmer l’adresse de retrait ainsi que la date souhaitée.", "09:03"),
+        msg("Agent IA", "Agent ORCONDIS", "Bonjour, ici l’assistant ORCONDIS. Nous avons bien reçu votre demande du site web.", "09:02"),
+        msg("Agent IA", "Agent ORCONDIS", "Merci de confirmer l’adresse de retrait ainsi que la date souhaitée.", "09:03"),
         msg("Client", "Karim Benjelloun", "Retrait au siège, 12 rue Ibnou Mounir. Pour aujourd’hui si possible.", "09:11"),
-        msg("Agent IA", "Agent ARCONDIS", "Parfait. Quelle tranche horaire vous convient : matin ou après-midi ?", "09:12"),
+        msg("Agent IA", "Agent ORCONDIS", "Parfait. Quelle tranche horaire vous convient : matin ou après-midi ?", "09:12"),
       ],
       handoffs: [],
       notes: [{ id: wid("nt"), auteur: "Salma Idrissi", texte: "Client sensible aux délais, prévoir une moto.", date: jour(0) }],
@@ -174,9 +174,9 @@ export function seedConversations(): Conversation[] {
       manquantes: ["Heure", "Documents"],
       messages: [
         msg("Client", "Imane Sabir", "Bonjour, nous avons un dépôt urgent au greffe ce matin.", "08:20"),
-        msg("Agent IA", "Agent ARCONDIS", "Bien noté. Souhaitez-vous une seconde destination après le greffe ?", "08:21"),
+        msg("Agent IA", "Agent ORCONDIS", "Bien noté. Souhaitez-vous une seconde destination après le greffe ?", "08:21"),
         msg("Client", "Imane Sabir", "Oui, et je voudrais connaître le tarif exact pour la seconde adresse.", "08:26"),
-        msg("Opérateur", "Hamza Ouali", "Bonjour Madame Sabir, Hamza du back-office ARCONDIS prend le relais sur votre demande.", "08:31"),
+        msg("Opérateur", "Hamza Ouali", "Bonjour Madame Sabir, Hamza du back-office ORCONDIS prend le relais sur votre demande.", "08:31"),
       ],
       handoffs: [
         {
@@ -217,8 +217,8 @@ export function seedConversations(): Conversation[] {
       },
       manquantes: ["Destination", "Tranche horaire", "Heure", "Documents", "Instructions"],
       messages: [
-        msg("Agent IA", "Agent ARCONDIS", "Bonjour, pouvez-vous préciser l’adresse de destination ?", "16:40", jour(1)),
-        msg("Agent IA", "Agent ARCONDIS", "Relance : nous restons en attente de l’adresse de destination.", "09:00"),
+        msg("Agent IA", "Agent ORCONDIS", "Bonjour, pouvez-vous préciser l’adresse de destination ?", "16:40", jour(1)),
+        msg("Agent IA", "Agent ORCONDIS", "Relance : nous restons en attente de l’adresse de destination.", "09:00"),
       ],
       handoffs: [],
       notes: [],
@@ -255,7 +255,7 @@ export function seedConversations(): Conversation[] {
       manquantes: [],
       messages: [
         msg("Client", "Latifa Amrani", "Le chèque est prêt à être récupéré à l’accueil.", "14:02", jour(1)),
-        msg("Agent IA", "Agent ARCONDIS", "Merci, toutes les informations sont réunies. Votre demande passe en traitement.", "14:05", jour(1)),
+        msg("Agent IA", "Agent ORCONDIS", "Merci, toutes les informations sont réunies. Votre demande passe en traitement.", "14:05", jour(1)),
         msg("Opérateur", "Salma Idrissi", "Course programmée cet après-midi, un coursier vous contactera à l’arrivée.", "14:20", jour(1)),
       ],
       handoffs: [],
@@ -292,7 +292,7 @@ export function seedConversations(): Conversation[] {
       },
       manquantes: [],
       messages: [
-        msg("Agent IA", "Agent ARCONDIS", "La prestation liée à votre demande a été réalisée. Merci de confirmer sa bonne exécution.", "17:30", jour(5)),
+        msg("Agent IA", "Agent ORCONDIS", "La prestation liée à votre demande a été réalisée. Merci de confirmer sa bonne exécution.", "17:30", jour(5)),
         msg("Client", "Younes Berrada", "Je confirme, tout est en ordre. Merci.", "18:02", jour(5)),
       ],
       handoffs: [],

@@ -16,7 +16,6 @@ import {
   Search,
   Settings,
   Truck,
-  Users,
   Wallet,
   X,
 } from "lucide-react";
@@ -29,10 +28,9 @@ import { dh } from "@/lib/bo-data";
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
 
 const NAV: NavItem[] = [
-  { to: "/backoffice", label: "Tableau de bord", icon: Gauge, exact: true },
+  { to: "/backoffice/dashboard", label: "Tableau de bord", icon: Gauge },
   { to: "/backoffice/demandes", label: "Demandes entrantes", icon: Inbox },
   { to: "/backoffice/clients", label: "Clients", icon: Building2 },
-  { to: "/backoffice/contacts", label: "Contacts", icon: Users },
   { to: "/backoffice/dossiers", label: "Dossiers", icon: FolderKanban },
   { to: "/backoffice/courses", label: "Courses", icon: RouteIcon },
   { to: "/backoffice/coursiers", label: "Coursiers", icon: Truck },
@@ -62,7 +60,7 @@ function GlobalSearch() {
         out.push({ id: c.id, label: `${c.code} — ${c.raisonSociale}`, detail: "Client", to: "/backoffice/clients" });
       c.contacts.forEach((ct) => {
         if (match(ct.nom, ct.gsm, ct.email))
-          out.push({ id: ct.id, label: ct.nom, detail: `Contact · ${c.raisonSociale}`, to: "/backoffice/contacts" });
+          out.push({ id: ct.id, label: ct.nom, detail: `Contact · ${c.raisonSociale}`, to: "/backoffice/clients" });
       });
     });
     data.dossiers.forEach((d) => {
@@ -179,11 +177,11 @@ export function BOLayout({ children }: { children: ReactNode }) {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4">
-          <Link to="/backoffice" className="flex items-center gap-2">
+          <Link to="/backoffice/dashboard" className="flex items-center gap-2">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-              A
+              O
             </span>
-            <span className="text-sm font-semibold tracking-tight">ARCONDIS · Back-Office</span>
+            <span className="text-sm font-semibold tracking-tight">ORCONDIS · Back-Office</span>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
@@ -232,7 +230,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
         </header>
         <main className="min-w-0 flex-1 px-4 py-6 sm:px-6">{children}</main>
         <footer className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} ARCONDIS — Created by IZEMX
+          © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
         </footer>
       </div>
     </div>

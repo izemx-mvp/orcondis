@@ -1,4 +1,4 @@
-// ARCONDIS — Règles de tarification générales (tarif général : clientId === "").
+// ORCONDIS — Règles de tarification générales (tarif général : clientId === "").
 import { useState, useEffect } from "react";
 import { useBO } from "@/lib/bo-store";
 import { Panel, PageHeader, Champ, ChampCase, Grille } from "@/components/bo/kit";

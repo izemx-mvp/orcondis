@@ -8,10 +8,10 @@ import { Inbox } from "@/components/bo/whatsapp/Inbox";
 export const Route = createFileRoute("/backoffice/whatsapp")({
   head: () => ({
     meta: [
-      { title: "WhatsApp — Back-Office ARCONDIS" },
-      { name: "description", content: "Conversations WhatsApp, agent IA et interventions humaines ARCONDIS." },
-      { property: "og:title", content: "WhatsApp ARCONDIS" },
-      { property: "og:description", content: "Suivi des conversations et de l'agent WhatsApp ARCONDIS." },
+      { title: "WhatsApp — Back-Office ORCONDIS" },
+      { name: "description", content: "Conversations WhatsApp, agent IA et interventions humaines ORCONDIS." },
+      { property: "og:title", content: "WhatsApp ORCONDIS" },
+      { property: "og:description", content: "Suivi des conversations et de l'agent WhatsApp ORCONDIS." },
     ],
   }),
   component: WhatsAppPage,

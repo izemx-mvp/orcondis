@@ -5,7 +5,6 @@ import {
   oid,
   toneCoursier,
   toneCourse,
-  tonStatut as _unused,
   prochainCodeCoursier,
   todayIso,
   STATUTS_COURSIER,
@@ -40,8 +39,8 @@ import {
 export const Route = createFileRoute("/backoffice/coursiers")({
   head: () => ({
     meta: [
-      { title: "Coursiers — Back-Office ARCONDIS" },
-      { name: "description", content: "Gestion des coursiers ARCONDIS : disponibilité, zones, courses affectées et kilométrage." },
+      { title: "Coursiers — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des coursiers ORCONDIS : disponibilité, zones, courses affectées et kilométrage." },
     ],
   }),
   component: CoursiersPage,
@@ -199,7 +198,7 @@ function CoursiersPage() {
     <div className="space-y-6">
       <PageHeader
         titre="Coursiers"
-        sous="Disponibilité, charge de travail et suivi des coursiers ARCONDIS."
+        sous="Disponibilité, charge de travail et suivi des coursiers ORCONDIS."
         actions={<Button size="sm" onClick={ouvrirCreation}>Nouveau coursier</Button>}
       />
 
@@ -242,7 +241,7 @@ function CoursiersPage() {
         open={detailDialog.open}
         onOpenChange={detailDialog.setOpen}
         titre={`${detailDialog.item?.prenom ?? ""} ${detailDialog.item?.nom ?? ""}`}
-        description={detailDialog.item?.code}
+        {...(detailDialog.item?.code ? { description: detailDialog.item.code } : {})}
         large
       >
         {detailDialog.item && (

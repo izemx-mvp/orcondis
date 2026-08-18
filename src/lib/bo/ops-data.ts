@@ -1,4 +1,4 @@
-// ARCONDIS — Modèle opérationnel du Back-Office (Partie 1)
+// ORCONDIS — Modèle opérationnel du Back-Office (Partie 1)
 // Données de démonstration cohérentes et connectées entre les modules.
 
 export const todayIso = () => new Date().toISOString().slice(0, 10);
@@ -651,7 +651,7 @@ export function seedOps(): OpsData {
       prenom: "Ahmed",
       gsm: "+212 670 11 22 33",
       whatsapp: "+212 670 11 22 33",
-      email: "a.benali@arcondis.ma",
+      email: "a.benali@orcondis.ma",
       adresse: "Rue 12, Hay Mohammadi",
       ville: "Casablanca",
       zonePrincipale: "Casablanca Centre",
@@ -676,7 +676,7 @@ export function seedOps(): OpsData {
       prenom: "Youssef",
       gsm: "+212 671 44 55 66",
       whatsapp: "+212 671 44 55 66",
-      email: "y.elamrani@arcondis.ma",
+      email: "y.elamrani@orcondis.ma",
       adresse: "Bd Zerktouni",
       ville: "Casablanca",
       zonePrincipale: "Aïn Sebaâ",
@@ -701,7 +701,7 @@ export function seedOps(): OpsData {
       prenom: "Soufiane",
       gsm: "+212 672 77 88 99",
       whatsapp: "+212 672 77 88 99",
-      email: "s.tazi@arcondis.ma",
+      email: "s.tazi@orcondis.ma",
       adresse: "Maarif",
       ville: "Casablanca",
       zonePrincipale: "Maarif",
@@ -726,7 +726,7 @@ export function seedOps(): OpsData {
       prenom: "Mehdi",
       gsm: "+212 673 10 20 30",
       whatsapp: "+212 673 10 20 30",
-      email: "m.ouazzani@arcondis.ma",
+      email: "m.ouazzani@orcondis.ma",
       adresse: "Sidi Maârouf",
       ville: "Casablanca",
       zonePrincipale: "Sidi Maârouf",

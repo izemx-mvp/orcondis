@@ -22,13 +22,13 @@ import { SERVICES } from "@/lib/arcondis";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ARCONDIS — Courses professionnelles et démarches administratives" },
+      { title: "ORCONDIS — Courses professionnelles et démarches administratives" },
       {
         name: "description",
         content:
-          "ARCONDIS prend en charge vos courses professionnelles, démarches administratives, collecte de documents, paiements fournisseurs et chèques. Demande en 2 minutes, qualification via WhatsApp.",
+          "ORCONDIS prend en charge vos courses professionnelles, démarches administratives, collecte de documents, paiements fournisseurs et chèques. Demande en 2 minutes, qualification via WhatsApp.",
       },
-      { property: "og:title", content: "ARCONDIS — Vos courses professionnelles prises en charge" },
+      { property: "og:title", content: "ORCONDIS — Vos courses professionnelles prises en charge" },
       {
         property: "og:description",
         content:
@@ -57,7 +57,7 @@ const ETAPES = [
   "Vous envoyez votre demande.",
   "Notre assistant WhatsApp vous contacte.",
   "Les informations nécessaires sont complétées.",
-  "ARCONDIS prend en charge votre demande.",
+  "ORCONDIS prend en charge votre demande.",
   "Vous êtes informé de l’avancement.",
   "La prestation est clôturée.",
 ];
@@ -75,7 +75,7 @@ function Accueil() {
               Vos courses professionnelles et démarches, prises en charge simplement.
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground">
-              ARCONDIS intervient pour les entreprises, cabinets et particuliers : récupération et
+              ORCONDIS intervient pour les entreprises, cabinets et particuliers : récupération et
               livraison de documents, courses administratives, paiement de factures et de
               fournisseurs, traitement des chèques, procédures provisoires et opérations de
               vérification sur le terrain. Vous décrivez votre besoin en quelques lignes, notre

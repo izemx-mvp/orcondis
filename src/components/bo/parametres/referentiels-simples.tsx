@@ -1,4 +1,4 @@
-// ARCONDIS — Référentiels simples (nom + description + actif), avec protection des éléments système.
+// ORCONDIS — Référentiels simples (nom + description + actif), avec protection des éléments système.
 import { ReferentielTable } from "./generic";
 import type { Referentiel } from "@/lib/bo-data";
 

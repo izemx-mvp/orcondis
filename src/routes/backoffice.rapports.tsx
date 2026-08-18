@@ -26,10 +26,10 @@ import {
 export const Route = createFileRoute("/backoffice/rapports")({
   head: () => ({
     meta: [
-      { title: "Rapports — Back-Office ARCONDIS" },
+      { title: "Rapports — Back-Office ORCONDIS" },
       { name: "description", content: "Rapports d'activité, clients, coursiers, financiers et opérationnels." },
-      { property: "og:title", content: "Rapports ARCONDIS" },
-      { property: "og:description", content: "Indicateurs consolidés ARCONDIS." },
+      { property: "og:title", content: "Rapports ORCONDIS" },
+      { property: "og:description", content: "Indicateurs consolidés ORCONDIS." },
     ],
   }),
   component: Rapports,

@@ -1,4 +1,4 @@
-// ARCONDIS — Modèles de notifications internes (back-office) et activation par type.
+// ORCONDIS — Modèles de notifications internes (back-office) et activation par type.
 import { useState } from "react";
 import { useBO } from "@/lib/bo-store";
 import { useParamExtra, uidExtra, type NotifTemplate } from "@/lib/bo-param-extra";

@@ -6,14 +6,14 @@ import { BOLayout } from "@/components/bo/BOLayout";
 export const Route = createFileRoute("/backoffice")({
   head: () => ({
     meta: [
-      { title: "Back-Office ARCONDIS — Pilotage des opérations" },
+      { title: "Back-Office ORCONDIS — Pilotage des opérations" },
       {
         name: "description",
         content:
-          "Back-Office ARCONDIS : demandes, clients, dossiers, courses, WhatsApp, paiements, facturation et rapports.",
+          "Back-Office ORCONDIS : demandes, clients, dossiers, courses, WhatsApp, paiements, facturation et rapports.",
       },
-      { property: "og:title", content: "Back-Office ARCONDIS" },
-      { property: "og:description", content: "Pilotage complet des opérations ARCONDIS." },
+      { property: "og:title", content: "Back-Office ORCONDIS" },
+      { property: "og:description", content: "Pilotage complet des opérations ORCONDIS." },
     ],
   }),
   component: BackOfficeLayout,

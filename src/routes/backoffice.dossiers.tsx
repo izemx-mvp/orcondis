@@ -40,8 +40,8 @@ import {
 export const Route = createFileRoute("/backoffice/dossiers")({
   head: () => ({
     meta: [
-      { title: "Dossiers — Back-Office ARCONDIS" },
-      { name: "description", content: "Gestion des dossiers clients ARCONDIS : suivi, courses liées, procédures et documents." },
+      { title: "Dossiers — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des dossiers clients ORCONDIS : suivi, courses liées, procédures et documents." },
     ],
   }),
   component: DossiersPage,
