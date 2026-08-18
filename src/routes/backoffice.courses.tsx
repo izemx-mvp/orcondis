@@ -517,8 +517,32 @@ function CoursesPage() {
     <div className="space-y-6">
       <PageHeader
         titre="Courses"
-        sous="Planification, affectation et suivi des courses coursiers."
-        actions={<Button size="sm" onClick={ouvrirCreation}>Nouvelle course</Button>}
+        sous="Planification, affectation et suivi des courses ORCONDIS."
+        actions={
+          <div className="flex items-center gap-2">
+             <div className="flex bg-surface p-1 rounded-lg border border-border">
+              {(["Liste", "Planning"] as const).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setVue(v)}
+                  className={cn(
+                    "px-3 py-1.5 text-xs font-medium rounded-md transition-all flex items-center gap-1.5",
+                    vue === v 
+                      ? "bg-card text-navy shadow-sm" 
+                      : "text-muted-foreground hover:text-navy"
+                  )}
+                >
+                  {v === "Liste" ? <ListIcon className="w-3.5 h-3.5" /> : <CalendarIcon className="w-3.5 h-3.5" />}
+                  {v}
+                </button>
+              ))}
+            </div>
+            <Button size="sm" onClick={ouvrirCreation}>
+              <Plus className="w-4 h-4 mr-1.5" />
+              Nouvelle course
+            </Button>
+          </div>
+        }
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
@@ -529,26 +553,45 @@ function CoursesPage() {
         <StatCard label="Terminées" valeur={stats.terminees} ton="positif" />
       </div>
 
-      <Panel
-        titre="Liste des courses"
-        actions={
-          <Button size="sm" variant="outline" onClick={() => setVoirArchives((v) => !v)}>
-            {voirArchives ? "Voir actives" : "Voir archivées"}
-          </Button>
-        }
-      >
-        <div className="mb-3 space-y-2">
-          <FilterBar>
-            <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, type…" />
-            <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
-            <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
-            <SelectFilter label="Service" value={service} onChange={setService} options={services} />
-            <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
-            <Champ label="" type="date" value={dateF} onChange={setDateF} />
-          </FilterBar>
-        </div>
-        <DataTable colonnes={colonnes} lignes={courses} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
-      </Panel>
+      {vue === "Liste" ? (
+        <Panel
+          titre="Liste des courses"
+          actions={
+            <div className="flex items-center gap-2">
+              <Button size="sm" variant="outline" onClick={() => setVoirArchives((v) => !v)}>
+                {voirArchives ? "Voir actives" : "Voir archivées"}
+              </Button>
+            </div>
+          }
+        >
+          <div className="mb-3 space-y-2">
+            <FilterBar>
+              <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, coursier…" />
+              <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
+              <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
+              <SelectFilter label="Service" value={service} onChange={setService} options={services} />
+              <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
+              <Champ label="" type="date" value={dateF} onChange={setDateF} />
+            </FilterBar>
+          </div>
+          <DataTable colonnes={colonnes} lignes={coursesFiltrees} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
+        </Panel>
+      ) : (
+        <CoursesPlanning 
+          data={data}
+          courses={coursesFiltrees}
+          calendarDate={calendarDate}
+          setCalendarDate={setCalendarDate}
+          calendarView={calendarView}
+          setCalendarView={setCalendarView}
+          onCourseClick={ouvrirDetail}
+          onAssignClick={(c) => {
+            setCoursierChoisi("");
+            affectationDialog.ouvrir(c);
+          }}
+          l={l}
+        />
+      )}
 
       <FormDialog open={nouveauDialog.open} onOpenChange={nouveauDialog.setOpen} titre="Nouvelle course" onSubmit={soumettreCreation} large>
         <p className="text-xs text-muted-foreground">Numéro : <span className="font-medium text-navy">{form.numero}</span></p>
