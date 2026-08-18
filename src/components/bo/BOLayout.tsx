@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useBO, useLookups } from "@/lib/bo-store";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Logo } from "@/components/PublicLayout";
 import { dh, fr } from "@/lib/bo-data";
 
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };

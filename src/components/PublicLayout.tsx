@@ -102,9 +102,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <div className="md:col-span-2">
             <Logo dark />
             <p className="mt-3 max-w-sm text-sm text-navy-foreground/70">
-              Bureau de services spécialisé dans les courses professionnelles et particulières,
-              les démarches administratives, la collecte et la remise de documents, les paiements
-              fournisseurs et le traitement des chèques.
+              Tizzla and Serve by ORCONDIS. Services de courses, accompagnement et prestations de proximité.
             </p>
             <a
               href="https://wa.me/212666709941"
@@ -135,7 +133,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
         </div>
-        <div className="border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
+        <div className="mt-8 border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
           © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
         </div>
       </footer>
