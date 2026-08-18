@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useBO } from "@/lib/bo-store";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { dh } from "@/lib/bo-data";
 
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
@@ -145,7 +146,7 @@ function NotificationCenter() {
               <li key={n.id} className={`px-3 py-2 text-sm ${n.lue ? "opacity-60" : ""}`}>
                 <button className="w-full text-left" onClick={() => marquerLue(n.id)}>
                   <p className="flex items-center gap-2 font-medium text-navy">
-                    {n.gravite !== "info" && <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />}
+                    {n.gravite !== "info" && <AlertTriangle className="h-3.5 w-3.5 text-warning" />}
                     {n.titre}
                   </p>
                   <p className="text-xs text-muted-foreground">{n.detail}</p>
@@ -222,6 +223,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
           </button>
           <GlobalSearch />
           <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <NotificationCenter />
             <Button asChild variant="ghost" size="sm">
               <Link to="/">Site public</Link>

@@ -97,15 +97,15 @@ const msg = (
 export function toneConversation(statut: StatutConversation) {
   switch (statut) {
     case "Intervention humaine":
-      return "border-destructive/30 bg-destructive/10 text-destructive";
+      return "border-destructive/30 bg-destructive/15 text-destructive";
     case "En attente client":
-      return "border-amber-300 bg-amber-50 text-amber-700";
+      return "border-warning/30 bg-warning/15 text-warning";
     case "Informations complètes":
-      return "border-emerald-300 bg-emerald-50 text-emerald-700";
+      return "border-success/30 bg-success/15 text-success";
     case "Clôturée":
       return "border-border bg-muted text-muted-foreground";
     default:
-      return "border-primary/30 bg-primary/10 text-primary";
+      return "border-primary/30 bg-primary/15 text-primary";
   }
 }
 

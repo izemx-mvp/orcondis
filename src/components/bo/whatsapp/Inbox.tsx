@@ -566,11 +566,11 @@ export function Inbox({
           </div>
 
           {messagesValidationEnAttente.length > 0 && (
-            <div className="mt-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm">
-              <p className="mb-2 font-medium text-amber-800">Validation client en attente</p>
+            <div className="mt-3 rounded-md border border-warning/30 bg-warning/15 p-3 text-sm">
+              <p className="mb-2 font-medium text-warning-foreground">Validation client en attente</p>
               {messagesValidationEnAttente.map((m) => (
                 <div key={m.id} className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-amber-800">{m.texte}</span>
+                  <span className="text-warning-foreground">{m.texte}</span>
                   <div className="flex gap-2">
                     <Button size="sm" onClick={() => traiterValidation(m.id, "Valider")}>
                       Valider
@@ -597,7 +597,7 @@ export function Inbox({
                     {conv.clientNom}
                   </Link>
                 ) : (
-                  <span className="text-amber-700">{conv.clientNom} (non créé)</span>
+                  <span className="text-warning">{conv.clientNom} (non créé)</span>
                 )}
               </p>
               <p>
@@ -651,11 +651,11 @@ export function Inbox({
             </ul>
             <div className="mt-3">
               {conv.manquantes.length === 0 ? (
-                <Statut ton="border-emerald-300 bg-emerald-50 text-emerald-700">Informations complètes</Statut>
+                <Statut ton="border-success/30 bg-success/15 text-success">Informations complètes</Statut>
               ) : (
                 <div>
-                  <p className="mb-1 text-xs font-medium text-amber-700">Informations manquantes</p>
-                  <ul className="list-inside list-disc text-xs text-amber-700">
+                  <p className="mb-1 text-xs font-medium text-warning">Informations manquantes</p>
+                  <ul className="list-inside list-disc text-xs text-warning">
                     {conv.manquantes.map((m) => (
                       <li key={m}>{m}</li>
                     ))}
