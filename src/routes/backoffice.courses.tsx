@@ -836,3 +836,326 @@ function CoursesPage() {
     </div>
   );
 }
+
+function CoursesPlanning({ 
+  data, 
+  courses, 
+  calendarDate, 
+  setCalendarDate, 
+  calendarView, 
+  setCalendarView, 
+  onCourseClick,
+  onAssignClick,
+  l 
+}: { 
+  data: any, 
+  courses: CourseOps[], 
+  calendarDate: Date, 
+  setCalendarDate: (d: Date) => void, 
+  calendarView: CalendarViewType, 
+  setCalendarView: (v: CalendarViewType) => void,
+  onCourseClick: (c: CourseOps) => void,
+  onAssignClick: (c: CourseOps) => void,
+  l: any
+}) {
+  const unplannedCourses = useMemo(() => {
+    return courses.filter(c => !c.dateCourse || c.statut === "À affecter");
+  }, [courses]);
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-6 h-[800px]">
+      <div className="flex-1 min-w-0 h-full">
+        <CalendarContainer
+          date={calendarDate}
+          onDateChange={setCalendarDate}
+          view={calendarView}
+          onViewChange={setCalendarView}
+        >
+          {calendarView === "Jour" && (
+            <CalendarDayView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+          {calendarView === "Semaine" && (
+            <CalendarWeekView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+          {calendarView === "Mois" && (
+            <CalendarMonthView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+        </CalendarContainer>
+      </div>
+      
+      <div className="w-full lg:w-80 flex flex-col gap-4">
+        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col">
+          <div className="flex-1 overflow-auto space-y-2 pr-2">
+            {unplannedCourses.length === 0 ? (
+              <p className="text-xs text-center text-muted-foreground py-8 italic">Toutes les courses sont planifiées.</p>
+            ) : (
+              unplannedCourses.map(c => (
+                <div 
+                  key={c.id} 
+                  className="p-3 bg-surface border border-border rounded-lg hover:border-primary cursor-pointer transition-colors group"
+                  onClick={() => onCourseClick(c)}
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-bold text-navy">{c.numero}</span>
+                    <Statut ton={tonStatut(c.priorite)} className="text-[9px] px-1.5 h-4">{c.priorite}</Statut>
+                  </div>
+                  <p className="text-[11px] font-medium truncate">{l.clientNom(c.clientId)}</p>
+                  <div className="flex items-center gap-1 mt-2 text-[10px] text-muted-foreground">
+                    <MapPin className="w-3 h-3" />
+                    <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="w-full h-7 mt-3 text-[10px] hidden group-hover:flex"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onAssignClick(c);
+                    }}
+                  >
+                    Affecter
+                  </Button>
+                </div>
+              ))
+            )}
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
+function CalendarDayView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const hours = Array.from({ length: 14 }, (_, i) => i + 7);
+  
+  const dayCourses = useMemo(() => {
+    const dStr = format(date, "yyyy-MM-dd");
+    return courses.filter(c => c.dateCourse === dStr);
+  }, [date, courses]);
+
+  return (
+    <div className="flex flex-col h-full bg-card">
+      <div className="grid grid-cols-[80px_1fr] border-b border-border bg-surface/50">
+        <div className="p-3 text-[10px] font-bold text-muted-foreground uppercase text-center border-r border-border">Heure</div>
+        <div className="p-3 text-[10px] font-bold text-navy uppercase">{format(date, "EEEE d MMMM", { locale: localeFr })}</div>
+      </div>
+      <div className="flex-1 overflow-y-auto relative">
+        {hours.map(hour => (
+          <div key={hour} className="grid grid-cols-[80px_1fr] min-h-[80px] border-b border-border/50 group">
+            <div className="text-[11px] font-medium text-muted-foreground p-3 text-center border-r border-border/50 bg-surface/30">
+              {hour}:00
+            </div>
+            <div className="p-2 flex flex-wrap gap-2 items-start relative bg-card/50">
+              {dayCourses
+                .filter(c => {
+                  if (c.heureFixe) return parseInt(c.heureFixe.split(':')[0]) === hour;
+                  if (c.trancheHoraire.includes('Matin') && hour === 9) return true;
+                  if (c.trancheHoraire.includes('Midi') && hour === 12) return true;
+                  if (c.trancheHoraire.includes('Après-midi') && hour === 15) return true;
+                  return false;
+                })
+                .map(c => (
+                  <CourseCard key={c.id} c={c} onClick={() => onCourseClick(c)} l={l} />
+                ))
+              }
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CalendarWeekView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const start = startOfWeek(date, { weekStartsOn: 1 });
+  const weekDays = eachDayOfInterval({ start, end: addDays(start, 5) });
+
+  return (
+    <div className="flex flex-col h-full bg-card">
+      <div className="grid grid-cols-6 border-b border-border bg-surface/50">
+        {weekDays.map(day => (
+          <div key={day.toString()} className={cn(
+            "p-3 text-center border-r border-border last:border-r-0",
+            isSameDay(day, new Date()) ? "bg-primary/5" : ""
+          )}>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase">{format(day, "EEE", { locale: localeFr })}</p>
+            <p className={cn(
+              "text-lg font-black mt-0.5",
+              isSameDay(day, new Date()) ? "text-primary" : "text-navy"
+            )}>{format(day, "d")}</p>
+          </div>
+        ))}
+      </div>
+      <div className="flex-1 grid grid-cols-6 overflow-y-auto">
+        {weekDays.map(day => {
+          const dayStr = format(day, "yyyy-MM-dd");
+          const dayCourses = courses.filter(c => c.dateCourse === dayStr);
+          return (
+            <div key={day.toString()} className={cn(
+              "min-h-[400px] border-r border-border last:border-r-0 p-2 space-y-2 bg-card/50",
+              isSameDay(day, new Date()) ? "bg-primary/[0.02]" : ""
+            )}>
+              {dayCourses.map(c => (
+                <CourseCard key={c.id} c={c} onClick={() => onCourseClick(c)} l={l} compact />
+              ))}
+              {dayCourses.length === 0 && (
+                <div className="h-full border-2 border-dashed border-border/20 rounded-xl flex items-center justify-center">
+                   <p className="text-[9px] text-muted-foreground/30 font-medium rotate-90">VIDE</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CalendarMonthView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const start = startOfMonth(date);
+  const end = endOfMonth(date);
+  const days = eachDayOfInterval({ start, end });
+
+  return (
+    <div className="h-full flex flex-col bg-card">
+      <div className="grid grid-cols-7 border-b border-border bg-surface/50">
+        {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map(d => (
+          <div key={d} className="p-2 text-center text-[10px] font-bold text-muted-foreground uppercase border-r border-border last:border-r-0">{d}</div>
+        ))}
+      </div>
+      <div className="flex-1 grid grid-cols-7 auto-rows-fr">
+        {days.map((day, i) => {
+          const dayStr = format(day, "yyyy-MM-dd");
+          const dayCourses = courses.filter(c => c.dateCourse === dayStr);
+          const isToday = isSameDay(day, new Date());
+          const isCurrentMonth = isSameMonth(day, date);
+
+          return (
+            <div 
+              key={day.toString()} 
+              className={cn(
+                "min-h-[100px] border-r border-b border-border p-1 flex flex-col gap-1",
+                !isCurrentMonth ? "bg-muted/10 opacity-50" : "bg-card/50",
+                isToday ? "ring-1 ring-inset ring-primary/20" : ""
+              )}
+            >
+              <span className={cn(
+                "text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full",
+                isToday ? "bg-primary text-white" : "text-muted-foreground"
+              )}>
+                {format(day, "d")}
+              </span>
+              <div className="flex flex-col gap-0.5 overflow-y-auto">
+                {dayCourses.slice(0, 4).map(c => (
+                  <div 
+                    key={c.id} 
+                    onClick={() => onCourseClick(c)}
+                    className={cn(
+                      "text-[9px] px-1.5 py-0.5 rounded border border-border truncate cursor-pointer",
+                      toneCourse(c.statut) === "positif" ? "bg-success/10 text-success border-success/20" :
+                      toneCourse(c.statut) === "alerte" ? "bg-warning/10 text-warning border-warning/20" :
+                      toneCourse(c.statut) === "critique" ? "bg-destructive/10 text-destructive border-destructive/20" :
+                      "bg-surface text-navy"
+                    )}
+                  >
+                    {c.numero} - {l.clientNom(c.clientId)}
+                  </div>
+                ))}
+                {dayCourses.length > 4 && (
+                  <div className="text-[8px] text-muted-foreground px-1 font-medium">
+                    + {dayCourses.length - 4} autres...
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick: () => void, l: any, compact?: boolean }) {
+  const isExclusive = c.priorite === "Exclusive";
+  
+  return (
+    <div 
+      onClick={onClick}
+      className={cn(
+        "bg-card border-l-4 rounded shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col overflow-hidden",
+        toneCourse(c.statut) === "positif" ? "border-l-success" :
+        toneCourse(c.statut) === "alerte" ? "border-l-warning" :
+        toneCourse(c.statut) === "critique" ? "border-l-destructive" :
+        "border-l-primary",
+        compact ? "p-2 min-h-[80px]" : "p-3 w-[220px]"
+      )}
+    >
+      <div className="flex justify-between items-start mb-1.5">
+        <span className="text-[10px] font-black text-navy">{c.numero}</span>
+        <div className="flex gap-1">
+          {isExclusive && <Statut ton="critique" className="text-[8px] h-3 px-1">EXCLU</Statut>}
+          <Statut ton={toneCourse(c.statut)} className="text-[8px] h-3 px-1">{c.statut}</Statut>
+        </div>
+      </div>
+      
+      <p className={cn("font-bold text-navy mb-1 leading-tight", compact ? "text-[10px]" : "text-xs")}>
+        {l.clientNom(c.clientId)}
+      </p>
+      
+      {!compact && (
+        <p className="text-[10px] text-muted-foreground mb-2 line-clamp-1">{c.typeCourse}</p>
+      )}
+
+      <div className="mt-auto pt-2 border-t border-border/50 flex flex-col gap-1">
+        <div className="flex items-center gap-1.5 text-[9px] text-muted-foreground">
+          <MapPin className="w-3 h-3 text-primary/60" />
+          <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
+        </div>
+        
+        <div className="flex items-center justify-between mt-1">
+          <div className="flex items-center gap-1 text-[9px] font-medium text-navy">
+            {c.coursierId ? (
+              <>
+                <User className="w-3 h-3 text-navy/40" />
+                <span className="truncate max-w-[80px]">{l.coursierNom(c.coursierId)}</span>
+              </>
+            ) : (
+              <span className="text-destructive font-black uppercase text-[8px]">À affecter</span>
+            )}
+          </div>
+          
+          <div className="flex items-center gap-1">
+             {c.dispatch.statut === "Confirmée" && <CheckCheck className="w-3 h-3 text-success" />}
+             {c.dispatch.statut === "Envoyée" && <Check className="w-3 h-3 text-primary" />}
+             {c.heureFixe && <span className="text-[9px] bg-navy text-white px-1 rounded font-bold">{c.heureFixe}</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createFileRoute("/backoffice/courses")({
+  head: () => ({
+    meta: [
+      { title: "Courses — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des courses ORCONDIS : affectation coursier, suivi, kilométrage et documents." },
+    ],
+  }),
+  component: CoursesPage,
+});
