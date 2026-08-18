@@ -964,7 +964,10 @@ function CalendarDayView({ date, courses, onCourseClick, l }: { date: Date, cour
               {dayCourses
                 .filter(c => {
                   const hf = c.heureFixe;
-                  if (hf && hf.includes(':')) return parseInt(hf.split(':')[0]) === hour;
+                  if (hf && hf.includes(':')) {
+                    const parts = hf.split(':');
+                    if (parts.length > 0) return parseInt(parts[0]) === hour;
+                  }
                   if (c.trancheHoraire?.includes('Matin') && hour === 9) return true;
                   if (c.trancheHoraire?.includes('Midi') && hour === 12) return true;
                   if (c.trancheHoraire?.includes('Après-midi') && hour === 15) return true;
