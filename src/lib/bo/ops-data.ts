@@ -103,15 +103,18 @@ export const MOMENTS_ENVOI = [
 export type MomentEnvoi = (typeof MOMENTS_ENVOI)[number];
 
 export const STATUTS_DISPATCH = [
-  "Programmé",
-  "En attente",
-  "Envoyé",
-  "Reçu",
-  "Confirmé",
-  "Accepté",
-  "Refusé",
+  "À programmer",
+  "Programmée",
+  "Prête à envoyer",
+  "Envoyée",
+  "Reçue",
+  "Confirmée",
+  "Refusée",
+  "Sans réponse",
   "Échec d'envoi",
-  "Annulé",
+  "Annulée",
+  "Intervention opérateur requise",
+  "Coursier non affecté",
 ] as const;
 export type StatutDispatch = (typeof STATUTS_DISPATCH)[number];
 
