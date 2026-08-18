@@ -1,6 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useOps, useOpsLookups, recommanderCoursiers } from "@/lib/bo/ops-store";
+import {
+  format,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameDay,
+  addDays,
+  startOfMonth,
+  endOfMonth,
+  isSameMonth,
+  addMonths,
+  parseISO,
+} from "date-fns";
+import { fr as localeFr } from "date-fns/locale";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Plus, 
+  Calendar as CalendarIcon, 
+  List as ListIcon, 
+  Clock, 
+  Check, 
+  CheckCheck, 
+  AlertTriangle, 
+  XCircle,
+  MoreVertical,
+  MapPin,
+  User,
+  Truck,
+  FileText
+} from "lucide-react";
 import {
   oid,
   horodatage,
@@ -27,6 +58,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { EditeurPoint } from "@/components/bo/ops/courses-points";
+import { cn } from "@/lib/utils";
 import {
   PageHeader,
   StatCard,
@@ -49,6 +81,7 @@ import {
   useDialog,
   type Colonne,
 } from "@/components/bo/kit";
+import { CalendarContainer, type CalendarViewType } from "@/components/bo/ops/calendar";
 
 
 export const Route = createFileRoute("/backoffice/courses")({
