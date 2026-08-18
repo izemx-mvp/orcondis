@@ -26,12 +26,12 @@ export function PageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-6 mb-8">
-      <div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-navy sm:text-4xl">{titre}</h1>
-        {sous && <p className="mt-2 text-base text-muted-foreground font-medium">{sous}</p>}
+    <div className="flex flex-wrap items-end justify-between gap-8 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
+      <div className="max-w-3xl">
+        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-5xl lg:text-6xl leading-[0.9]">{titre}</h1>
+        {sous && <p className="mt-4 text-lg text-muted-foreground font-medium leading-relaxed opacity-70">{sous}</p>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
+      {actions && <div className="flex flex-wrap items-center gap-4">{actions}</div>}
     </div>
   );
 }
@@ -55,11 +55,13 @@ export function StatCard({
     critique: "text-destructive",
   };
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 shadow-card hover:shadow-panel transition-all group overflow-hidden relative">
-      <div className="absolute top-0 left-0 w-1 h-full bg-primary/20 group-hover:bg-primary transition-colors" />
-      <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80">{label}</p>
-      <p className={`mt-3 text-3xl font-black tracking-tight ${tons[ton]}`}>{valeur}</p>
-      {detail && <p className="mt-2 text-xs font-medium text-muted-foreground/70">{detail}</p>}
+    <div className="rounded-[2.5rem] border-none bg-white/70 backdrop-blur-xl p-10 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
+      <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 group-hover:bg-primary transition-all duration-500" />
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-6">{label}</p>
+      <div className="flex items-baseline gap-2">
+        <p className={`text-5xl font-black tracking-tighter ${tons[ton]}`}>{valeur}</p>
+      </div>
+      {detail && <p className="mt-4 text-xs font-bold text-muted-foreground/50 tracking-tight">{detail}</p>}
     </div>
   );
 }
@@ -77,14 +79,14 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={`rounded-2xl border border-border bg-card shadow-card overflow-hidden ${className}`}>
+    <section className={cn("rounded-[2.5rem] border-none bg-white/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
       {(titre || actions) && (
-        <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-muted/30 px-6 py-4">
-          {titre && <h2 className="text-sm font-bold uppercase tracking-widest text-navy/80">{titre}</h2>}
-          {actions && <div className="flex items-center gap-3">{actions}</div>}
+        <header className="flex flex-wrap items-center justify-between gap-6 bg-muted/20 px-10 py-8 border-b border-border/40">
+          {titre && <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
+          {actions && <div className="flex items-center gap-4">{actions}</div>}
         </header>
       )}
-      <div className="p-6">{children}</div>
+      <div className="p-10">{children}</div>
     </section>
   );
 }
@@ -164,28 +166,31 @@ export function DataTable<T extends { id: string }>({
   onRowClick?: (row: T) => void;
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-border bg-card shadow-card">
+    <div className="overflow-x-auto rounded-[2rem] border-none bg-white/50 backdrop-blur-xl shadow-elevated">
       <table className="w-full text-sm border-collapse">
-        <thead className="bg-muted/50 text-left text-[10px] font-bold uppercase tracking-widest text-muted-foreground/80 border-b border-border">
+        <thead className="bg-muted/30 text-left text-[10px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
           <tr>
             {colonnes.map((c) => (
-              <th key={c.cle} className={`px-6 py-4 ${c.align === "right" ? "text-right" : ""}`}>
+              <th key={c.cle} className={`px-10 py-6 ${c.align === "right" ? "text-right" : ""}`}>
                 {c.titre}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-border/50">
-          {lignes.map((l) => (
+        <tbody className="divide-y divide-border/20">
+          {lignes.map((l, idx) => (
             <tr
               key={l.id}
-              className={`group hover:bg-primary/[0.02] transition-colors ${onRowClick ? "cursor-pointer" : ""}`}
+              className={cn(
+                "group transition-all hover:bg-white/80 hover:scale-[1.002] duration-300",
+                onRowClick ? "cursor-pointer" : ""
+              )}
               onClick={onRowClick ? () => onRowClick(l) : undefined}
             >
               {colonnes.map((c) => (
                 <td
                   key={c.cle}
-                  className={`px-6 py-4 align-middle font-medium text-foreground/90 ${c.align === "right" ? "text-right" : ""}`}
+                  className={`px-10 py-8 align-middle font-bold text-navy/80 tracking-tight ${c.align === "right" ? "text-right" : ""}`}
                 >
                   {c.rendu(l)}
                 </td>
@@ -194,7 +199,7 @@ export function DataTable<T extends { id: string }>({
           ))}
           {lignes.length === 0 && (
             <tr>
-              <td colSpan={colonnes.length} className="px-6 py-16 text-center text-muted-foreground italic">
+              <td colSpan={colonnes.length} className="px-10 py-24 text-center text-muted-foreground/60 font-medium italic">
                 {vide}
               </td>
             </tr>
