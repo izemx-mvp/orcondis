@@ -272,7 +272,7 @@ function CoursesPage() {
               options={data.contacts.filter((c) => c.clientId === form.clientId).map((c) => ({ value: c.id, label: `${c.code} — ${c.prenom} ${c.nom}` }))}
             />
             {form.clientId && (
-              <Button size="xs" variant="ghost" className="h-6 text-[10px]" onClick={() => { /* Logic to open add contact for this client */ }}>
+              <Button size="sm" variant="ghost" className="h-6 text-[10px]" onClick={() => { /* Logic to open add contact for this client */ }}>
                 + Créer un contact
               </Button>
             )}
@@ -324,12 +324,29 @@ function CoursesPage() {
         </div>
       </div>
       <ChampTexte label="Message / instructions" value={form.message} onChange={(v) => setForm({ ...form, message: v })} rows={2} />
-      <EditeurPoint titre="Point de retrait" point={form.retrait} onChange={(p) => setForm({ ...form, retrait: p })} />
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-semibold text-navy">Destinations</p>
-          <Button size="sm" variant="outline" onClick={ajouterDestination}>Ajouter une destination</Button>
-        </div>
+      <Grille cols={2}>
+        <ChampSelect label="Zone de retrait" value={form.retrait.zone} onChange={(v) => setForm({ ...form, retrait: { ...form.retrait, zone: v } })} options={ZONES} />
+        <ChampSelect label="Zone destination" value={form.destinations[0]?.zone || ""} onChange={(v) => {
+          const ds = [...form.destinations];
+          if (ds[0]) ds[0] = { ...ds[0], zone: v };
+          setForm({ ...form, destinations: ds });
+        }} options={ZONES} />
+      </Grille>
+      <Grille cols={3}>
+        <ChampSelect label="Type de course" value={form.typeCourse} onChange={(v) => setForm({ ...form, typeCourse: v })} options={TYPES_COURSE} />
+        <ChampSelect label="Genre de course" value={form.genreCourse} onChange={(v) => setForm({ ...form, genreCourse: v as any })} options={["Aller simple", "Aller & Retour", "Multiple"]} />
+        <ChampSelect label="Niveau d'importance" value={form.priorite} onChange={(v) => setForm({ ...form, priorite: v as CourseOps["priorite"] })} options={PRIORITES_COURSE} />
+      </Grille>
+      <div className="border-t pt-4">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Date de la course & Tranche horaire</p>
+        <Grille cols={3}>
+          <Champ label="Date" type="date" value={form.dateCourse} onChange={(v) => setForm({ ...form, dateCourse: v, jour: jourDe(v) })} />
+          <ChampSelect label="Tranche horaire" value={form.trancheHoraire} onChange={(v) => setForm({ ...form, trancheHoraire: v })} options={TRANCHES_HORAIRES} />
+          <Champ label="Heure fixe" type="time" value={form.heureFixe} onChange={(v) => setForm({ ...form, heureFixe: v })} />
+        </Grille>
+      </div>
+      <div className="border-t pt-4">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Destinations</p>
         {form.destinations.map((d, i) => (
           <EditeurPoint
             key={d.id}
@@ -339,6 +356,7 @@ function CoursesPage() {
             {...(form.destinations.length > 1 ? { onSupprimer: () => retirerDestination(d.id) } : {})}
           />
         ))}
+        <Button size="sm" variant="outline" className="mt-2" onClick={ajouterDestination}>+ Ajouter une destination</Button>
       </div>
       <Grille cols={3}>
         <Champ label="Km départ" type="number" value={form.kmDepart} onChange={(v) => setForm({ ...form, kmDepart: Number(v) || 0 })} />

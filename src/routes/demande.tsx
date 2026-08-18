@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/select";
 import { SERVICES } from "@/lib/orcondis";
 import { useStore } from "@/lib/store";
+import { CATEGORIES_CLIENT, SOUS_TYPES_AUTRES, type CategorieClient } from "@/lib/bo/ops-data";
 
 export const Route = createFileRoute("/demande")({
   head: () => ({
@@ -37,13 +38,25 @@ export const Route = createFileRoute("/demande")({
 });
 
 const initial = {
-  typeClient: "Nouveau client" as "Client existant" | "Nouveau client",
+  categorie: "Personne physique" as CategorieClient,
+  sousType: "",
+  autrePrecision: "",
   nom: "",
   prenom: "",
-  societe: "",
-  telephone: "",
-  whatsapp: "",
+  denomination: "",
+  raisonSociale: "",
+  ville: "Casablanca",
+  quartier: "",
+  adresseComplete: "",
+  pays: "Maroc",
+  site: "",
   email: "",
+  telephoneFixe: "",
+  fax: "",
+  gsm: "",
+  whatsapp: "",
+  facebook: "",
+  instagram: "",
   service: "",
   messageInitial: "",
   consentementWhatsApp: true,
@@ -75,10 +88,12 @@ function Demande() {
 
   const validate = () => {
     const next: typeof errors = {};
-    if (!form.nom.trim()) next.nom = "Le nom est requis.";
-    if (!form.prenom.trim()) next.prenom = "Le prénom est requis.";
-    if (!form.telephone.trim()) next.telephone = "Le téléphone est requis.";
-    if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Un email valide est requis.";
+    if (form.categorie === "Personne physique") {
+      if (!form.nom.trim()) next.nom = "Le nom est requis.";
+      if (!form.prenom.trim()) next.prenom = "Le prénom est requis.";
+    }
+    if (!form.gsm?.trim() && !form.whatsapp?.trim()) next.telephone = "Un contact (GSM ou WhatsApp) est requis.";
+    if (form.email && !/^\S+@\S+\.\S+$/.test(form.email)) next.email = "Un email valide est requis.";
     if (!form.service) next.service = "Veuillez choisir une prestation.";
     if (!form.messageInitial.trim()) next.messageInitial = "Décrivez votre besoin.";
     setErrors(next);
@@ -184,54 +199,6 @@ function Demande() {
               {errors.nom && <p className="mt-1 text-xs text-destructive">{errors.nom}</p>}
             </div>
 
-            <div className="sm:col-span-2">
-              <Label htmlFor="societe">Société / Organisation (optionnel)</Label>
-              <Input
-                id="societe"
-                value={form.societe}
-                onChange={(e) => setField("societe", e.target.value)}
-                className="mt-1.5"
-                placeholder="Atlas Industrie SARL"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="telephone">Téléphone</Label>
-              <Input
-                id="telephone"
-                type="tel"
-                value={form.telephone}
-                onChange={(e) => setField("telephone", e.target.value)}
-                className="mt-1.5"
-                placeholder="0666 70 99 41"
-              />
-              {errors.telephone && <p className="mt-1 text-xs text-destructive">{errors.telephone}</p>}
-            </div>
-
-            <div>
-              <Label htmlFor="whatsapp">WhatsApp (si différent)</Label>
-              <Input
-                id="whatsapp"
-                type="tel"
-                value={form.whatsapp}
-                onChange={(e) => setField("whatsapp", e.target.value)}
-                className="mt-1.5"
-                placeholder="0666 70 99 41"
-              />
-            </div>
-
-            <div className="sm:col-span-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={form.email}
-                onChange={(e) => setField("email", e.target.value)}
-                className="mt-1.5"
-                placeholder="votre@email.com"
-              />
-              {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
-            </div>
 
             <div className="sm:col-span-2">
               <Label htmlFor="service">Prestation souhaitée</Label>
