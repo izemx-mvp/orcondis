@@ -21,12 +21,14 @@ export const Route = createFileRoute("/backoffice")({
 
 function BackOfficeLayout() {
   return (
-    <BOProvider>
-      <OpsProvider>
-        <BOLayout>
-          <Outlet />
-        </BOLayout>
-      </OpsProvider>
-    </BOProvider>
+    <div className="flex min-h-screen bg-background">
+      <BOProvider>
+        <OpsProvider>
+          <BOLayout>
+            <Outlet />
+          </BOLayout>
+        </OpsProvider>
+      </BOProvider>
+    </div>
   );
 }
