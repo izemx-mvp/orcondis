@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, MessageCircle } from "lucide-react";
+import { Menu, MessageCircle, MapPin, Phone, Mail } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -15,13 +16,16 @@ const NAV = [
 
 export function Logo({ dark = false, backoffice = false }: { dark?: boolean; backoffice?: boolean }) {
   return (
-    <span className="flex items-center gap-2">
+    <span className="flex items-center gap-2 group transition-transform hover:scale-105 duration-300">
       <div className="flex flex-col">
-        <span className={`text-xl font-black tracking-tighter leading-none ${dark ? "text-white" : "text-navy"}`}>
+        <span className={cn(
+          "text-2xl font-black tracking-tighter leading-none transition-colors",
+          dark ? "text-white" : "text-navy group-hover:text-primary"
+        )}>
           ORCONDIS
         </span>
         {backoffice && (
-          <span className="text-[10px] font-medium opacity-70">Back-Office</span>
+          <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Back-Office</span>
         )}
       </div>
     </span>
@@ -33,19 +37,19 @@ export function PublicLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur">
-        <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6">
+      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6">
           <Link to="/site">
             <Logo />
           </Link>
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden items-center gap-1 lg:flex bg-muted/20 p-1 rounded-2xl border border-border/50">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.to === "/site" }}
-                activeProps={{ className: "bg-accent text-navy" }}
-                className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-navy"
+                activeProps={{ className: "bg-white dark:bg-navy shadow-sm text-primary" }}
+                className="rounded-xl px-4 py-2 text-sm font-bold text-muted-foreground transition-all hover:text-navy hover:scale-105"
               >
                 {item.label}
               </Link>
@@ -53,10 +57,10 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
+            <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex rounded-xl font-bold">
               <Link to="/connexion">Connexion</Link>
             </Button>
-            <Button asChild size="sm">
+            <Button asChild size="sm" className="rounded-xl font-bold px-6 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all">
               <Link to="/site/demande">Faire une demande</Link>
             </Button>
             <Button
@@ -95,26 +99,29 @@ export function PublicLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-border bg-navy text-navy-foreground">
-        <div className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
+      <footer className="border-t border-border bg-navy text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.02),transparent)]" />
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-20 relative z-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Logo dark />
-            <p className="mt-3 max-w-sm text-sm text-navy-foreground/70">
-              ORCONDIS. Services de courses, accompagnement et prestations de proximité.
+            <p className="mt-6 max-w-sm text-base text-white/50 font-medium">
+              ORCONDIS est votre partenaire de confiance pour toutes vos courses professionnelles, démarches administratives et prestations de proximité à Casablanca.
             </p>
-            <a
-              href="https://wa.me/212666709941"
-              className="mt-4 inline-flex items-center gap-2 rounded-md bg-whatsapp px-3 py-2 text-sm font-medium text-whatsapp-foreground transition-transform hover:scale-105"
-            >
-              <MessageCircle className="h-4 w-4" /> WhatsApp ORCONDIS
-            </a>
+            <div className="mt-8 flex gap-4">
+               <a
+                href="https://wa.me/212666709941"
+                className="flex items-center gap-2 rounded-2xl bg-whatsapp/10 border border-whatsapp/20 px-6 py-3 text-sm font-black text-whatsapp transition-all hover:bg-whatsapp hover:text-white hover:scale-105"
+              >
+                <MessageCircle className="h-5 w-5" /> WhatsApp Direct
+              </a>
+            </div>
           </div>
           <div>
-            <p className="text-sm font-semibold">Navigation</p>
-            <ul className="mt-3 space-y-2 text-sm text-navy-foreground/70">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-6">Navigation</p>
+            <ul className="space-y-4">
               {NAV.map((item) => (
                 <li key={item.to}>
-                  <Link to={item.to} className="hover:text-navy-foreground">
+                  <Link to={item.to} className="text-white/60 font-bold hover:text-primary transition-colors">
                     {item.label}
                   </Link>
                 </li>
@@ -122,17 +129,24 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             </ul>
           </div>
           <div>
-            <p className="text-sm font-semibold">Contact</p>
-            <ul className="mt-3 space-y-2 text-sm text-navy-foreground/70">
-              <li>Casablanca, Maroc</li>
-              <li>0666 70 99 41</li>
-              <li>orcondiscourses@gmail.com</li>
-              <li>Lundi – Vendredi : 08h00 – 18h30</li>
+             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-6">Contact</p>
+            <ul className="space-y-4 text-white/60 font-medium">
+              <li className="flex items-center gap-3">
+                <MapPin className="h-4 w-4 text-white/30" /> Casablanca, Maroc
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="h-4 w-4 text-white/30" /> 0666 70 99 41
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="h-4 w-4 text-white/30" /> orcondiscourses@gmail.com
+              </li>
             </ul>
           </div>
         </div>
-        <div className="mt-8 border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
-          © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
+        <div className="border-t border-white/5 py-8 text-center">
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/30">
+            © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
+          </p>
         </div>
       </footer>
     </div>

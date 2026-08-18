@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, MessageCircle, ArrowRight } from "lucide-react";
+import { CheckCircle2, MessageCircle, ArrowRight, Zap, Globe, Smartphone, Mail, MapPin } from "lucide-react";
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,8 @@ import {
 import { SERVICES } from "@/lib/orcondis";
 import { useStore } from "@/lib/store";
 import { CATEGORIES_CLIENT, SOUS_TYPES_AUTRES, type CategorieClient } from "@/lib/bo/ops-data";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/site/demande")({
   head: () => ({
@@ -114,26 +116,29 @@ function Demande() {
   if (submitted) {
     return (
       <PublicLayout>
-        <section className="mx-auto flex w-full max-w-md flex-col px-4 py-16 sm:px-6">
-          <div className="surface-card p-6 text-center">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-success/15 text-success">
-              <CheckCircle2 className="h-6 w-6" />
+        <section className="relative overflow-hidden py-24 sm:py-32 flex flex-col items-center">
+          <AnimatedBackground variant="restrained" />
+          <div className="surface-card p-12 lg:p-16 text-center max-w-xl mx-auto shadow-elevated border-none bg-white/70 backdrop-blur-xl rounded-[3rem] animate-in zoom-in-95 duration-500">
+            <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-success/10 text-success mb-8">
+              <CheckCircle2 className="h-12 w-12" />
             </div>
-            <h1 className="mt-4 text-xl font-semibold">Demande envoyée</h1>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Votre demande a été enregistrée sous la référence :
+            <h1 className="text-4xl font-black text-navy tracking-tight mb-4">Demande envoyée !</h1>
+            <p className="text-lg text-muted-foreground font-medium mb-10">
+              Merci Karim, votre demande est enregistrée sous la référence :
+              <span className="block mt-4 text-5xl font-black text-primary tracking-tighter">{submitted.numero}</span>
             </p>
-            <p className="mt-3 text-2xl font-bold text-navy">{submitted.numero}</p>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Notre assistant WhatsApp vous contactera rapidement pour compléter les informations.
-            </p>
-            <div className="mt-6 flex flex-col gap-3">
-              <Button asChild variant="outline">
-                <a href={`https://wa.me/${submitted.whatsapp.replace(/\D/g, "")}`}>
-                  <MessageCircle className="mr-2 h-4 w-4" /> Continuer sur WhatsApp
+            <div className="p-6 bg-primary/5 rounded-2xl border border-primary/10 mb-10">
+              <p className="text-sm font-bold text-navy/70 italic">
+                "Notre assistant WhatsApp vous contactera dans quelques minutes pour finaliser les détails opérationnels."
+              </p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <Button asChild size="lg" className="h-16 rounded-2xl font-black text-lg bg-whatsapp hover:bg-whatsapp/90 shadow-xl shadow-whatsapp/20 hover:scale-[1.02] transition-all">
+                <a href={`https://wa.me/212666709941`}>
+                  <MessageCircle className="mr-3 h-6 w-6" /> Continuer sur WhatsApp
                 </a>
               </Button>
-              <Button asChild>
+              <Button asChild variant="outline" size="lg" className="h-16 rounded-2xl font-black text-lg">
                 <Link to="/site">Retour à l’accueil</Link>
               </Button>
             </div>
@@ -145,210 +150,200 @@ function Demande() {
 
   return (
     <PublicLayout>
-      <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
-        <div className="text-center">
-          <h1 className="text-2xl font-black sm:text-4xl text-navy uppercase tracking-tighter">Faire une demande</h1>
-          <p className="mx-auto mt-4 max-w-lg text-lg text-muted-foreground font-medium">
-            ORCONDIS vous accompagne dans vos opérations.
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="mt-12 surface-card p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-border/50">
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div className="sm:col-span-2">
-              <Label>Vous êtes :</Label>
-              <div className="mt-2 flex flex-wrap gap-4">
-                {CATEGORIES_CLIENT.map((opt) => (
-                  <label key={opt} className="flex items-center gap-2 text-sm">
-                    <input
-                      type="radio"
-                      name="categorie"
-                      value={opt}
-                      checked={form.categorie === opt}
-                      onChange={() => setField("categorie", opt)}
-                      className="h-4 w-4 text-primary"
-                    />
-                    {opt}
-                  </label>
-                ))}
-              </div>
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <AnimatedBackground variant="ambient" />
+        <div className="mx-auto w-full max-w-4xl px-6">
+          <div className="text-center max-w-3xl mx-auto mb-20 animate-in fade-in slide-in-from-top-4 duration-1000">
+             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-xs font-black text-primary uppercase tracking-[0.2em] mb-6">
+              <Zap className="h-4 w-4 fill-primary" /> Qualification express
             </div>
+            <h1 className="text-5xl font-black tracking-tighter text-navy sm:text-7xl leading-[0.9]">
+              Lancer une mission
+            </h1>
+            <p className="mt-8 text-xl text-muted-foreground font-medium">
+              Décrivez votre besoin en 2 minutes. Nous nous occupons du reste.
+            </p>
+          </div>
 
-            {form.categorie === "Personne physique" && (
-              <>
-                <div>
-                  <Label htmlFor="prenom">Prénom</Label>
-                  <Input
-                    id="prenom"
-                    value={form.prenom}
-                    onChange={(e) => setField("prenom", e.target.value)}
-                    className="mt-1.5"
-                    placeholder="Jean"
-                  />
-                  {errors.prenom && <p className="mt-1 text-xs text-destructive">{errors.prenom}</p>}
+          <form onSubmit={handleSubmit} className="surface-card p-10 lg:p-16 shadow-elevated border-none bg-white/70 backdrop-blur-xl rounded-[3rem] relative overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+            <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-primary via-info to-primary animate-pulse" />
+            
+            <div className="space-y-12">
+              {/* Type de client */}
+              <div>
+                <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-6 block">Vous êtes :</Label>
+                <div className="flex flex-wrap gap-8">
+                  {CATEGORIES_CLIENT.map((opt) => (
+                    <label key={opt} className={cn(
+                      "flex items-center gap-4 px-6 py-4 rounded-2xl border-2 transition-all cursor-pointer font-bold",
+                      form.categorie === opt 
+                        ? "border-primary bg-primary/5 text-primary shadow-lg shadow-primary/5" 
+                        : "border-border/40 bg-white/50 text-navy/60 hover:border-primary/20"
+                    )}>
+                      <input
+                        type="radio"
+                        name="categorie"
+                        value={opt}
+                        checked={form.categorie === opt}
+                        onChange={() => setField("categorie", opt)}
+                        className="h-5 w-5 text-primary border-border cursor-pointer focus:ring-offset-0 focus:ring-0"
+                      />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
                 </div>
-                <div>
-                  <Label htmlFor="nom">Nom</Label>
-                  <Input
-                    id="nom"
-                    value={form.nom}
-                    onChange={(e) => setField("nom", e.target.value)}
-                    className="mt-1.5"
-                    placeholder="Dupont"
-                  />
-                  {errors.nom && <p className="mt-1 text-xs text-destructive">{errors.nom}</p>}
-                </div>
-              </>
-            )}
-
-            {form.categorie === "Entreprise" && (
-              <div className="sm:col-span-2">
-                <Label htmlFor="denomination">Dénomination</Label>
-                <Input
-                  id="denomination"
-                  value={form.denomination}
-                  onChange={(e) => setField("denomination", e.target.value)}
-                  className="mt-1.5"
-                  placeholder="Nom de l'entreprise"
-                />
               </div>
-            )}
 
-            {form.categorie === "Société" && (
-              <div className="sm:col-span-2">
-                <Label htmlFor="raisonSociale">Raison sociale</Label>
-                <Input
-                  id="raisonSociale"
-                  value={form.raisonSociale}
-                  onChange={(e) => setField("raisonSociale", e.target.value)}
-                  className="mt-1.5"
-                  placeholder="Raison sociale"
-                />
-              </div>
-            )}
+              {/* Informations identité */}
+              <div className="grid gap-8 sm:grid-cols-2">
+                {form.categorie === "Personne physique" && (
+                  <>
+                    <div className="space-y-3">
+                      <Label htmlFor="prenom" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Prénom</Label>
+                      <Input
+                        id="prenom"
+                        value={form.prenom}
+                        onChange={(e) => setField("prenom", e.target.value)}
+                        className="h-14 rounded-2xl bg-white/50 border-border/40 focus:ring-primary/20 px-6 font-black text-navy"
+                        placeholder="Ex: Karim"
+                      />
+                      {errors.prenom && <p className="mt-1 text-xs text-destructive font-bold">{errors.prenom}</p>}
+                    </div>
+                    <div className="space-y-3">
+                      <Label htmlFor="nom" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Nom</Label>
+                      <Input
+                        id="nom"
+                        value={form.nom}
+                        onChange={(e) => setField("nom", e.target.value)}
+                        className="h-14 rounded-2xl bg-white/50 border-border/40 focus:ring-primary/20 px-6 font-black text-navy"
+                        placeholder="Ex: Bennani"
+                      />
+                      {errors.nom && <p className="mt-1 text-xs text-destructive font-bold">{errors.nom}</p>}
+                    </div>
+                  </>
+                )}
 
-            {form.categorie === "Autres" && (
-              <>
-                <div className="sm:col-span-2">
-                  <Label htmlFor="sousType">Type d'organisation</Label>
-                  <Select value={form.sousType} onValueChange={(v) => setField("sousType", v)}>
-                    <SelectTrigger id="sousType" className="mt-1.5 w-full">
-                      <SelectValue placeholder="Choisir un type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SOUS_TYPES_AUTRES.map((opt) => (
-                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="sm:col-span-2">
-                  <Label htmlFor="denomination">Dénomination</Label>
-                  <Input
-                    id="denomination"
-                    value={form.denomination}
-                    onChange={(e) => setField("denomination", e.target.value)}
-                    className="mt-1.5"
-                  />
-                </div>
-                {form.sousType === "Autres" && (
-                  <div className="sm:col-span-2">
-                    <Label htmlFor="autrePrecision">Précisez</Label>
+                {form.categorie === "Entreprise" && (
+                  <div className="sm:col-span-2 space-y-3">
+                    <Label htmlFor="denomination" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Dénomination</Label>
                     <Input
-                      id="autrePrecision"
-                      value={form.autrePrecision}
-                      onChange={(e) => setField("autrePrecision", e.target.value)}
-                      className="mt-1.5"
+                      id="denomination"
+                      value={form.denomination}
+                      onChange={(e) => setField("denomination", e.target.value)}
+                      className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black"
+                      placeholder="Nom de l'entreprise"
                     />
                   </div>
                 )}
-              </>
-            )}
 
-            <div className="sm:col-span-2 border-t pt-4">
-              <p className="text-xs font-bold uppercase tracking-wider text-navy mb-4">Coordonnées</p>
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <Label htmlFor="ville">Ville</Label>
-                  <Input id="ville" value={form.ville} onChange={(e) => setField("ville", e.target.value)} className="mt-1.5" />
-                </div>
-                <div>
-                  <Label htmlFor="quartier">Quartier</Label>
-                  <Input id="quartier" value={form.quartier} onChange={(e) => setField("quartier", e.target.value)} className="mt-1.5" />
-                </div>
-                <div className="sm:col-span-2">
-                  <Label htmlFor="adresseComplete">Adresse complète</Label>
-                  <Input id="adresseComplete" value={form.adresseComplete} onChange={(e) => setField("adresseComplete", e.target.value)} className="mt-1.5" />
-                </div>
-                <div>
-                  <Label htmlFor="gsm">GSM</Label>
-                  <Input id="gsm" value={form.gsm} onChange={(e) => setField("gsm", e.target.value)} className="mt-1.5" />
-                  {errors.telephone && <p className="mt-1 text-xs text-destructive">{errors.telephone}</p>}
-                </div>
-                <div>
-                  <Label htmlFor="whatsapp">WhatsApp</Label>
-                  <Input id="whatsapp" value={form.whatsapp} onChange={(e) => setField("whatsapp", e.target.value)} className="mt-1.5" />
-                </div>
-                <div className="sm:col-span-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" value={form.email} onChange={(e) => setField("email", e.target.value)} className="mt-1.5" />
-                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+                {form.categorie === "Société" && (
+                  <div className="sm:col-span-2 space-y-3">
+                    <Label htmlFor="raisonSociale" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Raison sociale</Label>
+                    <Input
+                      id="raisonSociale"
+                      value={form.raisonSociale}
+                      onChange={(e) => setField("raisonSociale", e.target.value)}
+                      className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black"
+                      placeholder="Ex: ORCONDIS SARL"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Coordonnées */}
+              <div className="pt-8 border-t border-border/40">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-8">Coordonnées de contact</p>
+                <div className="grid gap-8 sm:grid-cols-2">
+                  <div className="space-y-3">
+                    <Label htmlFor="gsm" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40 flex items-center gap-2">
+                       <Smartphone className="h-3 w-3" /> GSM / Mobile
+                    </Label>
+                    <Input id="gsm" value={form.gsm} onChange={(e) => setField("gsm", e.target.value)} className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black" placeholder="06..." />
+                    {errors.telephone && <p className="mt-1 text-xs text-destructive font-bold">{errors.telephone}</p>}
+                  </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="email" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40 flex items-center gap-2">
+                      <Mail className="h-3 w-3" /> Email
+                    </Label>
+                    <Input id="email" type="email" value={form.email} onChange={(e) => setField("email", e.target.value)} className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black" placeholder="karim@exemple.com" />
+                    {errors.email && <p className="mt-1 text-xs text-destructive font-bold">{errors.email}</p>}
+                  </div>
+                   <div className="sm:col-span-2 space-y-3">
+                    <Label htmlFor="adresseComplete" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40 flex items-center gap-2">
+                       <MapPin className="h-3 w-3" /> Localisation à Casablanca
+                    </Label>
+                    <div className="grid grid-cols-2 gap-4">
+                       <Input id="quartier" value={form.quartier} onChange={(e) => setField("quartier", e.target.value)} className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black" placeholder="Quartier (Ex: Maarif)" />
+                       <Input id="ville" value={form.ville} readOnly className="h-14 rounded-2xl bg-muted/20 border-border/40 px-6 font-black text-navy/40" />
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="sm:col-span-2 border-t pt-4">
-              <Label htmlFor="service">Prestation souhaitée</Label>
-              <Select value={form.service} onValueChange={(v) => setField("service", v)}>
-                <SelectTrigger id="service" className="mt-1.5 w-full">
-                  <SelectValue placeholder="Choisir une prestation" />
-                </SelectTrigger>
-                <SelectContent>
-                  {SERVICES.map((service) => (
-                    <SelectItem key={service} value={service}>
-                      {service}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              {errors.service && <p className="mt-1 text-xs text-destructive">{errors.service}</p>}
-            </div>
+              {/* Détails mission */}
+              <div className="pt-8 border-t border-border/40">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-8">Détails de la mission</p>
+                <div className="space-y-8">
+                  <div className="space-y-3">
+                    <Label htmlFor="service" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Type de prestation</Label>
+                    <Select value={form.service} onValueChange={(v) => setField("service", v)}>
+                      <SelectTrigger id="service" className="h-14 rounded-2xl bg-white/50 border-border/40 px-6 font-black text-left">
+                        <SelectValue placeholder="Choisir un service" />
+                      </SelectTrigger>
+                      <SelectContent className="rounded-2xl p-2">
+                        {SERVICES.map((service) => (
+                          <SelectItem key={service} value={service} className="rounded-xl font-bold py-3">
+                            {service}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.service && <p className="mt-1 text-xs text-destructive font-bold">{errors.service}</p>}
+                  </div>
 
-            <div className="sm:col-span-2">
-              <Label htmlFor="messageInitial">Décrivez votre besoin</Label>
-              <Textarea
-                id="messageInitial"
-                value={form.messageInitial}
-                onChange={(e) => setField("messageInitial", e.target.value)}
-                className="mt-1.5 min-h-[120px]"
-                placeholder="Je dois récupérer un chèque à Maarif et le remettre à mon fournisseur à Aïn Sebaâ avant 11h..."
-              />
-              {errors.messageInitial && <p className="mt-1 text-xs text-destructive">{errors.messageInitial}</p>}
-            </div>
+                  <div className="space-y-3">
+                    <Label htmlFor="messageInitial" className="text-[10px] font-black uppercase tracking-[0.2em] text-navy/40">Description du besoin</Label>
+                    <Textarea
+                      id="messageInitial"
+                      value={form.messageInitial}
+                      onChange={(e) => setField("messageInitial", e.target.value)}
+                      className="min-h-[160px] rounded-[2rem] bg-white/50 border-border/40 px-6 py-5 font-bold text-lg resize-none"
+                      placeholder="Expliquez-nous en quelques mots votre besoin précis..."
+                    />
+                    {errors.messageInitial && <p className="mt-1 text-xs text-destructive font-bold">{errors.messageInitial}</p>}
+                  </div>
+                </div>
+              </div>
 
-            <div className="sm:col-span-2 flex items-start gap-3">
-              <Checkbox
-                id="consentement"
-                checked={form.consentementWhatsApp}
-                onCheckedChange={(checked) => setField("consentementWhatsApp", checked === true)}
-              />
-              <Label htmlFor="consentement" className="cursor-pointer text-sm font-normal leading-relaxed text-muted-foreground">
-                J’accepte d’être contacté par ORCONDIS via WhatsApp pour qualifier ma demande.
-              </Label>
-            </div>
-          </div>
+              {/* Consentement */}
+              <div className="bg-primary/5 p-8 rounded-[2rem] border border-primary/10">
+                <div className="flex items-start gap-4">
+                  <Checkbox
+                    id="consentement"
+                    checked={form.consentementWhatsApp}
+                    onCheckedChange={(checked) => setField("consentementWhatsApp", checked === true)}
+                    className="mt-1 h-6 w-6 rounded-lg border-primary/40 data-[state=checked]:bg-primary"
+                  />
+                  <Label htmlFor="consentement" className="cursor-pointer text-base font-bold leading-relaxed text-navy/80">
+                    J’accepte d’être contacté par ORCONDIS via WhatsApp pour la qualification opérationnelle immédiate de ma demande.
+                  </Label>
+                </div>
+              </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button type="submit" size="lg" className="w-full sm:w-auto">
-              Envoyer ma demande <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button asChild type="button" variant="outline" size="lg" className="w-full sm:w-auto">
-              <a href="https://wa.me/212666709941">
-                <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
-              </a>
-            </Button>
-          </div>
-        </form>
+              {/* Actions */}
+              <div className="pt-8 flex flex-wrap items-center gap-6">
+                <Button type="submit" size="lg" className="flex-1 sm:flex-none min-w-[280px] rounded-[1.5rem] h-20 px-12 text-xl font-black shadow-2xl shadow-primary/30 hover:scale-105 transition-all group">
+                  Lancer la mission <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button asChild type="button" variant="outline" size="lg" className="flex-1 sm:flex-none rounded-[1.5rem] h-20 px-10 text-xl font-black border-whatsapp text-whatsapp hover:bg-whatsapp/5">
+                  <a href="https://wa.me/212666709941">
+                    <MessageCircle className="mr-3 h-6 w-6" /> WhatsApp Direct
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </form>
+        </div>
       </section>
     </PublicLayout>
   );

@@ -22,19 +22,19 @@ export function CalendarContainer({
   actions
 }: CalendarProps) {
   return (
-    <div className="flex flex-col h-full bg-card border border-border rounded-xl shadow-[var(--shadow-card)] overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-4 p-4 border-b border-border bg-surface/30">
-        <div className="flex items-center gap-2">
-          <div className="flex bg-surface p-1 rounded-lg border border-border">
+    <div className="flex flex-col h-full bg-white/50 backdrop-blur-xl border-none rounded-[2.5rem] shadow-elevated overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-6 p-8 border-b border-border/40 bg-muted/20">
+        <div className="flex items-center gap-4">
+          <div className="flex bg-white/50 backdrop-blur-md p-1.5 rounded-2xl border border-border shadow-sm">
             {(["Jour", "Semaine", "Mois"] as const).map((v) => (
               <button
                 key={v}
                 onClick={() => onViewChange(v)}
                 className={cn(
-                  "px-3 py-1.5 text-xs font-medium rounded-md transition-all",
+                  "px-6 py-2 text-sm font-black rounded-xl transition-all",
                   view === v 
-                    ? "bg-card text-navy shadow-sm" 
-                    : "text-muted-foreground hover:text-navy"
+                    ? "bg-navy text-white shadow-lg" 
+                    : "text-muted-foreground hover:text-navy hover:bg-muted/30"
                 )}
               >
                 {v}
@@ -45,12 +45,12 @@ export function CalendarContainer({
           <div className="flex items-center gap-1 ml-4">
             <Button 
               variant="outline" 
-              size="sm" 
+              size="lg" 
               onClick={() => {
                 const now = new Date();
                 onDateChange(now);
               }}
-              className="text-xs h-8"
+              className="rounded-xl h-10 px-6 font-bold"
             >
               Aujourd'hui
             </Button>
@@ -88,7 +88,7 @@ export function CalendarContainer({
             </div>
           </div>
           
-          <h3 className="ml-4 font-semibold text-navy">
+          <h3 className="ml-8 text-2xl font-black text-navy tracking-tight capitalize">
             {date.toLocaleDateString('fr-FR', { 
               month: 'long', 
               year: 'numeric',

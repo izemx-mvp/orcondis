@@ -1,5 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useMemo, useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import {
   AlertTriangle,
   Bell,
@@ -8,6 +9,7 @@ import {
   FileText,
   FolderKanban,
   Gauge,
+  Globe,
   Inbox,
   Menu,
   MessageCircle,
@@ -101,7 +103,7 @@ function GlobalSearch() {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Recherche globale : client, contact, N° course, chèque…"
-        className="pl-9"
+        className="pl-10 h-11 bg-muted/20 border-border/50 rounded-xl focus-visible:ring-primary/20 transition-all"
       />
       {resultats.length > 0 && (
         <div className="absolute left-0 right-0 top-11 z-50 max-h-80 overflow-y-auto rounded-lg border border-border bg-card p-1 shadow-lg">
@@ -173,65 +175,86 @@ export function BOLayout({ children }: { children: ReactNode }) {
   const alertesWA = data.conversations.filter((c) => c.statut === "Intervention humaine").length;
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background relative isolate">
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 shrink-0 overflow-y-auto border-r border-border bg-navy text-navy-foreground transition-transform lg:static lg:translate-x-0 ${
-          open ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 left-0 z-50 w-80 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
+          open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-16 items-center justify-between px-4">
-          <Link to="/backoffice/dashboard" className="flex items-center gap-2">
-            <Logo dark backoffice />
+        <div className="flex h-24 items-center justify-between px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10">
+          <Link to="/backoffice/dashboard" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+            <Logo backoffice dark />
           </Link>
-          <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Fermer">
+          <button className="lg:hidden p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
           </button>
         </div>
-        <nav className="space-y-0.5 px-2 pb-8">
-          {NAV.map((n) => {
-            const actif = n.exact ? pathname === n.to : pathname.startsWith(n.to);
-            const Icon = n.icon;
-            return (
-              <Link
-                key={n.to}
-                to={n.to}
-                onClick={() => setOpen(false)}
-                className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  actif ? "bg-primary text-primary-foreground" : "text-navy-foreground/80 hover:bg-white/10"
-                }`}
-              >
-                <Icon className="h-4 w-4" />
-                <span className="flex-1">{n.label}</span>
-                {n.label === "WhatsApp" && alertesWA > 0 && (
-                  <span className="rounded-full bg-destructive px-1.5 text-[11px] text-destructive-foreground">
-                    {alertesWA}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </nav>
+        
+        <div className="px-6 py-10">
+          <p className="px-4 mb-8 text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/30">Menu Opérationnel</p>
+          <nav className="space-y-2">
+            {NAV.map((n) => {
+              const actif = n.exact ? pathname === n.to : pathname.startsWith(n.to);
+              const Icon = n.icon;
+              return (
+                <Link
+                  key={n.to}
+                  to={n.to}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-4 rounded-2xl px-5 py-4 text-sm font-black transition-all duration-300",
+                    actif 
+                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.02] border-none" 
+                      : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white hover:translate-x-2 border border-transparent"
+                  )}
+                >
+                  <Icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", actif ? "text-primary-foreground" : "text-primary/60")} />
+                  <span className="flex-1">{n.label}</span>
+                  {n.label === "WhatsApp" && alertesWA > 0 && (
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-black text-destructive-foreground animate-pulse">
+                      {alertesWA}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
       </aside>
 
-      {open && <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick={() => setOpen(false)} />}
+      {open && <div className="fixed inset-0 z-40 bg-navy/20 backdrop-blur-sm lg:hidden transition-all" onClick={() => setOpen(false)} />}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-border bg-surface/95 px-4 backdrop-blur">
-          <button className="lg:hidden" onClick={() => setOpen(true)} aria-label="Menu">
+      <div className="flex min-w-0 flex-1 flex-col relative z-10">
+        <header className="sticky top-0 z-30 flex h-24 items-center gap-8 border-b border-border/40 bg-background/60 px-10 backdrop-blur-2xl">
+          <button className="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>
-          <GlobalSearch />
-          <div className="ml-auto flex items-center gap-2">
+          
+          <div className="flex-1 flex items-center">
+             <GlobalSearch />
+          </div>
+
+          <div className="flex items-center gap-3">
             <ThemeToggle />
             <NotificationCenter />
-            <Button asChild variant="ghost" size="sm">
-              <Link to="/site">Site public</Link>
+            <div className="h-8 w-px bg-border mx-2" />
+            <Button asChild variant="ghost" size="sm" className="rounded-xl font-bold hover:bg-primary/5 hover:text-primary transition-all">
+              <Link to="/site" className="flex items-center gap-2">
+                <Globe className="h-4 w-4" />
+                <span className="hidden sm:inline">Site public</span>
+              </Link>
             </Button>
           </div>
         </header>
-        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6">{children}</main>
-        <footer className="border-t border-border px-4 py-4 text-center text-xs text-muted-foreground sm:px-6">
-          © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
+        
+        <main className="min-w-0 flex-1 px-6 py-10 sm:px-10 max-w-[1600px] mx-auto w-full">
+          {children}
+        </main>
+        
+        <footer className="border-t border-border px-6 py-8 text-center sm:px-10 bg-muted/20">
+          <span className="inline-block px-4 py-2 rounded-full bg-white/50 dark:bg-black/20 backdrop-blur-md text-[10px] font-black text-muted-foreground/60 uppercase tracking-[0.2em] border border-border/50">
+            © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
+          </span>
         </footer>
       </div>
     </div>

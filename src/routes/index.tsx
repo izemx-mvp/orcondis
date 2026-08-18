@@ -3,6 +3,7 @@ import { Globe, LayoutDashboard } from "lucide-react";
 import { Logo } from "@/components/PublicLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -16,57 +17,63 @@ export const Route = createFileRoute("/")({
 
 function AccessSelectionPage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-[#F8FAFC] p-4 sm:p-8">
-      <div className="mb-12 text-center">
-        <Logo />
-        <h1 className="mt-8 text-3xl font-black tracking-tighter text-[#0F172A] sm:text-4xl">
-          Bienvenue sur ORCONDIS
+    <div className="relative flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 overflow-hidden">
+      <AnimatedBackground variant="expressive" />
+      
+      <div className="mb-16 text-center relative z-10">
+        <div className="inline-block p-4 rounded-3xl bg-white/50 backdrop-blur-xl shadow-panel mb-8 border border-white/20">
+          <Logo />
+        </div>
+        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-6xl max-w-2xl mx-auto leading-[1.1]">
+          Espace ORCONDIS
         </h1>
-        <p className="mt-4 text-muted-foreground font-medium">
-          Sélectionnez l’espace auquel vous souhaitez accéder.
+        <p className="mt-6 text-lg text-muted-foreground font-semibold max-w-lg mx-auto">
+          Choisissez votre portail d'accès sécurisé.
         </p>
       </div>
 
-      <div className="grid w-full max-w-4xl gap-8 sm:grid-cols-2">
+      <div className="grid w-full max-w-5xl gap-10 sm:grid-cols-2 relative z-10">
         {/* Card 1 — SITE WEB */}
-        <Card className="group flex flex-col border-none shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 rounded-2xl bg-white overflow-hidden">
-          <CardHeader className="text-center pt-12 px-8">
-            <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/5 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-              <Globe className="h-10 w-10" />
+        <Card className="group flex flex-col border-none shadow-panel transition-all hover:shadow-elevated hover:-translate-y-2 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl overflow-hidden border border-white/20">
+          <CardHeader className="text-center pt-16 px-10">
+            <div className="mx-auto mb-10 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-primary/5 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:rotate-[10deg] shadow-sm">
+              <Globe className="h-12 w-12" />
             </div>
-            <CardTitle className="text-2xl font-black text-[#0F172A]">Site Web</CardTitle>
-            <CardDescription className="pt-4 text-base font-medium leading-relaxed text-muted-foreground">
-              Accédez au site ORCONDIS pour découvrir nos prestations et effectuer une demande.
+            <CardTitle className="text-3xl font-black text-navy">Site Web</CardTitle>
+            <CardDescription className="pt-6 text-base font-bold leading-relaxed text-muted-foreground/80">
+              Découvrez nos prestations premium et effectuez vos demandes en ligne.
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-auto flex justify-center pb-12 px-8">
-            <Button asChild size="lg" className="w-full rounded-xl font-bold py-7 text-base transition-all hover:scale-[1.02]">
-              <Link to="/site">Accéder au site web</Link>
+          <CardContent className="mt-auto flex justify-center pb-16 px-10">
+            <Button asChild size="lg" className="w-full rounded-2xl font-black py-8 text-lg transition-all hover:scale-[1.02] shadow-primary/20 shadow-lg">
+              <Link to="/site">Entrer sur le site</Link>
             </Button>
           </CardContent>
         </Card>
 
         {/* Card 2 — BACK-OFFICE */}
-        <Card className="group flex flex-col border-none shadow-sm transition-all hover:shadow-xl hover:-translate-y-1 rounded-2xl bg-white overflow-hidden">
-          <CardHeader className="text-center pt-12 px-8">
-            <div className="mx-auto mb-8 flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/5 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-              <LayoutDashboard className="h-10 w-10" />
+        <Card className="group flex flex-col border-none shadow-panel transition-all hover:shadow-elevated hover:-translate-y-2 rounded-[2.5rem] bg-white/80 backdrop-blur-2xl overflow-hidden border border-white/20">
+          <CardHeader className="text-center pt-16 px-10">
+            <div className="mx-auto mb-10 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-navy/5 text-navy transition-all duration-500 group-hover:bg-navy group-hover:text-white group-hover:-rotate-[10deg] shadow-sm">
+              <LayoutDashboard className="h-12 w-12" />
             </div>
-            <CardTitle className="text-2xl font-black text-[#0F172A]">Back-Office</CardTitle>
-            <CardDescription className="pt-4 text-base font-medium leading-relaxed text-muted-foreground">
-              Accédez à l’espace interne de gestion des demandes, clients, dossiers, courses et opérations ORCONDIS.
+            <CardTitle className="text-3xl font-black text-navy">Back-Office</CardTitle>
+            <CardDescription className="pt-6 text-base font-bold leading-relaxed text-muted-foreground/80">
+              Gestion opérationnelle interne des clients, dossiers et courses.
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-auto flex justify-center pb-12 px-8">
-            <Button asChild size="lg" className="w-full rounded-xl font-bold py-7 text-base transition-all hover:scale-[1.02]">
-              <Link to="/connexion">Accéder au Back-Office</Link>
+          <CardContent className="mt-auto flex justify-center pb-16 px-10">
+            <Button asChild size="lg" variant="secondary" className="w-full rounded-2xl font-black py-8 text-lg transition-all hover:scale-[1.02] shadow-sm bg-navy text-white hover:bg-navy/90">
+              <Link to="/connexion">Connexion Interne</Link>
             </Button>
           </CardContent>
         </Card>
       </div>
 
-      <div className="mt-16 text-center text-xs font-bold text-muted-foreground uppercase tracking-widest">
-        Created by IZEMX
+      <div className="mt-20 text-center relative z-10">
+        <span className="inline-block px-4 py-2 rounded-full bg-white/30 backdrop-blur-md text-[10px] font-black text-navy/40 uppercase tracking-[0.3em] border border-white/20">
+          Created by IZEMX
+        </span>
       </div>
     </div>
   );

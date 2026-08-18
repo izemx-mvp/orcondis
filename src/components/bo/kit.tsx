@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from "react";
+import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,12 +26,12 @@ export function PageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-3">
-      <div>
-        <h1 className="text-xl font-semibold text-navy">{titre}</h1>
-        {sous && <p className="mt-1 text-sm text-muted-foreground">{sous}</p>}
+    <div className="flex flex-wrap items-end justify-between gap-8 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
+      <div className="max-w-3xl">
+        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-5xl lg:text-6xl leading-[0.9]">{titre}</h1>
+        {sous && <p className="mt-4 text-lg text-muted-foreground font-medium leading-relaxed opacity-70">{sous}</p>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+      {actions && <div className="flex flex-wrap items-center gap-4">{actions}</div>}
     </div>
   );
 }
@@ -54,10 +55,13 @@ export function StatCard({
     critique: "text-destructive",
   };
   return (
-    <div className="rounded-xl border border-border bg-card p-4 shadow-[var(--shadow-card)]">
-      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">{label}</p>
-      <p className={`mt-2 text-2xl font-semibold ${tons[ton]}`}>{valeur}</p>
-      {detail && <p className="mt-1 text-xs text-muted-foreground">{detail}</p>}
+    <div className="rounded-[2.5rem] border-none bg-white/70 backdrop-blur-xl p-10 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
+      <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 group-hover:bg-primary transition-all duration-500" />
+      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-6">{label}</p>
+      <div className="flex items-baseline gap-2">
+        <p className={`text-5xl font-black tracking-tighter ${tons[ton]}`}>{valeur}</p>
+      </div>
+      {detail && <p className="mt-4 text-xs font-bold text-muted-foreground/50 tracking-tight">{detail}</p>}
     </div>
   );
 }
@@ -75,14 +79,14 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={`rounded-xl border border-border bg-card shadow-[var(--shadow-card)] ${className}`}>
+    <section className={cn("rounded-[2.5rem] border-none bg-white/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
       {(titre || actions) && (
-        <header className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3">
-          {titre && <h2 className="text-sm font-semibold text-navy">{titre}</h2>}
-          {actions && <div className="flex items-center gap-2">{actions}</div>}
+        <header className="flex flex-wrap items-center justify-between gap-6 bg-muted/20 px-10 py-8 border-b border-border/40">
+          {titre && <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
+          {actions && <div className="flex items-center gap-4">{actions}</div>}
         </header>
       )}
-      <div className="p-4">{children}</div>
+      <div className="p-10">{children}</div>
     </section>
   );
 }
@@ -162,28 +166,31 @@ export function DataTable<T extends { id: string }>({
   onRowClick?: (row: T) => void;
 }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-border bg-card shadow-[var(--shadow-card)]">
-      <table className="w-full text-sm">
-        <thead className="bg-surface text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+    <div className="overflow-x-auto rounded-[2rem] border-none bg-white/50 backdrop-blur-xl shadow-elevated">
+      <table className="w-full text-sm border-collapse">
+        <thead className="bg-muted/30 text-left text-[10px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
           <tr>
             {colonnes.map((c) => (
-              <th key={c.cle} className={`px-4 py-3 ${c.align === "right" ? "text-right" : ""}`}>
+              <th key={c.cle} className={`px-10 py-6 ${c.align === "right" ? "text-right" : ""}`}>
                 {c.titre}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="divide-y divide-border">
-          {lignes.map((l) => (
+        <tbody className="divide-y divide-border/20">
+          {lignes.map((l, idx) => (
             <tr
               key={l.id}
-              className={`hover:bg-surface/60 ${onRowClick ? "cursor-pointer" : ""}`}
+              className={cn(
+                "group transition-all hover:bg-white/80 hover:scale-[1.002] duration-300",
+                onRowClick ? "cursor-pointer" : ""
+              )}
               onClick={onRowClick ? () => onRowClick(l) : undefined}
             >
               {colonnes.map((c) => (
                 <td
                   key={c.cle}
-                  className={`px-4 py-3 align-top ${c.align === "right" ? "text-right" : ""}`}
+                  className={`px-10 py-8 align-middle font-bold text-navy/80 tracking-tight ${c.align === "right" ? "text-right" : ""}`}
                 >
                   {c.rendu(l)}
                 </td>
@@ -192,7 +199,7 @@ export function DataTable<T extends { id: string }>({
           ))}
           {lignes.length === 0 && (
             <tr>
-              <td colSpan={colonnes.length} className="px-4 py-10 text-center text-muted-foreground">
+              <td colSpan={colonnes.length} className="px-10 py-24 text-center text-muted-foreground/60 font-medium italic">
                 {vide}
               </td>
             </tr>
@@ -204,9 +211,13 @@ export function DataTable<T extends { id: string }>({
 }
 
 /* ---------- Badges de statut ---------- */
-export function Statut({ children, ton }: { children: ReactNode; ton?: string }) {
+export function Statut({ children, ton, className }: { children: ReactNode; ton?: string; className?: string }) {
   return (
-    <Badge variant="outline" className={ton ?? "border-border bg-muted text-muted-foreground"}>
+    <Badge variant="outline" className={cn(
+      "px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-tight transition-all shadow-sm",
+      ton ?? "border-border bg-muted/30 text-muted-foreground",
+      className
+    )}>
       {children}
     </Badge>
   );
@@ -238,9 +249,15 @@ export function Champ({
   placeholder?: string;
 }) {
   return (
-    <div className="space-y-1.5">
-      <Label className="text-xs text-muted-foreground">{label}</Label>
-      <Input type={type} value={value} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} />
+    <div className="space-y-2">
+      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
+      <Input 
+        type={type} 
+        value={value} 
+        placeholder={placeholder} 
+        onChange={(e) => onChange(e.target.value)} 
+        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 h-10 px-4"
+      />
     </div>
   );
 }
@@ -258,14 +275,14 @@ export function ChampSelect({
 }) {
   const opts = options.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   return (
-    <div className="space-y-1.5">
-      <Label className="text-xs text-muted-foreground">{label}</Label>
+    <div className="space-y-2">
+      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm"
+        className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/10 px-4 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
       >
-        <option value="">—</option>
+        <option value="">— Sélectionner —</option>
         {opts.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}
@@ -288,9 +305,14 @@ export function ChampTexte({
   rows?: number;
 }) {
   return (
-    <div className="space-y-1.5">
-      <Label className="text-xs text-muted-foreground">{label}</Label>
-      <Textarea rows={rows} value={value} onChange={(e) => onChange(e.target.value)} />
+    <div className="space-y-2">
+      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
+      <Textarea 
+        rows={rows} 
+        value={value} 
+        onChange={(e) => onChange(e.target.value)} 
+        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 p-4 min-h-[100px]"
+      />
     </div>
   );
 }
@@ -333,18 +355,26 @@ export function FormDialog({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className={large ? "max-h-[85vh] max-w-3xl overflow-y-auto" : "max-h-[85vh] overflow-y-auto"}>
-        <DialogHeader>
-          <DialogTitle>{titre}</DialogTitle>
-          {description && <DialogDescription>{description}</DialogDescription>}
+      <DialogContent className={cn(
+        "max-h-[90vh] overflow-y-auto rounded-3xl border-none shadow-elevated p-0 gap-0",
+        large ? "max-w-4xl" : "max-w-md"
+      )}>
+        <DialogHeader className="p-8 border-b border-border bg-muted/20">
+          <DialogTitle className="text-2xl font-black tracking-tight text-navy">{titre}</DialogTitle>
+          {description && <DialogDescription className="text-sm font-medium text-muted-foreground mt-2">{description}</DialogDescription>}
         </DialogHeader>
-        <div className="space-y-4">{children}</div>
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <div className="p-8 space-y-6">{children}</div>
+        <DialogFooter className="p-8 border-t border-border bg-muted/10 gap-3">
+          <Button 
+            variant="ghost" 
+            onClick={() => onOpenChange(false)}
+            className="rounded-xl font-bold px-6"
+          >
             Fermer
           </Button>
           {onSubmit && (
             <Button
+              className="rounded-xl font-bold px-8 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
               onClick={() => {
                 onSubmit();
                 onOpenChange(false);
