@@ -13,15 +13,19 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ dark = false }: { dark?: boolean }) {
+export function Logo({ dark = false, backoffice = false }: { dark?: boolean; backoffice?: boolean }) {
   return (
     <span className="flex items-center gap-2">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-base font-black text-primary-foreground shadow-sm">
-        O
-      </span>
-      <span className={`text-xl font-black tracking-tighter ${dark ? "text-white" : "text-navy"}`}>
-        ORCONDIS
-      </span>
+      <div className="flex flex-col">
+        <span className={`text-xl font-black tracking-tighter leading-none ${dark ? "text-white" : "text-navy"}`}>
+          ORCONDIS
+        </span>
+        {backoffice ? (
+          <span className="text-[10px] font-medium opacity-70">Back-Office</span>
+        ) : (
+          <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">Tizzla and Serve</span>
+        )}
+      </div>
     </span>
   );
 }
@@ -98,9 +102,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <div className="md:col-span-2">
             <Logo dark />
             <p className="mt-3 max-w-sm text-sm text-navy-foreground/70">
-              Bureau de services spécialisé dans les courses professionnelles et particulières,
-              les démarches administratives, la collecte et la remise de documents, les paiements
-              fournisseurs et le traitement des chèques.
+              Tizzla and Serve by ORCONDIS. Services de courses, accompagnement et prestations de proximité.
             </p>
             <a
               href="https://wa.me/212666709941"
@@ -127,11 +129,11 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               <li>Casablanca, Maroc</li>
               <li>0666 70 99 41</li>
               <li>orcondiscourses@gmail.com</li>
-              <li>Lundi – Samedi : 08h30 – 19h00</li>
+              <li>Lundi – Vendredi : 08h00 – 18h30</li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
+        <div className="mt-8 border-t border-navy-foreground/10 py-4 text-center text-xs text-navy-foreground/60">
           © {new Date().getFullYear()} ORCONDIS — Created by IZEMX
         </div>
       </footer>

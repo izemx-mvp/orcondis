@@ -79,25 +79,31 @@ export const ZONES = [
 export const TRANSPORTS = ["Moto", "Bicyclette", "Voiture"] as const;
 export type Transport = (typeof TRANSPORTS)[number];
 
-export const TRANCHES_HORAIRES = ["Matin", "Midi", "Après-midi", "Fin de journée"] as const;
+export const TRANCHES_HORAIRES = ["Matin (08h – 12h)", "Midi (12h – 14h)", "Après-midi (14h – 17h)", "Fin de journée (17h – 19h)"] as const;
 
 export const PRIORITES_COURSE = ["Normale", "Urgente", "Exclusive"] as const;
 export type PrioriteCourse = (typeof PRIORITES_COURSE)[number];
 
+export const GENRES_COURSE = ["Aller simple", "Aller & Retour", "Multiple"] as const;
+export type GenreCourse = (typeof GENRES_COURSE)[number];
+
 export const TYPES_COURSE = [
-  "Récupération de documents",
-  "Livraison de documents",
-  "Dépôt administratif",
+  "Collecte",
+  "Enlèvement",
+  "Livraison",
+  "Distribution",
+  "Course à course",
   "Course administrative",
+  "Récupération de documents",
+  "Dépôt de documents",
   "Paiement de facture",
   "Paiement fournisseur",
   "Récupération de chèque",
   "Dépôt de chèque",
-  "Course bancaire",
-  "Livraison fournisseur",
-  "Procédure provisoire",
-  "Vérification du poids",
-  "Vérification / contrôle",
+  "Constitution de dossier",
+  "Suivi de dossier",
+  "Formalité administrative",
+  "Service de proximité",
   "Autre",
 ] as const;
 
@@ -303,13 +309,22 @@ export type CourseOps = {
   message: string;
   service: string;
   typeCourse: string;
+  genreCourse: GenreCourse;
   priorite: PrioriteCourse;
   dateCourse: string;
   trancheHoraire: string;
+  heureDebutSouhaitee: string;
+  heureFinSouhaitee: string;
   heureFixe: string;
   transport: Transport | "";
-  coursierId: string;
+  poids?: number;
+  volume?: string;
+  manutention?: boolean;
+  precautions?: string;
+  formalitesAdministratives?: string;
+  quantite?: number;
   statut: StatutCourse;
+  coursierId: string;
   retrait: PointOps;
   destinations: PointOps[];
   instructions: string;
@@ -832,9 +847,12 @@ export function seedOps(): OpsData {
     message: "",
     service: "Courses administratives",
     typeCourse: "Récupération de documents",
+    genreCourse: "Aller simple",
     priorite: "Normale",
     dateCourse: todayIso(),
-    trancheHoraire: "Matin",
+    trancheHoraire: TRANCHES_HORAIRES[0],
+    heureDebutSouhaitee: "08:00",
+    heureFinSouhaitee: "18:30",
     heureFixe: "",
     transport: "Moto",
     coursierId: "",
@@ -869,6 +887,12 @@ export function seedOps(): OpsData {
     reaffectations: [],
     historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: "Course créée" }],
     archive: false,
+    poids: 0,
+    volume: "",
+    manutention: false,
+    precautions: "",
+    formalitesAdministratives: "",
+    quantite: 1,
     ...over,
   });
 
@@ -878,6 +902,7 @@ export function seedOps(): OpsData {
       numero: "C-2026-0084",
       typeCourse: "Paiement fournisseur",
       service: "Paiement de fournisseurs",
+      genreCourse: "Aller & Retour",
       priorite: "Urgente",
       transport: "Moto",
       coursierId: "CR-AHMED",
@@ -885,7 +910,9 @@ export function seedOps(): OpsData {
       demandeNumero: "DEM-1041",
       message: "Régler la facture fournisseur et récupérer le justificatif signé.",
       heureAppel: "08:40",
-      trancheHoraire: "Matin",
+      trancheHoraire: TRANCHES_HORAIRES[0],
+      heureDebutSouhaitee: "08:30",
+      heureFinSouhaitee: "12:00",
       heureFixe: "10:30",
       retrait: point({
         zone: "Maarif",
@@ -916,13 +943,32 @@ export function seedOps(): OpsData {
     courseBase({
       id: "CRS-0085",
       numero: "C-2026-0085",
-      typeCourse: "Récupération de documents",
-      priorite: "Urgente",
+      typeCourse: "Collecte",
+      service: "Distribution de cartons d’invitation",
+      genreCourse: "Multiple",
+      priorite: "Exclusive",
       coursierId: "",
       statut: "À affecter",
-      heureAppel: "09:30",
-      trancheHoraire: "Après-midi",
-      message: "Récupérer les originaux du dossier fournisseur.",
+      quantite: 50,
+      heureAppel: "14:15",
+      trancheHoraire: TRANCHES_HORAIRES[2],
+      heureDebutSouhaitee: "14:00",
+      heureFinSouhaitee: "18:00",
+      message: "Distribution de 50 cartons d’invitation à travers plusieurs zones de Casablanca.",
+      retrait: point({
+        zone: "Anfa",
+        quartier: "CIL",
+        adresse: "45, rue de la Mer",
+        contact: "Mme Idrissi",
+        gsm: "+212 662 11 33 55",
+        instructions: "Prendre les cartons déjà préparés.",
+      }),
+      destinations: [
+        point({ zone: "Gauthier", quartier: "Gauthier", adresse: "22, boulevard d'Anfa", contact: "M. Alaoui", gsm: "+212 661 00 22 44", ordre: 1 }),
+        point({ zone: "Racine", quartier: "Racine", adresse: "15, rue de Libourne", contact: "Dr. Benani", gsm: "+212 665 44 88 99", ordre: 2 }),
+        point({ zone: "Oulfa", quartier: "Oulfa", adresse: "Résidence Jawhara, Imb 3", contact: "Mme Mansour", gsm: "+212 663 55 44 22", ordre: 3 }),
+      ],
+      instructions: "Prestation exclusive — tenue correcte exigée.",
     }),
     courseBase({
       id: "CRS-0086",
@@ -931,13 +977,14 @@ export function seedOps(): OpsData {
       contactId: "CT-IMANE",
       dossierId: "DOS-LAHLOU",
       correspondant: "Imane Sabir",
-      typeCourse: "Dépôt administratif",
+      typeCourse: "Constitution de dossier",
+      genreCourse: "Aller simple",
       priorite: "Urgente",
       transport: "Voiture",
       coursierId: "CR-YOUSSEF",
       statut: "Bloquée",
       heureAppel: "10:05",
-      trancheHoraire: "Midi",
+      trancheHoraire: TRANCHES_HORAIRES[1],
       message: "Dépôt des conclusions au tribunal de commerce.",
       retrait: point({ zone: "Anfa", quartier: "Anfa", adresse: "8, boulevard Anfa", contact: "Imane Sabir", gsm: "+212 664 22 51 77" }),
       destinations: [point({ zone: "Casablanca Centre", quartier: "Centre", adresse: "Tribunal de commerce", contact: "Greffe", ordre: 1 })],
@@ -950,11 +997,13 @@ export function seedOps(): OpsData {
       contactId: "",
       dossierId: "DOS-LABO",
       correspondant: "Laboratoire Al Amal",
-      typeCourse: "Course administrative",
+      typeCourse: "Formalité administrative",
+      genreCourse: "Aller simple",
+      priorite: "Normale",
       coursierId: "CR-SOUFIANE",
       statut: "Terminée",
       heureAppel: "08:10",
-      trancheHoraire: "Matin",
+      trancheHoraire: TRANCHES_HORAIRES[0],
       transport: "Bicyclette",
       heureDepart: "08:30",
       heureArrivee: "09:10",
@@ -975,11 +1024,13 @@ export function seedOps(): OpsData {
       dossierId: "",
       correspondant: "Rachid Bennis",
       typeCourse: "Dépôt de chèque",
+      genreCourse: "Aller simple",
+      priorite: "Normale",
       coursierId: "",
       statut: "En attente",
       heureAppel: "11:20",
       dateCourse: daysAheadIso(1),
-      trancheHoraire: "Fin de journée",
+      trancheHoraire: TRANCHES_HORAIRES[3],
       retrait: point({ zone: "Ain Diab", quartier: "Ain Diab", adresse: "45, rue de la Corniche", contact: "Rachid Bennis", gsm: "+212 668 12 45 90" }),
       destinations: [point({ zone: "Casablanca Centre", quartier: "Centre", adresse: "Agence bancaire Bd Zerktouni", contact: "Guichet", ordre: 1 })],
     }),

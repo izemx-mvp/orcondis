@@ -536,6 +536,23 @@ export type BOData = {
   audit: AuditEntry[];
   messages: MessageClient[];
   conversations: Conversation[];
+  societe: {
+    nom: string;
+    nomCommercial: string;
+    telephone: string;
+    email: string;
+    horaires: string;
+    villePrincipale: string;
+    description: string;
+  };
+  regles: {
+    commandeVeilleObligatoire: boolean;
+    autoriserDemandeMemeJour: boolean;
+    supplementMemeJour: string;
+    rayonStandardKm: number;
+    poidsMaxStandardKg: number;
+    tarifMensuelMin: number;
+  };
   services: ServiceParam[];
   typesCourse: Referentiel[];
   typesClient: Referentiel[];
@@ -1133,6 +1150,23 @@ export function seedBO(): BOData {
 
   return {
     conversations: seedConversations(),
+    societe: {
+      nom: "ORCONDIS",
+      nomCommercial: "Tizzla and Serve",
+      telephone: "0666 70 99 41",
+      email: "orcondiscourses@gmail.com",
+      horaires: "Lundi – Vendredi : 08h00 – 18h30",
+      villePrincipale: "Casablanca",
+      description: "Services de courses, accompagnement et prestations de proximité.",
+    },
+    regles: {
+      commandeVeilleObligatoire: true,
+      autoriserDemandeMemeJour: true,
+      supplementMemeJour: "Potentiel / À étudier",
+      rayonStandardKm: 7,
+      poidsMaxStandardKg: 3,
+      tarifMensuelMin: 900,
+    },
     clients,
     dossiers,
     coursiers,
@@ -1202,7 +1236,7 @@ export function seedBO(): BOData {
         "Bonjour, ici l’assistant ORCONDIS. Nous avons bien reçu votre demande. Je vais vous poser quelques questions afin de la préparer.",
       tonalite: "Professionnelle et courtoise",
       handoffHumain: "Après 2 relances sans réponse ou à la demande du client.",
-      horaires: "Lundi – Samedi : 08h30 – 19h00",
+      horaires: "Lundi – Vendredi : 08h00 – 18h30",
     },
   };
 }

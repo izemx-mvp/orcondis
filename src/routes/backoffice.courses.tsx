@@ -69,11 +69,20 @@ function courseVide(numero: string): CourseOps {
     message: "",
     service: "",
     typeCourse: TYPES_COURSE[0],
+    genreCourse: "Aller simple",
     priorite: "Normale" as CourseOps["priorite"],
     dateCourse: todayIso(),
     trancheHoraire: TRANCHES_HORAIRES[0],
+    heureDebutSouhaitee: "08:00",
+    heureFinSouhaitee: "18:30",
     heureFixe: "",
-    transport: "",
+    transport: "" as CourseOps["transport"],
+    poids: 0,
+    volume: "",
+    manutention: false,
+    precautions: "",
+    formalitesAdministratives: "",
+    quantite: 1,
     coursierId: "",
     statut: "En attente",
     retrait: pointVide(),
@@ -195,10 +204,11 @@ function CoursesPage() {
 
   const colonnes: Colonne<CourseOps>[] = [
     { cle: "numero", titre: "N°", rendu: (c) => <span className="font-medium text-navy">{c.numero}</span> },
-    { cle: "client", titre: "Client", rendu: (c) => l.clientNom(c.clientId) },
-    { cle: "type", titre: "Type", rendu: (c) => c.typeCourse },
-    { cle: "date", titre: "Date", rendu: (c) => `${c.dateCourse} · ${c.trancheHoraire}` },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => l.coursierNom(c.coursierId) },
+    { cle: "client", titre: "Client", rendu: (c) => <span className="text-sm font-medium">{l.clientNom(c.clientId)}</span> },
+    { cle: "type", titre: "Type", rendu: (c) => <span className="text-xs">{c.typeCourse}</span> },
+    { cle: "genre", titre: "Genre", rendu: (c) => <span className="text-xs">{c.genreCourse}</span> },
+    { cle: "date", titre: "Date", rendu: (c) => <span className="text-xs">{c.dateCourse} · {c.trancheHoraire}</span> },
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <span className="text-sm">{l.coursierNom(c.coursierId)}</span> },
     { cle: "priorite", titre: "Priorité", rendu: (c) => <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
@@ -251,14 +261,33 @@ function CoursesPage() {
       </Grille>
       <Grille cols={3}>
         <ChampSelect label="Type de course" value={form.typeCourse} onChange={(v) => setForm({ ...form, typeCourse: v })} options={TYPES_COURSE} />
+        <ChampSelect label="Genre de course" value={form.genreCourse} onChange={(v) => setForm({ ...form, genreCourse: v as any })} options={["Aller simple", "Aller & Retour", "Multiple"]} />
         <ChampSelect label="Priorité" value={form.priorite} onChange={(v) => setForm({ ...form, priorite: v as CourseOps["priorite"] })} options={PRIORITES_COURSE} />
-        <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
       </Grille>
       <Grille cols={3}>
         <Champ label="Date de la course" type="date" value={form.dateCourse} onChange={(v) => setForm({ ...form, dateCourse: v, jour: jourDe(v) })} />
         <ChampSelect label="Tranche horaire" value={form.trancheHoraire} onChange={(v) => setForm({ ...form, trancheHoraire: v })} options={TRANCHES_HORAIRES} />
         <Champ label="Heure fixe" type="time" value={form.heureFixe} onChange={(v) => setForm({ ...form, heureFixe: v })} />
       </Grille>
+      <Grille cols={2}>
+        <Champ label="Heure début souhaitée" type="time" value={form.heureDebutSouhaitee} onChange={(v) => setForm({ ...form, heureDebutSouhaitee: v })} />
+        <Champ label="Heure fin souhaitée" type="time" value={form.heureFinSouhaitee} onChange={(v) => setForm({ ...form, heureFinSouhaitee: v })} />
+      </Grille>
+      <div className="border-t pt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Nature de l'envoi</p>
+        <Grille cols={3}>
+          <Champ label="Quantité" type="number" value={form.quantite || 1} onChange={(v) => setForm({ ...form, quantite: Number(v) })} />
+          <Champ label="Poids (kg)" type="number" value={form.poids || 0} onChange={(v) => setForm({ ...form, poids: Number(v) })} />
+          <Champ label="Volume" value={form.volume || ""} onChange={(v) => setForm({ ...form, volume: v })} />
+        </Grille>
+        <Grille cols={2}>
+          <Champ label="Précautions" value={form.precautions || ""} onChange={(v) => setForm({ ...form, precautions: v })} />
+          <Champ label="Formalités" value={form.formalitesAdministratives || ""} onChange={(v) => setForm({ ...form, formalitesAdministratives: v })} />
+        </Grille>
+        <div className="mt-2 max-w-xs">
+          <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
+        </div>
+      </div>
       <ChampTexte label="Message / instructions" value={form.message} onChange={(v) => setForm({ ...form, message: v })} rows={2} />
       <EditeurPoint titre="Point de retrait" point={form.retrait} onChange={(p) => setForm({ ...form, retrait: p })} />
       <div className="space-y-3">
@@ -397,7 +426,7 @@ function CoursesPage() {
         {detailDialog.item && (
           <div className="space-y-4">
             <Onglets
-              items={["Informations", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
+              items={["Informations", "Nature", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
               actif={ongletDetail}
               onChange={setOngletDetail}
             />
@@ -435,6 +464,24 @@ function CoursesPage() {
                   >
                     Annuler
                   </Button>
+                </div>
+              </div>
+            )}
+            {ongletDetail === "Nature" && (
+              <div className="space-y-4">
+                <Grille cols={3}>
+                  <Detail label="Genre">{detailDialog.item.genreCourse}</Detail>
+                  <Detail label="Quantité">{detailDialog.item.quantite || "1"}</Detail>
+                  <Detail label="Poids">{detailDialog.item.poids ? `${detailDialog.item.poids} kg` : "—"}</Detail>
+                  <Detail label="Volume">{detailDialog.item.volume || "—"}</Detail>
+                  <Detail label="Manutention">{detailDialog.item.manutention ? "Oui" : "Non"}</Detail>
+                  <Detail label="Transport">{detailDialog.item.transport || "—"}</Detail>
+                </Grille>
+                <div className="border-t pt-4">
+                  <Grille cols={2}>
+                    <Detail label="Précautions">{detailDialog.item.precautions || "—"}</Detail>
+                    <Detail label="Formalités">{detailDialog.item.formalitesAdministratives || "—"}</Detail>
+                  </Grille>
                 </div>
               </div>
             )}

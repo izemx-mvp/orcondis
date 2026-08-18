@@ -1,18 +1,44 @@
 // Modèle de données ORCONDIS (Partie 1) — données simulées cohérentes.
 
 export const SERVICES = [
+  "Collecte",
+  "Enlèvement",
+  "Livraison",
+  "Distribution",
+  "Course à course",
+  "Course administrative",
   "Récupération de documents",
-  "Livraison de documents",
-  "Courses administratives",
-  "Paiement de factures",
-  "Paiement de fournisseurs",
-  "Récupération de chèques",
-  "Dépôt de chèques",
-  "Procédures administratives",
-  "Vérification / contrôle",
-  "Exclusive (Tizzla & Serve)",
-  "Autres prestations",
+  "Dépôt de documents",
+  "Paiement de facture",
+  "Paiement fournisseur",
+  "Récupération de chèque",
+  "Dépôt de chèque",
+  "Constitution de dossier",
+  "Suivi de dossier",
+  "Formalité administrative",
+  "Service de proximité",
+  "Autre",
 ] as const;
+
+export const SERVICE_DETAILS: Record<string, string> = {
+  "Collecte": "Collecte, de l’enlèvement jusqu’à la livraison ou la distribution.",
+  "Enlèvement": "Récupération de plis, colis ou documents selon vos directives.",
+  "Livraison": "Livraison sécurisée avec remise en main propre.",
+  "Distribution": "Distribution de courriers, invitations, catalogues (jusqu'à 3kg par envoi).",
+  "Course à course": "Trajet optimisé pour une course ponctuelle simple ou urgente.",
+  "Course administrative": "Dépôts et retraits auprès des administrations et organismes.",
+  "Récupération de documents": "Retrait de dossiers, contrats ou pièces administratives.",
+  "Dépôt de documents": "Remise de documents avec accusé de réception ou décharge.",
+  "Paiement de facture": "Règlement de factures d'eau, électricité ou services.",
+  "Paiement fournisseur": "Récupération de chèque et règlement effectif au fournisseur.",
+  "Récupération de chèque": "Collecte de chèques auprès de vos clients et partenaires.",
+  "Dépôt de chèque": "Dépôt en agence bancaire et transmission du bordereau.",
+  "Constitution de dossier": "Accompagnement dans le montage de vos dossiers professionnels.",
+  "Suivi de dossier": "Suivi rigoureux des étapes administratives de vos dossiers.",
+  "Formalité administrative": "Réalisation de formalités spécifiques selon vos besoins.",
+  "Service de proximité": "Prestations sur mesure selon les exigences du client.",
+  "Autre": "Toute mission spécifique faisant l'objet d'un devis au cas par cas.",
+};
 
 export type Service = (typeof SERVICES)[number];
 
@@ -224,7 +250,7 @@ function base(
     telephone: "",
     whatsapp: "",
     email: "",
-    service: "Autres prestations",
+    service: "Autre",
     messageInitial: "",
     documents: [],
     agentWhatsApp: "Assistant ORCONDIS",
@@ -309,11 +335,12 @@ export function seedDemandes(): Demande[] {
         },
       ],
       qualification: {
+        ...emptyQualification(),
         typeClient: "Entreprise",
         denomination: "Atlas Industrie",
         raisonSociale: "Atlas Industrie SARL",
-        typeCourse: "Récupération + paiement fournisseur",
-        niveauImportance: "Élevé",
+        typeCourse: "Collecte",
+        niveauImportance: "Urgente",
         instructionsSpeciales: "Chèque à remettre en main propre au service comptabilité.",
         retrait: {
           ville: "Casablanca",

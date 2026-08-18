@@ -22,9 +22,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useBO } from "@/lib/bo-store";
+import { useBO, useLookups } from "@/lib/bo-store";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { dh } from "@/lib/bo-data";
+import { Logo } from "@/components/PublicLayout";
+import { dh, fr } from "@/lib/bo-data";
 
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
 
@@ -179,10 +180,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
       >
         <div className="flex h-16 items-center justify-between px-4">
           <Link to="/backoffice/dashboard" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-              O
-            </span>
-            <span className="text-base font-black tracking-tighter">ORCONDIS</span>
+            <Logo dark backoffice />
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
