@@ -317,8 +317,14 @@ export type CourseOps = {
   heureFinSouhaitee: string;
   heureFixe: string;
   transport: Transport | "";
-  coursierId: string;
+  poids?: number;
+  volume?: string;
+  manutention?: boolean;
+  precautions?: string;
+  formalitesAdministratives?: string;
+  quantite?: number;
   statut: StatutCourse;
+  coursierId: string;
   retrait: PointOps;
   destinations: PointOps[];
   instructions: string;
