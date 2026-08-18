@@ -52,7 +52,7 @@ function Connexion() {
             </div>
             <div>
               <Label htmlFor="mdp">Mot de passe</Label>
-              <Input id="mdp" type="password" className="mt-1.5" defaultValue="arcondis" required />
+              <Input id="mdp" type="password" className="mt-1.5" defaultValue="orcondis" required />
             </div>
             <Button type="submit" className="w-full">
               Se connecter

@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from "react";
 
-const STORAGE_KEY = "arcondis.backoffice.parametres-extra.v1";
+const STORAGE_KEY = "orcondis.backoffice.parametres-extra.v1";
 
 export type NumerotationConfig = {
   id: string;

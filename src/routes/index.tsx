@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
-import { SERVICES } from "@/lib/arcondis";
+import { SERVICES } from "@/lib/orcondis";
 
 export const Route = createFileRoute("/")({
   head: () => ({
