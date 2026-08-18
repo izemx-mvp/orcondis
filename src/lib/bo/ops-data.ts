@@ -76,8 +76,11 @@ export const ZONES = [
   "Mohammedia",
 ] as const;
 
-export const TRANSPORTS = ["Moto", "Bicyclette", "Voiture"] as const;
-export type Transport = (typeof TRANSPORTS)[number];
+export const MOYENS_TRANSPORT = ["Moto", "Bicyclette", "Voiture"] as const;
+export type MoyenTransport = (typeof MOYENS_TRANSPORT)[number];
+
+export const TRANSPORTS = MOYENS_TRANSPORT;
+export type Transport = MoyenTransport;
 
 export const TRANCHES_HORAIRES = ["Matin (08h – 12h)", "Midi (12h – 14h)", "Après-midi (14h – 17h)", "Fin de journée (17h – 19h)"] as const;
 
@@ -193,7 +196,7 @@ export type ClientOps = {
   adresseComplete: string;
   pays: string;
   site: string;
-  email: string;
+  email: string; // Support multiples via string separated by commas or UI logic
   telephoneFixe: string;
   fax: string;
   gsm: string;
@@ -363,6 +366,7 @@ export type CoursierOps = {
   zonePrincipale: string;
   zonesSecondaires: string;
   zoneActuelle: string;
+  positionOperationnelle?: string;
   transport: Transport;
   immatriculation: string;
   statut: StatutCoursier;

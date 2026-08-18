@@ -7,10 +7,12 @@ import {
   toneCourse,
   prochainCodeCoursier,
   todayIso,
+  MOYENS_TRANSPORT,
   STATUTS_COURSIER,
   TRANSPORTS,
   ZONES,
   type CoursierOps,
+  type MoyenTransport,
 } from "@/lib/bo/ops-data";
 import { Button } from "@/components/ui/button";
 import {
@@ -169,27 +171,23 @@ function CoursiersPage() {
 
   const champsFormulaire = (
     <>
-      <Grille>
-        <Champ label="Prénom" value={form.prenom} onChange={(v) => setForm({ ...form, prenom: v })} />
+      <Grille cols={2}>
         <Champ label="Nom" value={form.nom} onChange={(v) => setForm({ ...form, nom: v })} />
+        <Champ label="Prénom" value={form.prenom} onChange={(v) => setForm({ ...form, prenom: v })} />
       </Grille>
-      <Grille>
+      <Grille cols={2}>
         <Champ label="GSM" value={form.gsm} onChange={(v) => setForm({ ...form, gsm: v })} />
         <Champ label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
       </Grille>
-      <Grille cols={3}>
-        <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CoursierOps["transport"] })} options={TRANSPORTS} />
+      <Grille cols={2}>
+        <ChampSelect label="Moyen de transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as any })} options={MOYENS_TRANSPORT} />
         <ChampSelect label="Zone principale" value={form.zonePrincipale} onChange={(v) => setForm({ ...form, zonePrincipale: v })} options={ZONES} />
-        <ChampSelect label="Zone actuelle" value={form.zoneActuelle} onChange={(v) => setForm({ ...form, zoneActuelle: v })} options={ZONES} />
       </Grille>
-      <Grille>
-        <Champ label="Zones secondaires" value={form.zonesSecondaires} onChange={(v) => setForm({ ...form, zonesSecondaires: v })} />
-        <Champ label="Immatriculation" value={form.immatriculation} onChange={(v) => setForm({ ...form, immatriculation: v })} />
+      <Grille cols={2}>
+        <ChampSelect label="Disponibilité" value={form.statut} onChange={(v) => setForm({ ...form, statut: v as any })} options={["Disponible", "Occupé", "Indisponible"]} />
+        <ChampSelect label="Zone actuelle" value={form.zoneActuelle || ""} onChange={(v) => setForm({ ...form, zoneActuelle: v })} options={ZONES} />
       </Grille>
-      <Grille>
-        <ChampSelect label="Statut" value={form.statut} onChange={(v) => setForm({ ...form, statut: v as CoursierOps["statut"] })} options={STATUTS_COURSIER} />
-        <ChampCase label="Actif" checked={form.actif} onChange={(v) => setForm({ ...form, actif: v })} />
-      </Grille>
+      <Champ label="Position opérationnelle" value={form.positionOperationnelle || ""} onChange={(v) => setForm({ ...form, positionOperationnelle: v })} placeholder="Dernière position connue..." />
       <ChampTexte label="Notes" value={form.notes} onChange={(v) => setForm({ ...form, notes: v })} />
     </>
   );

@@ -16,13 +16,25 @@ import {
 const STORAGE_KEY = "orcondis.demandes.v1";
 
 type NouvelleDemande = {
-  typeClient: "Client existant" | "Nouveau client";
+  categorie: string;
+  sousType: string;
+  autrePrecision: string;
   nom: string;
   prenom: string;
-  societe: string;
-  telephone: string;
-  whatsapp: string;
+  denomination: string;
+  raisonSociale: string;
+  ville: string;
+  quartier: string;
+  adresseComplete: string;
+  pays: string;
+  site: string;
   email: string;
+  telephoneFixe: string;
+  fax: string;
+  gsm: string;
+  whatsapp: string;
+  facebook: string;
+  instagram: string;
   service: string;
   messageInitial: string;
   source?: Demande["source"];
@@ -105,12 +117,12 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           date,
           heure,
           source: input.source ?? "Site web",
-          typeClient: input.typeClient,
+          typeClient: "Nouveau client", // On force "Nouveau" par défaut pour les demandes site
           nom: input.nom,
           prenom: input.prenom,
-          societe: input.societe,
-          telephone: input.telephone,
-          whatsapp: input.whatsapp || input.telephone,
+          societe: input.denomination || input.raisonSociale || "",
+          telephone: input.gsm || input.telephoneFixe || "",
+          whatsapp: input.whatsapp || input.gsm || "",
           email: input.email,
           service: input.service,
           messageInitial: input.messageInitial,
@@ -136,7 +148,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
                   auteur: "agent",
                   nom: "Assistant ORCONDIS",
                   heure,
-                  texte: `Bonjour ${input.prenom ? (input.typeClient === "Nouveau client" ? "" : "Monsieur/Madame ") + input.prenom : ""}, nous avons bien reçu votre demande concernant « ${input.service} ». J’ai besoin de quelques informations complémentaires afin de préparer votre demande.`.replace(
+                  texte: `Bonjour ${input.prenom ? "Monsieur/Madame " + input.prenom : ""}, nous avons bien reçu votre demande concernant « ${input.service} ». J’ai besoin de quelques informations complémentaires afin de préparer votre demande.`.replace(
                     /\s+,/,
                     ",",
                   ),
@@ -145,8 +157,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
             : [],
           qualification: {
             ...emptyQualification(),
-            typeClient: input.societe ? "Entreprise" : "Particulier",
-            denomination: input.societe,
+            typeClient: input.categorie,
+            denomination: input.denomination || input.raisonSociale || "",
             resumeIA: input.messageInitial,
           },
           archivee: false,

@@ -3,14 +3,19 @@ import { useMemo, useState } from "react";
 import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import {
   CATEGORIES_CLIENT,
+  SOUS_TYPES_AUTRES,
+  ROLES_CONTACT,
   ZONES,
   horodatage,
   nomClient,
   oid,
   prochainCodeClient,
+  prochainCodeContact,
   todayIso,
   type CategorieClient,
   type ClientOps,
+  type ContactOps,
+  type RoleContact,
 } from "@/lib/bo/ops-data";
 import { Button } from "@/components/ui/button";
 import {
@@ -203,29 +208,78 @@ function ClientsPage() {
         large
       >
         <Grille cols={3}>
-          <ChampSelect label="Catégorie" value={form.categorie} onChange={(v) => setForm({ ...form, categorie: v as CategorieClient })} options={CATEGORIES_CLIENT} />
-          {form.categorie === "Personne physique" ? (
+          <ChampSelect 
+            label="Type de client" 
+            value={form.categorie} 
+            onChange={(v) => setForm({ ...form, categorie: v as CategorieClient, sousType: "", autrePrecision: "" })} 
+            options={CATEGORIES_CLIENT} 
+          />
+          {form.categorie === "Personne physique" && (
             <>
               <Champ label="Nom" value={form.nom} onChange={(v) => setForm({ ...form, nom: v })} />
               <Champ label="Prénom" value={form.prenom} onChange={(v) => setForm({ ...form, prenom: v })} />
             </>
-          ) : (
+          )}
+          {form.categorie === "Entreprise" && (
+            <Champ label="Dénomination" value={form.denomination} onChange={(v) => setForm({ ...form, denomination: v })} />
+          )}
+          {form.categorie === "Société" && (
+            <Champ label="Raison sociale" value={form.raisonSociale} onChange={(v) => setForm({ ...form, raisonSociale: v })} />
+          )}
+          {form.categorie === "Autres" && (
             <>
+              <ChampSelect 
+                label="Type" 
+                value={form.sousType} 
+                onChange={(v) => setForm({ ...form, sousType: v })} 
+                options={SOUS_TYPES_AUTRES} 
+              />
               <Champ label="Dénomination" value={form.denomination} onChange={(v) => setForm({ ...form, denomination: v })} />
-              <Champ label="Raison sociale" value={form.raisonSociale} onChange={(v) => setForm({ ...form, raisonSociale: v })} />
             </>
           )}
         </Grille>
-        <Grille cols={3}>
-          <Champ label="GSM" value={form.gsm} onChange={(v) => setForm({ ...form, gsm: v })} />
-          <Champ label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
-          <Champ label="Email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-        </Grille>
-        <Grille cols={3}>
-          <Champ label="Adresse complète" value={form.adresseComplete} onChange={(v) => setForm({ ...form, adresseComplete: v })} />
-          <Champ label="Ville" value={form.ville} onChange={(v) => setForm({ ...form, ville: v })} />
-          <ChampSelect label="Zone" value={form.zone} onChange={(v) => setForm({ ...form, zone: v })} options={ZONES} />
-        </Grille>
+        
+        {form.categorie === "Autres" && form.sousType === "Autres" && (
+          <Grille cols={1}>
+            <Champ label="Précisez" value={form.autrePrecision} onChange={(v) => setForm({ ...form, autrePrecision: v })} />
+          </Grille>
+        )}
+
+        <div className="mt-4 border-t pt-4">
+          <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Coordonnées</p>
+          <Grille cols={3}>
+            <Champ label="Ville" value={form.ville} onChange={(v) => setForm({ ...form, ville: v })} />
+            <Champ label="Quartier" value={form.quartier} onChange={(v) => setForm({ ...form, quartier: v })} />
+            <Champ label="Adresse complète" value={form.adresseComplete} onChange={(v) => setForm({ ...form, adresseComplete: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="Rue" value={form.rue} onChange={(v) => setForm({ ...form, rue: v })} />
+            <Champ label="N°" value={form.numeroRue} onChange={(v) => setForm({ ...form, numeroRue: v })} />
+            <Champ label="Étage" value={form.etage} onChange={(v) => setForm({ ...form, etage: v })} />
+          </Grille>
+          <Grille cols={2}>
+            <Champ label="N° Appartement" value={form.appartement} onChange={(v) => setForm({ ...form, appartement: v })} />
+            <Champ label="Pays" value={form.pays} onChange={(v) => setForm({ ...form, pays: v })} />
+          </Grille>
+          <Grille cols={2}>
+            <Champ label="Site" value={form.site} onChange={(v) => setForm({ ...form, site: v })} />
+            <Champ label="E-mail" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="Téléphone fixe" value={form.telephoneFixe} onChange={(v) => setForm({ ...form, telephoneFixe: v })} />
+            <Champ label="Fax" value={form.fax} onChange={(v) => setForm({ ...form, fax: v })} />
+            <Champ label="GSM" value={form.gsm} onChange={(v) => setForm({ ...form, gsm: v })} />
+          </Grille>
+          <Grille cols={3}>
+            <Champ label="WhatsApp" value={form.whatsapp} onChange={(v) => setForm({ ...form, whatsapp: v })} />
+            <Champ label="Facebook" value={form.facebook} onChange={(v) => setForm({ ...form, facebook: v })} />
+            <Champ label="Instagram" value={form.instagram} onChange={(v) => setForm({ ...form, instagram: v })} />
+          </Grille>
+          <div className="mt-2 max-w-xs">
+            <ChampSelect label="Zone" value={form.zone} onChange={(v) => setForm({ ...form, zone: v })} options={ZONES} />
+          </div>
+        </div>
+
         <ChampTexte label="Notes" value={form.notes} onChange={(v) => setForm({ ...form, notes: v })} />
       </FormDialog>
 
@@ -252,7 +306,24 @@ function ClientDetail({
   const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Informations");
   const [note, setNote] = useState("");
   const [contactDialog, setContactDialog] = useState(false);
-  const [contactForm, setContactForm] = useState({ nom: "", prenom: "", gsm: "", email: "", role: "Responsable" });
+  const [contactForm, setContactForm] = useState({
+    nom: "",
+    prenom: "",
+    service: "",
+    fonction: "",
+    role: "Responsable" as RoleContact,
+    autreRole: "",
+    gsm: "",
+    fixe: "",
+    fax: "",
+    email: "",
+    whatsapp: "",
+    notes: "",
+  });
+
+  const setFormContactField = (field: keyof typeof contactForm, value: string) => {
+    setContactForm((prev) => ({ ...prev, [field]: value }));
+  };
 
   const c = data.clients.find((x) => x.id === client.id) ?? client;
   const contacts = data.contacts.filter((x) => x.clientId === c.id);
@@ -261,28 +332,41 @@ function ClientDetail({
 
   function ajouterContact() {
     if (!contactForm.nom) return;
-    const contact = {
+    const contact: ContactOps = {
       id: oid("ct"),
-      code: `CT-${String(data.contacts.length + 1).padStart(5, "0")}`,
+      code: prochainCodeContact(data.contacts),
       clientId: c.id,
       nom: contactForm.nom,
       prenom: contactForm.prenom,
-      service: "",
-      fonction: "",
-      role: contactForm.role as never,
-      autreRole: "",
+      service: contactForm.service,
+      fonction: contactForm.fonction,
+      role: contactForm.role,
+      autreRole: contactForm.autreRole,
       gsm: contactForm.gsm,
-      fixe: "",
-      fax: "",
+      fixe: contactForm.fixe,
+      fax: contactForm.fax,
       email: contactForm.email,
-      whatsapp: contactForm.gsm,
-      notes: "",
+      whatsapp: contactForm.whatsapp,
+      notes: contactForm.notes,
       actif: true,
       archive: false,
       historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: "Contact créé" }],
     };
     ajouter("contacts", contact);
-    setContactForm({ nom: "", prenom: "", gsm: "", email: "", role: "Responsable" });
+    setContactForm({
+      nom: "",
+      prenom: "",
+      service: "",
+      fonction: "",
+      role: "Responsable" as RoleContact,
+      autreRole: "",
+      gsm: "",
+      fixe: "",
+      fax: "",
+      email: "",
+      whatsapp: "",
+      notes: "",
+    });
     setContactDialog(false);
   }
 
@@ -294,16 +378,57 @@ function ClientDetail({
         {onglet === "Informations" && (
           <div className="space-y-4 pt-3">
             <Grille cols={3}>
-              <Detail label="Code">{c.code}</Detail>
-              <Detail label="Catégorie">{c.categorie}</Detail>
-              <Detail label="GSM">{c.gsm}</Detail>
-              <Detail label="WhatsApp">{c.whatsapp}</Detail>
-              <Detail label="Email">{c.email}</Detail>
-              <Detail label="Adresse">{c.adresseComplete}</Detail>
-              <Detail label="Ville / Zone">{`${c.ville} · ${c.zone}`}</Detail>
-              <Detail label="Créé le">{c.creeLe}</Detail>
-              <Detail label="Statut">{c.archive ? "Archivé" : "Actif"}</Detail>
+              <Detail label="Code client">{c.code}</Detail>
+              <Detail label="Type de client">{c.categorie}</Detail>
+              {c.sousType && <Detail label="Sous-type">{c.sousType}</Detail>}
             </Grille>
+            <Grille cols={3}>
+              {c.categorie === "Personne physique" ? (
+                <>
+                  <Detail label="Nom">{c.nom}</Detail>
+                  <Detail label="Prénom">{c.prenom}</Detail>
+                </>
+              ) : c.categorie === "Entreprise" ? (
+                <Detail label="Dénomination">{c.denomination}</Detail>
+              ) : c.categorie === "Société" ? (
+                <Detail label="Raison sociale">{c.raisonSociale}</Detail>
+              ) : (
+                <Detail label="Dénomination">{c.denomination}</Detail>
+              )}
+            </Grille>
+            <div className="border-t pt-3">
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Coordonnées</p>
+              <Grille cols={3}>
+                <Detail label="Ville">{c.ville}</Detail>
+                <Detail label="Quartier">{c.quartier}</Detail>
+                <Detail label="Zone">{c.zone}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="Rue">{c.rue}</Detail>
+                <Detail label="N°">{c.numeroRue}</Detail>
+                <Detail label="Étage">{c.etage}</Detail>
+              </Grille>
+              <Grille cols={2}>
+                <Detail label="N° Appartement">{c.appartement}</Detail>
+                <Detail label="Adresse">{c.adresseComplete}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="Pays">{c.pays}</Detail>
+                <Detail label="GSM">{c.gsm}</Detail>
+                <Detail label="WhatsApp">{c.whatsapp}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="E-mail">{c.email}</Detail>
+                <Detail label="Fixe">{c.telephoneFixe}</Detail>
+                <Detail label="Fax">{c.fax}</Detail>
+              </Grille>
+              <Grille cols={2}>
+                <Detail label="Facebook">{c.facebook}</Detail>
+                <Detail label="Instagram">{c.instagram}</Detail>
+              </Grille>
+            </div>
+            <Detail label="Créé le">{c.creeLe}</Detail>
+            <Detail label="Statut">{c.archive ? "Archivé" : "Actif"}</Detail>
             <div>
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Notes</p>
               <pre className="mt-1 whitespace-pre-wrap rounded-md bg-surface p-3 text-sm text-foreground">{c.notes || "—"}</pre>
@@ -403,13 +528,37 @@ function ClientDetail({
         titre="Ajouter un contact"
         onSubmit={ajouterContact}
         submitLabel="Ajouter"
+        large
       >
-        <Grille>
-          <Champ label="Nom" value={contactForm.nom} onChange={(v) => setContactForm({ ...contactForm, nom: v })} />
-          <Champ label="Prénom" value={contactForm.prenom} onChange={(v) => setContactForm({ ...contactForm, prenom: v })} />
-          <Champ label="GSM" value={contactForm.gsm} onChange={(v) => setContactForm({ ...contactForm, gsm: v })} />
-          <Champ label="Email" value={contactForm.email} onChange={(v) => setContactForm({ ...contactForm, email: v })} />
+        <Grille cols={3}>
+          <ChampSelect 
+            label="Type / rôle du contact" 
+            value={contactForm.role} 
+            onChange={(v) => setContactForm({ ...contactForm, role: v as RoleContact })} 
+            options={ROLES_CONTACT} 
+          />
+          {contactForm.role === "Autres" && (
+            <Champ label="Précisez le rôle" value={contactForm.autreRole} onChange={(v) => setContactForm({ ...contactForm, autreRole: v })} />
+          )}
         </Grille>
+        <Grille cols={2}>
+          <Champ label="Nom" value={contactForm.nom} onChange={(v) => setFormContactField("nom", v)} />
+          <Champ label="Prénom" value={contactForm.prenom} onChange={(v) => setFormContactField("prenom", v)} />
+        </Grille>
+        <Grille cols={2}>
+          <Champ label="Service" value={contactForm.service} onChange={(v) => setFormContactField("service", v)} />
+          <Champ label="Fonction" value={contactForm.fonction} onChange={(v) => setFormContactField("fonction", v)} />
+        </Grille>
+        <Grille cols={3}>
+          <Champ label="GSM" value={contactForm.gsm} onChange={(v) => setFormContactField("gsm", v)} />
+          <Champ label="Téléphone fixe" value={contactForm.fixe} onChange={(v) => setFormContactField("fixe", v)} />
+          <Champ label="Fax" value={contactForm.fax} onChange={(v) => setFormContactField("fax", v)} />
+        </Grille>
+        <Grille cols={2}>
+          <Champ label="Email" value={contactForm.email} onChange={(v) => setFormContactField("email", v)} />
+          <Champ label="WhatsApp" value={contactForm.whatsapp} onChange={(v) => setFormContactField("whatsapp", v)} />
+        </Grille>
+        <ChampTexte label="Notes spéciales" value={contactForm.notes} onChange={(v) => setFormContactField("notes", v)} />
       </FormDialog>
     </>
   );
