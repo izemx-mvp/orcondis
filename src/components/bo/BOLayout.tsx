@@ -36,6 +36,7 @@ const NAV: NavItem[] = [
   { to: "/backoffice/dossiers", label: "Dossiers", icon: FolderKanban },
   { to: "/backoffice/courses", label: "Courses", icon: RouteIcon },
   { to: "/backoffice/coursiers", label: "Coursiers", icon: Truck },
+  { to: "/backoffice/dispatch", label: "Agent Dispatch Coursiers", icon: MessageCircle },
   { to: "/backoffice/procedures", label: "Procédures", icon: ClipboardList },
   { to: "/backoffice/whatsapp", label: "WhatsApp", icon: MessageCircle },
   { to: "/backoffice/fournisseurs", label: "Fournisseurs", icon: Building2 },
