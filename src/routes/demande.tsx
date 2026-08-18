@@ -64,7 +64,7 @@ const initial = {
 
 function Demande() {
   const { creerDemande } = useStore();
-  const [submitted, setSubmitted] = useState<ReturnType<typeof creerDemande> | null>(null);
+  const [submitted, setSubmitted] = useState<any>(null);
   const [form, setForm] = useState(initial);
   const [errors, setErrors] = useState<{
     nom?: string;
@@ -105,7 +105,6 @@ function Demande() {
     if (!validate()) return;
     const nouvelle = creerDemande({
       ...form,
-      service: form.service,
       source: "Site web",
       documents: [],
     });
@@ -155,6 +154,7 @@ function Demande() {
         </div>
 
         <form onSubmit={handleSubmit} className="mt-12 surface-card p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-border/50">
+          <div className="grid gap-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <Label>Vous êtes :</Label>
               <div className="mt-2 flex flex-wrap gap-4">
@@ -174,32 +174,130 @@ function Demande() {
               </div>
             </div>
 
-            <div>
-              <Label htmlFor="prenom">Prénom</Label>
-              <Input
-                id="prenom"
-                value={form.prenom}
-                onChange={(e) => setField("prenom", e.target.value)}
-                className="mt-1.5"
-                placeholder="Jean"
-              />
-              {errors.prenom && <p className="mt-1 text-xs text-destructive">{errors.prenom}</p>}
+            {form.categorie === "Personne physique" && (
+              <>
+                <div>
+                  <Label htmlFor="prenom">Prénom</Label>
+                  <Input
+                    id="prenom"
+                    value={form.prenom}
+                    onChange={(e) => setField("prenom", e.target.value)}
+                    className="mt-1.5"
+                    placeholder="Jean"
+                  />
+                  {errors.prenom && <p className="mt-1 text-xs text-destructive">{errors.prenom}</p>}
+                </div>
+                <div>
+                  <Label htmlFor="nom">Nom</Label>
+                  <Input
+                    id="nom"
+                    value={form.nom}
+                    onChange={(e) => setField("nom", e.target.value)}
+                    className="mt-1.5"
+                    placeholder="Dupont"
+                  />
+                  {errors.nom && <p className="mt-1 text-xs text-destructive">{errors.nom}</p>}
+                </div>
+              </>
+            )}
+
+            {form.categorie === "Entreprise" && (
+              <div className="sm:col-span-2">
+                <Label htmlFor="denomination">Dénomination</Label>
+                <Input
+                  id="denomination"
+                  value={form.denomination}
+                  onChange={(e) => setField("denomination", e.target.value)}
+                  className="mt-1.5"
+                  placeholder="Nom de l'entreprise"
+                />
+              </div>
+            )}
+
+            {form.categorie === "Société" && (
+              <div className="sm:col-span-2">
+                <Label htmlFor="raisonSociale">Raison sociale</Label>
+                <Input
+                  id="raisonSociale"
+                  value={form.raisonSociale}
+                  onChange={(e) => setField("raisonSociale", e.target.value)}
+                  className="mt-1.5"
+                  placeholder="Raison sociale"
+                />
+              </div>
+            )}
+
+            {form.categorie === "Autres" && (
+              <>
+                <div className="sm:col-span-2">
+                  <Label htmlFor="sousType">Type d'organisation</Label>
+                  <Select value={form.sousType} onValueChange={(v) => setField("sousType", v)}>
+                    <SelectTrigger id="sousType" className="mt-1.5 w-full">
+                      <SelectValue placeholder="Choisir un type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SOUS_TYPES_AUTRES.map((opt) => (
+                        <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="sm:col-span-2">
+                  <Label htmlFor="denomination">Dénomination</Label>
+                  <Input
+                    id="denomination"
+                    value={form.denomination}
+                    onChange={(e) => setField("denomination", e.target.value)}
+                    className="mt-1.5"
+                  />
+                </div>
+                {form.sousType === "Autres" && (
+                  <div className="sm:col-span-2">
+                    <Label htmlFor="autrePrecision">Précisez</Label>
+                    <Input
+                      id="autrePrecision"
+                      value={form.autrePrecision}
+                      onChange={(e) => setField("autrePrecision", e.target.value)}
+                      className="mt-1.5"
+                    />
+                  </div>
+                )}
+              </>
+            )}
+
+            <div className="sm:col-span-2 border-t pt-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-navy mb-4">Coordonnées</p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <Label htmlFor="ville">Ville</Label>
+                  <Input id="ville" value={form.ville} onChange={(e) => setField("ville", e.target.value)} className="mt-1.5" />
+                </div>
+                <div>
+                  <Label htmlFor="quartier">Quartier</Label>
+                  <Input id="quartier" value={form.quartier} onChange={(e) => setField("quartier", e.target.value)} className="mt-1.5" />
+                </div>
+                <div className="sm:col-span-2">
+                  <Label htmlFor="adresseComplete">Adresse complète</Label>
+                  <Input id="adresseComplete" value={form.adresseComplete} onChange={(e) => setField("adresseComplete", e.target.value)} className="mt-1.5" />
+                </div>
+                <div>
+                  <Label htmlFor="gsm">GSM</Label>
+                  <Input id="gsm" value={form.gsm} onChange={(e) => setField("gsm", e.target.value)} className="mt-1.5" />
+                  {errors.telephone && <p className="mt-1 text-xs text-destructive">{errors.telephone}</p>}
+                </div>
+                <div>
+                  <Label htmlFor="whatsapp">WhatsApp</Label>
+                  <Input id="whatsapp" value={form.whatsapp} onChange={(e) => setField("whatsapp", e.target.value)} className="mt-1.5" />
+                </div>
+                <div className="sm:col-span-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input id="email" value={form.email} onChange={(e) => setField("email", e.target.value)} className="mt-1.5" />
+                  {errors.email && <p className="mt-1 text-xs text-destructive">{errors.email}</p>}
+                </div>
+              </div>
             </div>
 
-            <div>
-              <Label htmlFor="nom">Nom</Label>
-              <Input
-                id="nom"
-                value={form.nom}
-                onChange={(e) => setField("nom", e.target.value)}
-                className="mt-1.5"
-                placeholder="Dupont"
-              />
-              {errors.nom && <p className="mt-1 text-xs text-destructive">{errors.nom}</p>}
-            </div>
-
-
-            <div className="sm:col-span-2">
+            <div className="sm:col-span-2 border-t pt-4">
               <Label htmlFor="service">Prestation souhaitée</Label>
               <Select value={form.service} onValueChange={(v) => setField("service", v)}>
                 <SelectTrigger id="service" className="mt-1.5 w-full">
@@ -234,17 +332,17 @@ function Demande() {
                 checked={form.consentementWhatsApp}
                 onCheckedChange={(checked) => setField("consentementWhatsApp", checked === true)}
               />
-              <Label htmlFor="consentement" className="cursor-pointer text-sm font-normal leading-relaxed">
+              <Label htmlFor="consentement" className="cursor-pointer text-sm font-normal leading-relaxed text-muted-foreground">
                 J’accepte d’être contacté par ORCONDIS via WhatsApp pour qualifier ma demande.
               </Label>
             </div>
           </div>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button type="submit" size="lg">
+            <Button type="submit" size="lg" className="w-full sm:w-auto">
               Envoyer ma demande <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-            <Button asChild type="button" variant="outline" size="lg">
+            <Button asChild type="button" variant="outline" size="lg" className="w-full sm:w-auto">
               <a href="https://wa.me/212666709941">
                 <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
               </a>
