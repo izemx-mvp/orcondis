@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { z } from "zod";
 import { Onglets, PageHeader } from "@/components/bo/kit";
 import { CoursesAFacturer } from "@/components/bo/facturation/CoursesAFacturer";
 import { FacturationPeriodique } from "@/components/bo/facturation/FacturationPeriodique";
@@ -7,37 +8,38 @@ import { Factures } from "@/components/bo/facturation/Factures";
 import { PaiementsClients } from "@/components/bo/facturation/PaiementsClients";
 
 export const Route = createFileRoute("/backoffice/facturation")({
+  validateSearch: z.object({
+    tab: z.string().optional(),
+  }),
   head: () => ({
     meta: [
-      { title: "Facturation — Back-Office ORCONDIS" },
-      {
-        name: "description",
-        content:
-          "Courses à facturer, facturation périodique, factures et paiements clients ORCONDIS.",
-      },
-      { property: "og:title", content: "Facturation — Back-Office ORCONDIS" },
-      { property: "og:description", content: "Gestion de la facturation ORCONDIS." },
+      { title: "Facturation & Paiements — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion de la facturation et des paiements clients." },
     ],
   }),
   component: FacturationPage,
 });
 
-const ONGLETS = ["Courses à facturer", "Facturation périodique", "Factures", "Paiements clients"] as const;
+const ONGLETS = ["Factures", "Paiements clients", "Courses à facturer", "Facturation périodique"] as const;
 
 function FacturationPage() {
-  const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Courses à facturer");
+  const { tab } = Route.useSearch();
+  const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Factures");
+
+  useEffect(() => {
+    if (tab && ONGLETS.includes(tab as any)) {
+      setOnglet(tab as any);
+    }
+  }, [tab]);
 
   return (
     <div className="space-y-5">
-      <PageHeader
-        titre="Facturation"
-        sous="Calcul des montants, génération des factures et suivi des règlements clients."
-      />
+      <PageHeader titre="Facturation & Paiements" sous="Gestion des factures et règlements clients." />
       <Onglets items={ONGLETS} actif={onglet} onChange={(v) => setOnglet(v as typeof onglet)} />
-      {onglet === "Courses à facturer" && <CoursesAFacturer />}
-      {onglet === "Facturation périodique" && <FacturationPeriodique />}
       {onglet === "Factures" && <Factures />}
       {onglet === "Paiements clients" && <PaiementsClients />}
+      {onglet === "Courses à facturer" && <CoursesAFacturer />}
+      {onglet === "Facturation périodique" && <FacturationPeriodique />}
     </div>
   );
 }
