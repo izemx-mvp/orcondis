@@ -482,4 +482,19 @@ function Rapports() {
       </div>
     );
   }
+
+  return (
+    <div className="space-y-5">
+      <PageHeader titre="Rapports" sous="Indicateurs de performance, volume d'activité et suivi opérationnel ORCONDIS." />
+      <Onglets items={ONGLETS} actif={onglet} onChange={setOnglet} />
+      <div className="mt-4">
+        {onglet === "Activité" && <RapportActivite courses={coursesFiltrees} dossiers={data.dossiers} factures={data.factures} />}
+        {onglet === "Clients" && <RapportClients courses={coursesFiltrees} dossiers={data.dossiers} factures={data.factures} />}
+        {onglet === "Coursiers" && <RapportCoursiers courses={coursesFiltrees} />}
+        {onglet === "Dispatch" && <RapportDispatch />}
+        {onglet === "Financier" && <RapportFinancier courses={coursesFiltrees} factures={data.factures} />}
+        {onglet === "Opérations" && <RapportOperations courses={coursesFiltrees} />}
+      </div>
+    </div>
+  );
 }
