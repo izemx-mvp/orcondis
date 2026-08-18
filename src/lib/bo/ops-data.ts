@@ -79,25 +79,31 @@ export const ZONES = [
 export const TRANSPORTS = ["Moto", "Bicyclette", "Voiture"] as const;
 export type Transport = (typeof TRANSPORTS)[number];
 
-export const TRANCHES_HORAIRES = ["Matin", "Midi", "Après-midi", "Fin de journée"] as const;
+export const TRANCHES_HORAIRES = ["Matin (08h – 12h)", "Midi (12h – 14h)", "Après-midi (14h – 17h)", "Fin de journée (17h – 19h)"] as const;
 
 export const PRIORITES_COURSE = ["Normale", "Urgente", "Exclusive"] as const;
 export type PrioriteCourse = (typeof PRIORITES_COURSE)[number];
 
+export const GENRES_COURSE = ["Aller simple", "Aller & Retour", "Multiple"] as const;
+export type GenreCourse = (typeof GENRES_COURSE)[number];
+
 export const TYPES_COURSE = [
-  "Récupération de documents",
-  "Livraison de documents",
-  "Dépôt administratif",
+  "Collecte",
+  "Enlèvement",
+  "Livraison",
+  "Distribution",
+  "Course à course",
   "Course administrative",
+  "Récupération de documents",
+  "Dépôt de documents",
   "Paiement de facture",
   "Paiement fournisseur",
   "Récupération de chèque",
   "Dépôt de chèque",
-  "Course bancaire",
-  "Livraison fournisseur",
-  "Procédure provisoire",
-  "Vérification du poids",
-  "Vérification / contrôle",
+  "Constitution de dossier",
+  "Suivi de dossier",
+  "Formalité administrative",
+  "Service de proximité",
   "Autre",
 ] as const;
 
@@ -303,9 +309,12 @@ export type CourseOps = {
   message: string;
   service: string;
   typeCourse: string;
+  genreCourse: GenreCourse;
   priorite: PrioriteCourse;
   dateCourse: string;
   trancheHoraire: string;
+  heureDebutSouhaitee: string;
+  heureFinSouhaitee: string;
   heureFixe: string;
   transport: Transport | "";
   coursierId: string;

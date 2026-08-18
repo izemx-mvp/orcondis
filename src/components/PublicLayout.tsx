@@ -127,7 +127,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               <li>Casablanca, Maroc</li>
               <li>0666 70 99 41</li>
               <li>orcondiscourses@gmail.com</li>
-              <li>Lundi – Samedi : 08h30 – 19h00</li>
+              <li>Lundi – Vendredi : 08h00 – 18h30</li>
             </ul>
           </div>
         </div>

@@ -67,20 +67,23 @@ const ETAPES = [
 
 const FORMULAS = [
   {
-    name: "Standard",
-    price: "À partir de 30 DH",
-    features: ["Délai : 4h à 8h", "Suivi WhatsApp", "Rapport de fin de mission"],
+    name: "Formule 1",
+    description: "2 courses normales en Aller simple par jour",
+    price: "Sur devis",
+    features: ["Centre-ville", "Rayon de 7 km", "5 jours / semaine", "Suivi WhatsApp"],
   },
   {
-    name: "Express",
-    price: "À partir de 60 DH",
-    features: ["Délai : < 2h", "Coursier dédié", "Priorité haute", "Signature électronique"],
+    name: "Formule 2",
+    description: "1 course normale en Aller simple par jour",
+    price: "Sur devis",
+    features: ["Centre-ville", "Rayon de 7 km", "5 jours / semaine", "Priorité standard"],
     highlight: true,
   },
   {
-    name: "Exclusive (Tizzla & Serve)",
+    name: "Formule 3",
+    description: "1 course normale en Aller simple",
     price: "Sur devis",
-    features: ["Délai immédiat", "Multi-destinations (jusqu'à 5 stops)", "Service VIP", "Assistance 24/7"],
+    features: ["Centre-ville", "Rayon de 7 km", "3 jours / semaine", "Service flexible"],
   },
 ];
 
@@ -94,12 +97,12 @@ function Accueil() {
               <Building2 className="h-4 w-4" /> Bureau de services — Casablanca
             </span>
             <h1 className="mt-8 text-4xl font-black tracking-tighter text-navy sm:text-6xl lg:text-7xl">
-              Tizzla & Serve <br />
-              <span className="text-primary">L'excellence logistique</span>
+              Tizzla and Serve <br />
+              <span className="text-primary">By ORCONDIS</span>
             </h1>
             <p className="mt-8 max-w-xl text-lg text-muted-foreground sm:text-xl">
-              ORCONDIS redéfinit la course urbaine. Documents, chèques, démarches administratives : 
-              nous traitons vos urgences avec une précision chirurgicale et une traçabilité totale.
+              Vos courses et démarches professionnelles, simplement prises en charge. 
+              ORCONDIS vous accompagne dans vos opérations de collecte, d’enlèvement, de livraison, de distribution et dans le suivi de vos dossiers professionnels ou particuliers.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button asChild size="lg" className="rounded-full px-8 text-base font-bold shadow-lg shadow-primary/20 transition-transform hover:scale-105">
@@ -154,7 +157,8 @@ function Accueil() {
       <section className="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6">
         <div className="text-center">
           <h2 className="text-base font-bold uppercase tracking-widest text-primary">Services</h2>
-          <p className="mt-2 text-3xl font-black tracking-tight text-navy sm:text-4xl">Nos Prestations</p>
+          <p className="mt-2 text-3xl font-black tracking-tight text-navy sm:text-4xl">Gagnez du temps et optimisez vos opérations avec les services de proximité et de coursiers ORCONDIS.</p>
+          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Un véritable service d’accompagnement selon les directives du client. Toutes nos prestations font l’objet d’une étude et d’un devis au cas par cas.</p>
         </div>
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => {
@@ -194,6 +198,7 @@ function Accueil() {
                   </span>
                 )}
                 <h3 className="text-xl font-black text-navy">{f.name}</h3>
+                <p className="mt-2 text-sm text-muted-foreground font-medium">{f.description}</p>
                 <p className="mt-4 text-3xl font-black text-navy">{f.price}</p>
                 <ul className="mt-8 flex-1 space-y-4">
                   {f.features.map((feat) => (

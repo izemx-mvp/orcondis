@@ -69,9 +69,12 @@ function courseVide(numero: string): CourseOps {
     message: "",
     service: "",
     typeCourse: TYPES_COURSE[0],
+    genreCourse: "Aller simple",
     priorite: "Normale" as CourseOps["priorite"],
     dateCourse: todayIso(),
     trancheHoraire: TRANCHES_HORAIRES[0],
+    heureDebutSouhaitee: "08:00",
+    heureFinSouhaitee: "18:30",
     heureFixe: "",
     transport: "",
     coursierId: "",
@@ -251,13 +254,22 @@ function CoursesPage() {
       </Grille>
       <Grille cols={3}>
         <ChampSelect label="Type de course" value={form.typeCourse} onChange={(v) => setForm({ ...form, typeCourse: v })} options={TYPES_COURSE} />
+        <ChampSelect label="Genre de course" value={form.genreCourse} onChange={(v) => setForm({ ...form, genreCourse: v as any })} options={["Aller simple", "Aller & Retour", "Multiple"]} />
         <ChampSelect label="Priorité" value={form.priorite} onChange={(v) => setForm({ ...form, priorite: v as CourseOps["priorite"] })} options={PRIORITES_COURSE} />
-        <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
       </Grille>
       <Grille cols={3}>
         <Champ label="Date de la course" type="date" value={form.dateCourse} onChange={(v) => setForm({ ...form, dateCourse: v, jour: jourDe(v) })} />
         <ChampSelect label="Tranche horaire" value={form.trancheHoraire} onChange={(v) => setForm({ ...form, trancheHoraire: v })} options={TRANCHES_HORAIRES} />
         <Champ label="Heure fixe" type="time" value={form.heureFixe} onChange={(v) => setForm({ ...form, heureFixe: v })} />
+      </Grille>
+      <Grille cols={2}>
+        <Champ label="Heure début souhaitée" type="time" value={form.heureDebutSouhaitee} onChange={(v) => setForm({ ...form, heureDebutSouhaitee: v })} />
+        <Champ label="Heure fin souhaitée" type="time" value={form.heureFinSouhaitee} onChange={(v) => setForm({ ...form, heureFinSouhaitee: v })} />
+      </Grille>
+      <Grille cols={3}>
+        <Champ label="Poids (kg)" type="number" value={(form as any).poids || 0} onChange={(v) => setForm({ ...form, [ "poids" as any]: Number(v) })} />
+        <Champ label="Volume" value={(form as any).volume || ""} onChange={(v) => setForm({ ...form, [ "volume" as any]: v })} />
+        <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
       </Grille>
       <ChampTexte label="Message / instructions" value={form.message} onChange={(v) => setForm({ ...form, message: v })} rows={2} />
       <EditeurPoint titre="Point de retrait" point={form.retrait} onChange={(p) => setForm({ ...form, retrait: p })} />
