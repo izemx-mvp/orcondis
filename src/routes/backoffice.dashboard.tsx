@@ -114,7 +114,7 @@ function Dashboard() {
           titre="Facturation"
           actions={
             <Button asChild variant="ghost" size="sm">
-              <Link to="/backoffice/facturation">Ouvrir</Link>
+              <Link to="/backoffice/facturation" search={{ tab: "Courses à facturer" }}>Ouvrir</Link>
             </Button>
           }
         >
@@ -161,7 +161,7 @@ function Dashboard() {
           titre="Dernières factures"
           actions={
             <Button asChild variant="ghost" size="sm">
-              <Link to="/backoffice/facturation">Voir tout</Link>
+              <Link to="/backoffice/facturation" search={{ tab: "Factures" }}>Voir tout</Link>
             </Button>
           }
         >
