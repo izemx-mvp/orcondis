@@ -181,10 +181,8 @@
   }
 }
 
-@layer utilities {
-  .dark .text-navy {
-    color: var(--color-foreground);
-  }
+.dark .text-navy {
+  color: var(--color-foreground);
 }
 
 @utility surface-card {
