@@ -1103,7 +1103,6 @@ function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick:
     <div 
       onClick={onClick}
       className={cn(
-      className={cn(
         "bg-card border-l-4 rounded shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col overflow-hidden",
         toneCourse(c.statut).includes("success") ? "border-l-success" :
         toneCourse(c.statut).includes("warning") ? "border-l-warning" :
