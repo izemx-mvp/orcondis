@@ -10,6 +10,7 @@ import {
   TYPES_COURSE,
   TYPES_DOSSIER,
   horodatage,
+  jourDe,
   nomClient,
   oid,
   pointVide,
@@ -22,6 +23,7 @@ import {
   type CourseOps,
   type DossierOps,
 } from "@/lib/bo/ops-data";
+
 import type { Demande, Statut } from "@/lib/orcondis";
 import { STATUSES, statutTone } from "@/lib/orcondis";
 import { SERVICES } from "@/lib/orcondis";
