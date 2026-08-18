@@ -166,6 +166,19 @@ function CoursesPage() {
   const { data, ajouter, modifier, archiver, ajouterNote, ajouterDocument, changerStatutCourse, affecterCoursier, reaffecterCoursier, programmerCommunication, envoyerCommunication, repondreCommunication, annulerCommunication } = useOps();
   const l = useOpsLookups();
 
+  // Navigation et Vue
+  const [vue, setVue] = useState<"Liste" | "Planning">(() => {
+    if (typeof window !== "undefined") {
+      return (window.localStorage.getItem("orcondis.courses.vue") as any) || "Liste";
+    }
+    return "Liste";
+  });
+  
+  useEffect(() => {
+    window.localStorage.setItem("orcondis.courses.vue", vue);
+  }, [vue]);
+
+  // Filtres communs
   const [recherche, setRecherche] = useState("");
   const [statut, setStatut] = useState("");
   const [priorite, setPriorite] = useState("");
@@ -176,11 +189,18 @@ function CoursesPage() {
   const [dateF, setDateF] = useState("");
   const [voirArchives, setVoirArchives] = useState(false);
 
+  // État Calendrier
+  const [calendarDate, setCalendarDate] = useState(new Date());
+  const [calendarView, setCalendarView] = useState<CalendarViewType>("Semaine");
+
+  // Dialogs
   const nouveauDialog = useDialog<null>();
   const editDialog = useDialog<CourseOps>();
   const detailDialog = useDialog<CourseOps>();
   const affectationDialog = useDialog<CourseOps>();
   const reaffectationDialog = useDialog<CourseOps>();
+  
+  // États de saisie
   const [ongletDetail, setOngletDetail] = useState("Informations");
   const [note, setNote] = useState("");
   const [docNom, setDocNom] = useState("");
@@ -192,7 +212,8 @@ function CoursesPage() {
 
   const services = useMemo(() => Array.from(new Set(data.courses.map((c) => c.service).filter(Boolean))).sort(), [data.courses]);
 
-  const courses = useMemo(() => {
+  // Filtrage des données
+  const coursesFiltrees = useMemo(() => {
     const terme = recherche.trim().toLowerCase();
     return data.courses.filter((c) => {
       if (c.archive !== voirArchives) return false;
@@ -222,6 +243,7 @@ function CoursesPage() {
     };
   }, [data.courses]);
 
+  // Actions
   const ouvrirCreation = () => {
     setForm(courseVide(prochainNumeroCourse(data.courses)));
     nouveauDialog.ouvrir(null);
@@ -254,25 +276,55 @@ function CoursesPage() {
     return recommanderCoursiers(data.coursiers, l.chargeCoursier, affectationDialog.item);
   }, [affectationDialog.item, data.coursiers, l]);
 
+  // Colonnes de la table
   const colonnes: Colonne<CourseOps>[] = [
-    { cle: "numero", titre: "N°", rendu: (c) => <span className="font-medium text-navy">{c.numero}</span> },
-    { cle: "client", titre: "Client", rendu: (c) => <span className="text-sm font-medium">{l.clientNom(c.clientId)}</span> },
-    { cle: "type", titre: "Type", rendu: (c) => <span className="text-xs">{c.typeCourse}</span> },
-    { cle: "genre", titre: "Genre", rendu: (c) => <span className="text-xs">{c.genreCourse}</span> },
-    { cle: "date", titre: "Date", rendu: (c) => <span className="text-xs">{c.dateCourse} · {c.trancheHoraire}</span> },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => <span className="text-sm">{l.coursierNom(c.coursierId)}</span> },
-    { cle: "priorite", titre: "Priorité", rendu: (c) => <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut> },
+    { cle: "numero", titre: "N°", rendu: (c) => <span className="font-bold text-navy">{c.numero}</span> },
+    { cle: "date", titre: "Date", rendu: (c) => <div className="text-xs">
+        <p className="font-medium">{format(parseISO(c.dateCourse), "dd/MM")}</p>
+        <p className="text-muted-foreground">{c.heureFixe || c.trancheHoraire.split(' ')[0]}</p>
+      </div> },
+    { cle: "client", titre: "Client / Corresp.", rendu: (c) => <div>
+        <p className="font-medium text-sm">{l.clientNom(c.clientId)}</p>
+        <p className="text-[10px] text-muted-foreground uppercase">{c.correspondant}</p>
+      </div> },
+    { cle: "commande", titre: "Service / Commande", rendu: (c) => <div className="max-w-[150px]">
+        <p className="text-xs font-medium truncate">{c.service || c.typeCourse}</p>
+        <p className="text-[10px] text-muted-foreground truncate">{c.message}</p>
+      </div> },
+    { cle: "type", titre: "Type/Genre", rendu: (c) => <div className="text-[10px]">
+        <p>{c.typeCourse}</p>
+        <p className="text-muted-foreground">{c.genreCourse}</p>
+      </div> },
+    { cle: "trajet", titre: "Retrait → Dest.", rendu: (c) => <div className="text-[10px]">
+        <p className="font-medium text-navy">Ret: {c.retrait.zone}</p>
+        <p className="text-muted-foreground">Dest: {c.destinations[0]?.zone || "—"}</p>
+      </div> },
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <div className="text-sm">
+        {c.coursierId ? (
+          <p className="font-medium">{l.coursierNom(c.coursierId)}</p>
+        ) : (
+          <span className="text-warning text-xs font-medium">⚠ À affecter</span>
+        )}
+      </div> },
+    { cle: "dispatch", titre: "Dispatch", rendu: (c) => <div className="flex flex-col items-center">
+        {c.dispatch.statut === "Confirmée" ? <CheckCheck className="w-4 h-4 text-success" /> : 
+         c.dispatch.statut === "Envoyée" ? <Check className="w-4 h-4 text-primary" /> :
+         c.dispatch.statut === "Programmée" ? <Clock className="w-4 h-4 text-warning" /> :
+         c.dispatch.statut === "Refusée" ? <XCircle className="w-4 h-4 text-destructive" /> :
+         <span className="text-[9px] text-muted-foreground">—</span>}
+        <span className="text-[9px] text-muted-foreground mt-1">{c.dispatch.statut}</span>
+      </div> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
       cle: "actions",
       titre: "Actions",
       align: "right",
       rendu: (c) => (
-        <div className="flex flex-wrap justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-wrap justify-end gap-1" onClick={(e) => e.stopPropagation()}>
           <Button size="sm" variant="ghost" onClick={() => ouvrirDetail(c)}>Voir</Button>
           <Button size="sm" variant="ghost" onClick={() => ouvrirEdition(c)}>Modifier</Button>
           {!c.coursierId ? (
-            <Button size="sm" variant="ghost" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
+            <Button size="sm" variant="outline" className="h-7 text-[10px]" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
           ) : (
             <Button size="sm" variant="ghost" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
               Réaffecter
