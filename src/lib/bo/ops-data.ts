@@ -964,6 +964,17 @@ export function seedOps(): OpsData {
     instructions: "",
     instructionsAudio: "",
     noteInterne: "",
+    dispatch: {
+      mode: "Message texte",
+      moment: "Immédiatement après affectation",
+      dateEnvoi: todayIso(),
+      heureEnvoi: "09:15",
+      confirmationRecue: false,
+      confirmationMission: false,
+      statut: "En attente",
+      nbRelances: 0,
+      historique: [],
+    },
     heureEnvoiOrdre: "",
     heureDepart: "",
     kmDepart: 0,
@@ -989,6 +1000,7 @@ export function seedOps(): OpsData {
     quantite: 1,
     ...over,
   });
+
 
   const courses: CourseOps[] = [
     courseBase({
@@ -1190,6 +1202,7 @@ export function seedOps(): OpsData {
       duree: "0:34",
       transcription: "Je suis arrivé chez le fournisseur, le comptable demande un bon de commande signé.",
       lu: false,
+      type: "Réponse",
     },
     {
       id: oid("aud"),
@@ -1198,6 +1211,7 @@ export function seedOps(): OpsData {
       date: todayIso(),
       heure: "11:02",
       duree: "0:21",
+
       transcription: "Le guichet du tribunal est fermé pour inventaire, j’attends vos instructions.",
       lu: false,
     },
