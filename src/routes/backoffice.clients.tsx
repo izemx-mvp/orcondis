@@ -344,16 +344,57 @@ function ClientDetail({
         {onglet === "Informations" && (
           <div className="space-y-4 pt-3">
             <Grille cols={3}>
-              <Detail label="Code">{c.code}</Detail>
-              <Detail label="Catégorie">{c.categorie}</Detail>
-              <Detail label="GSM">{c.gsm}</Detail>
-              <Detail label="WhatsApp">{c.whatsapp}</Detail>
-              <Detail label="Email">{c.email}</Detail>
-              <Detail label="Adresse">{c.adresseComplete}</Detail>
-              <Detail label="Ville / Zone">{`${c.ville} · ${c.zone}`}</Detail>
-              <Detail label="Créé le">{c.creeLe}</Detail>
-              <Detail label="Statut">{c.archive ? "Archivé" : "Actif"}</Detail>
+              <Detail label="Code client">{c.code}</Detail>
+              <Detail label="Type de client">{c.categorie}</Detail>
+              {c.sousType && <Detail label="Sous-type">{c.sousType}</Detail>}
             </Grille>
+            <Grille cols={3}>
+              {c.categorie === "Personne physique" ? (
+                <>
+                  <Detail label="Nom">{c.nom}</Detail>
+                  <Detail label="Prénom">{c.prenom}</Detail>
+                </>
+              ) : c.categorie === "Entreprise" ? (
+                <Detail label="Dénomination">{c.denomination}</Detail>
+              ) : c.categorie === "Société" ? (
+                <Detail label="Raison sociale">{c.raisonSociale}</Detail>
+              ) : (
+                <Detail label="Dénomination">{c.denomination}</Detail>
+              )}
+            </Grille>
+            <div className="border-t pt-3">
+              <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Coordonnées</p>
+              <Grille cols={3}>
+                <Detail label="Ville">{c.ville}</Detail>
+                <Detail label="Quartier">{c.quartier}</Detail>
+                <Detail label="Zone">{c.zone}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="Rue">{c.rue}</Detail>
+                <Detail label="N°">{c.numeroRue}</Detail>
+                <Detail label="Étage">{c.etage}</Detail>
+              </Grille>
+              <Grille cols={2}>
+                <Detail label="N° Appartement">{c.appartement}</Detail>
+                <Detail label="Adresse">{c.adresseComplete}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="Pays">{c.pays}</Detail>
+                <Detail label="GSM">{c.gsm}</Detail>
+                <Detail label="WhatsApp">{c.whatsapp}</Detail>
+              </Grille>
+              <Grille cols={3}>
+                <Detail label="E-mail">{c.email}</Detail>
+                <Detail label="Fixe">{c.telephoneFixe}</Detail>
+                <Detail label="Fax">{c.fax}</Detail>
+              </Grille>
+              <Grille cols={2}>
+                <Detail label="Facebook">{c.facebook}</Detail>
+                <Detail label="Instagram">{c.instagram}</Detail>
+              </Grille>
+            </div>
+            <Detail label="Créé le">{c.creeLe}</Detail>
+            <Detail label="Statut">{c.archive ? "Archivé" : "Actif"}</Detail>
             <div>
               <p className="text-xs uppercase tracking-wide text-muted-foreground">Notes</p>
               <pre className="mt-1 whitespace-pre-wrap rounded-md bg-surface p-3 text-sm text-foreground">{c.notes || "—"}</pre>
