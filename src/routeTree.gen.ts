@@ -19,12 +19,18 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DemandeRouteImport } from './routes/demande'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
+import { Route as BackofficeClientsRouteImport } from './routes/backoffice.clients'
+import { Route as BackofficeContactsRouteImport } from './routes/backoffice.contacts'
+import { Route as BackofficeCoursesRouteImport } from './routes/backoffice.courses'
+import { Route as BackofficeCoursiersRouteImport } from './routes/backoffice.coursiers'
 import { Route as BackofficeDemandesRouteImport } from './routes/backoffice.demandes'
 import { Route as BackofficeDocumentsRouteImport } from './routes/backoffice.documents'
 import { Route as BackofficeDossiersRouteImport } from './routes/backoffice.dossiers'
 import { Route as BackofficeFournisseursRouteImport } from './routes/backoffice.fournisseurs'
 import { Route as BackofficePaiementsRouteImport } from './routes/backoffice.paiements'
+import { Route as BackofficeProceduresRouteImport } from './routes/backoffice.procedures'
 import { Route as BackofficeRapportsRouteImport } from './routes/backoffice.rapports'
+import { Route as BackofficeWhatsappRouteImport } from './routes/backoffice.whatsapp'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -76,6 +82,26 @@ const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
   path: '/',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const BackofficeClientsRoute = BackofficeClientsRouteImport.update({
+  id: '/clients',
+  path: '/clients',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeContactsRoute = BackofficeContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeCoursesRoute = BackofficeCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeCoursiersRoute = BackofficeCoursiersRouteImport.update({
+  id: '/coursiers',
+  path: '/coursiers',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 const BackofficeDemandesRoute = BackofficeDemandesRouteImport.update({
   id: '/demandes',
   path: '/demandes',
@@ -101,9 +127,19 @@ const BackofficePaiementsRoute = BackofficePaiementsRouteImport.update({
   path: '/paiements',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const BackofficeProceduresRoute = BackofficeProceduresRouteImport.update({
+  id: '/procedures',
+  path: '/procedures',
+  getParentRoute: () => BackofficeRoute,
+} as any)
 const BackofficeRapportsRoute = BackofficeRapportsRouteImport.update({
   id: '/rapports',
   path: '/rapports',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeWhatsappRoute = BackofficeWhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
   getParentRoute: () => BackofficeRoute,
 } as any)
 
@@ -117,12 +153,18 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/contacts': typeof BackofficeContactsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
+  '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
   '/backoffice/documents': typeof BackofficeDocumentsRoute
   '/backoffice/dossiers': typeof BackofficeDossiersRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
+  '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRoutesByTo {
@@ -134,12 +176,18 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/contacts': typeof BackofficeContactsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
+  '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
   '/backoffice/documents': typeof BackofficeDocumentsRoute
   '/backoffice/dossiers': typeof BackofficeDossiersRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
+  '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
   '/backoffice': typeof BackofficeIndexRoute
 }
 export interface FileRoutesById {
@@ -153,12 +201,18 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/demande': typeof DemandeRoute
   '/services': typeof ServicesRoute
+  '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/contacts': typeof BackofficeContactsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
+  '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
   '/backoffice/documents': typeof BackofficeDocumentsRoute
   '/backoffice/dossiers': typeof BackofficeDossiersRoute
   '/backoffice/fournisseurs': typeof BackofficeFournisseursRoute
   '/backoffice/paiements': typeof BackofficePaiementsRoute
+  '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
+  '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
   '/backoffice/': typeof BackofficeIndexRoute
 }
 export interface FileRouteTypes {
@@ -173,12 +227,18 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/clients'
+    | '/backoffice/contacts'
+    | '/backoffice/courses'
+    | '/backoffice/coursiers'
     | '/backoffice/demandes'
     | '/backoffice/documents'
     | '/backoffice/dossiers'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/procedures'
     | '/backoffice/rapports'
+    | '/backoffice/whatsapp'
     | '/backoffice/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -190,12 +250,18 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/clients'
+    | '/backoffice/contacts'
+    | '/backoffice/courses'
+    | '/backoffice/coursiers'
     | '/backoffice/demandes'
     | '/backoffice/documents'
     | '/backoffice/dossiers'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/procedures'
     | '/backoffice/rapports'
+    | '/backoffice/whatsapp'
     | '/backoffice'
   id:
     | '__root__'
@@ -208,12 +274,18 @@ export interface FileRouteTypes {
     | '/contact'
     | '/demande'
     | '/services'
+    | '/backoffice/clients'
+    | '/backoffice/contacts'
+    | '/backoffice/courses'
+    | '/backoffice/coursiers'
     | '/backoffice/demandes'
     | '/backoffice/documents'
     | '/backoffice/dossiers'
     | '/backoffice/fournisseurs'
     | '/backoffice/paiements'
+    | '/backoffice/procedures'
     | '/backoffice/rapports'
+    | '/backoffice/whatsapp'
     | '/backoffice/'
   fileRoutesById: FileRoutesById
 }
@@ -301,6 +373,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeIndexRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/clients': {
+      id: '/backoffice/clients'
+      path: '/clients'
+      fullPath: '/backoffice/clients'
+      preLoaderRoute: typeof BackofficeClientsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/contacts': {
+      id: '/backoffice/contacts'
+      path: '/contacts'
+      fullPath: '/backoffice/contacts'
+      preLoaderRoute: typeof BackofficeContactsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/courses': {
+      id: '/backoffice/courses'
+      path: '/courses'
+      fullPath: '/backoffice/courses'
+      preLoaderRoute: typeof BackofficeCoursesRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/coursiers': {
+      id: '/backoffice/coursiers'
+      path: '/coursiers'
+      fullPath: '/backoffice/coursiers'
+      preLoaderRoute: typeof BackofficeCoursiersRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
     '/backoffice/demandes': {
       id: '/backoffice/demandes'
       path: '/demandes'
@@ -336,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficePaiementsRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/procedures': {
+      id: '/backoffice/procedures'
+      path: '/procedures'
+      fullPath: '/backoffice/procedures'
+      preLoaderRoute: typeof BackofficeProceduresRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
     '/backoffice/rapports': {
       id: '/backoffice/rapports'
       path: '/rapports'
@@ -343,26 +450,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeRapportsRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/backoffice/whatsapp': {
+      id: '/backoffice/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/backoffice/whatsapp'
+      preLoaderRoute: typeof BackofficeWhatsappRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
   }
 }
 
 interface BackofficeRouteChildren {
+  BackofficeClientsRoute: typeof BackofficeClientsRoute
+  BackofficeContactsRoute: typeof BackofficeContactsRoute
+  BackofficeCoursesRoute: typeof BackofficeCoursesRoute
+  BackofficeCoursiersRoute: typeof BackofficeCoursiersRoute
   BackofficeDemandesRoute: typeof BackofficeDemandesRoute
   BackofficeDocumentsRoute: typeof BackofficeDocumentsRoute
   BackofficeDossiersRoute: typeof BackofficeDossiersRoute
   BackofficeFournisseursRoute: typeof BackofficeFournisseursRoute
   BackofficePaiementsRoute: typeof BackofficePaiementsRoute
+  BackofficeProceduresRoute: typeof BackofficeProceduresRoute
   BackofficeRapportsRoute: typeof BackofficeRapportsRoute
+  BackofficeWhatsappRoute: typeof BackofficeWhatsappRoute
   BackofficeIndexRoute: typeof BackofficeIndexRoute
 }
 
 const BackofficeRouteChildren: BackofficeRouteChildren = {
+  BackofficeClientsRoute: BackofficeClientsRoute,
+  BackofficeContactsRoute: BackofficeContactsRoute,
+  BackofficeCoursesRoute: BackofficeCoursesRoute,
+  BackofficeCoursiersRoute: BackofficeCoursiersRoute,
   BackofficeDemandesRoute: BackofficeDemandesRoute,
   BackofficeDocumentsRoute: BackofficeDocumentsRoute,
   BackofficeDossiersRoute: BackofficeDossiersRoute,
   BackofficeFournisseursRoute: BackofficeFournisseursRoute,
   BackofficePaiementsRoute: BackofficePaiementsRoute,
+  BackofficeProceduresRoute: BackofficeProceduresRoute,
   BackofficeRapportsRoute: BackofficeRapportsRoute,
+  BackofficeWhatsappRoute: BackofficeWhatsappRoute,
   BackofficeIndexRoute: BackofficeIndexRoute,
 }
 
