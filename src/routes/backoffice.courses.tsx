@@ -507,39 +507,39 @@ function CoursesPage() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Courses"
-        sous="Planification, affectation et suivi des courses ORCONDIS."
+        sous="Planification, affectation et suivi des missions ORCONDIS."
         actions={
           <div className="flex items-center gap-2">
-             <div className="flex bg-surface p-1 rounded-lg border border-border">
+             <div className="flex bg-white/50 backdrop-blur-md p-1.5 rounded-2xl border border-border shadow-sm">
               {(["Liste", "Planning"] as const).map((v) => (
                 <button
                   key={v}
                   onClick={() => setVue(v)}
                   className={cn(
-                    "px-3 py-1.5 text-xs font-medium rounded-md transition-all flex items-center gap-1.5",
+                    "px-6 py-2 text-sm font-black rounded-xl transition-all flex items-center gap-2",
                     vue === v 
-                      ? "bg-card text-navy shadow-sm" 
-                      : "text-muted-foreground hover:text-navy"
+                      ? "bg-navy text-white shadow-lg" 
+                      : "text-muted-foreground hover:text-navy hover:bg-muted/30"
                   )}
                 >
-                  {v === "Liste" ? <ListIcon className="w-3.5 h-3.5" /> : <CalendarIcon className="w-3.5 h-3.5" />}
+                  {v === "Liste" ? <ListIcon className="w-4 h-4" /> : <CalendarIcon className="w-4 h-4" />}
                   {v}
                 </button>
               ))}
             </div>
-            <Button size="sm" onClick={ouvrirCreation}>
-              <Plus className="w-4 h-4 mr-1.5" />
-              Nouvelle course
+            <Button size="lg" className="rounded-2xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8 h-12" onClick={ouvrirCreation}>
+              <Plus className="w-5 h-5 mr-2" />
+              Nouvelle mission
             </Button>
           </div>
         }
       />
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-        <StatCard label="Courses actives" valeur={stats.total} />
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+        <StatCard label="Missions actives" valeur={stats.total} />
         <StatCard label="À affecter" valeur={stats.aAffecter} ton="alerte" />
         <StatCard label="En cours" valeur={stats.enCours} />
         <StatCard label="Bloquées" valeur={stats.bloquees} ton="critique" />
