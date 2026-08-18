@@ -334,7 +334,7 @@ function DemandeDetail({
     const course: CourseOps = {
       id: oid("crs"),
       numero: prochainNumeroCourse(opsData.courses),
-      jour: "",
+      jour: jourDe(q.planning.date || todayIso()),
       dateAppel: todayIso(),
       heureAppel: demande.heure,
       correspondant: `${demande.prenom} ${demande.nom}`.trim(),
@@ -349,14 +349,25 @@ function DemandeDetail({
       priorite: q.planning.urgence === "Exclusive" ? "Exclusive" : q.planning.urgence === "Urgente" ? "Urgente" : "Normale",
       dateCourse: q.planning.date || todayIso(),
       trancheHoraire: q.planning.trancheHoraire || TRANCHES_HORAIRES[0],
-      heureDebutSouhaitee: "08:00",
-      heureFinSouhaitee: "18:30",
+      heureDebutSouhaitee: (q as any).heureDebut || "08:00",
+      heureFinSouhaitee: (q as any).heureFin || "18:30",
       heureFixe: q.planning.heureFixe || "",
       transport: "" as CourseOps["transport"],
+      coursierId: "",
       statut: "À affecter",
-      retrait: pointVide(),
-      destinations: [pointVide(1)],
-      instructions: q.resumeIA,
+      retrait: {
+        ...pointVide(),
+        zone: q.retrait?.zone ?? "",
+        ville: q.retrait?.ville ?? "Casablanca",
+        quartier: q.retrait?.quartier ?? "",
+        adresse: q.retrait?.adresse ?? "",
+        contact: q.retrait?.contact ?? "",
+        gsm: q.retrait?.gsm ?? "",
+      },
+      destinations: q.destinations.length
+        ? q.destinations.map((d, i) => ({ ...pointVide(i + 1), ...d }))
+        : [pointVide(1)],
+      instructions: q.instructionsSpeciales || q.resumeIA,
       instructionsAudio: "",
       noteInterne: "",
       dispatch: {
@@ -385,54 +396,14 @@ function DemandeDetail({
       documents: [],
       notesInternes: [],
       reaffectations: [],
-      historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: "Course créée depuis demande" }],
-      archive: false,
-      quantite: 1,
-    };
-
-      trancheHoraire: q.planning.trancheHoraire || TRANCHES_HORAIRES[0],
-      heureDebutSouhaitee: (q as any).heureDebut || "08:00",
-      heureFinSouhaitee: (q as any).heureFin || "18:30",
-      heureFixe: q.planning.heureFixe,
-      transport: "",
-      coursierId: "",
-      statut: "À affecter",
-      retrait: {
-        ...pointVide(),
-        zone: q.retrait?.zone ?? "",
-        ville: q.retrait?.ville ?? "Casablanca",
-        quartier: q.retrait?.quartier ?? "",
-        adresse: q.retrait?.adresse ?? "",
-        contact: q.retrait?.contact ?? "",
-        gsm: q.retrait?.gsm ?? "",
-      },
-      destinations: q.destinations.length
-        ? q.destinations.map((d, i) => ({ ...pointVide(i + 1), ...d }))
-        : [pointVide(1)],
-      instructions: q.instructionsSpeciales,
-      instructionsAudio: "",
-      noteInterne: "",
-      heureEnvoiOrdre: "",
-      heureDepart: "",
-      kmDepart: 0,
-      litresDepart: 0,
-      heureArrivee: "",
-      heureFin: "",
-      kmArrivee: 0,
-      litresArrivee: 0,
-      kmMission: 0,
-      kmVide: 0,
-      attenteMinutes: 0,
-      notesCoursier: "",
-      documents: [],
-      notesInternes: [],
-      reaffectations: [],
       historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: `Course créée depuis la demande ${demande.numero}` }],
       archive: false,
+      quantite: 1,
     };
     creerCourse("courses", course);
     majDemande(demande.id, { statut: "Transformée" }, `Course créée (${course.numero})`);
   }
+
 
   return (
     <FormDialog open={open} onOpenChange={onOpenChange} titre={`Demande ${demande.numero}`} large>
