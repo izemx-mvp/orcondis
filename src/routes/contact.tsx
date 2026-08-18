@@ -41,8 +41,8 @@ function Contact() {
       <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-3">
         <div className="space-y-4">
           {[
-            { icon: Phone, label: "Téléphone", valeur: "+212 661 00 00 00" },
-            { icon: Mail, label: "Email", valeur: "contact@orcondis.ma" },
+            { icon: Phone, label: "Téléphone", valeur: "0666 70 99 41" },
+            { icon: Mail, label: "Email", valeur: "orcondiscourses@gmail.com" },
             { icon: MapPin, label: "Adresse", valeur: "27, boulevard Zerktouni, Casablanca" },
           ].map((item) => (
             <div key={item.label} className="surface-card flex items-start gap-3 p-4">
@@ -54,7 +54,7 @@ function Contact() {
             </div>
           ))}
           <Button asChild className="w-full bg-whatsapp text-whatsapp-foreground hover:bg-whatsapp/90">
-            <a href="https://wa.me/212661000000">
+            <a href="https://wa.me/212666709941">
               <MessageCircle className="mr-2 h-4 w-4" /> Nous contacter sur WhatsApp
             </a>
           </Button>
