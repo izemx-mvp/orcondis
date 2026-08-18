@@ -193,7 +193,7 @@ export type ClientOps = {
   adresseComplete: string;
   pays: string;
   site: string;
-  email: string;
+  email: string; // Support multiples via string separated by commas or UI logic
   telephoneFixe: string;
   fax: string;
   gsm: string;
