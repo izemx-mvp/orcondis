@@ -38,6 +38,7 @@ import {
   Champ,
   ChampSelect,
   ChampTexte,
+  ChampCase,
   FormDialog,
   Grille,
   Onglets,
@@ -46,6 +47,7 @@ import {
   useDialog,
   type Colonne,
 } from "@/components/bo/kit";
+
 
 export const Route = createFileRoute("/backoffice/courses")({
   head: () => ({
@@ -399,13 +401,14 @@ function CoursesPage() {
           <ChampCase
             label="Demander au coursier de confirmer la réception"
             checked={form.dispatch.confirmationRecue}
-            onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationRecue: v } })}
+            onChange={(v: boolean) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationRecue: v } })}
           />
           <ChampCase
             label="Demander au coursier d'accepter ou refuser la mission"
             checked={form.dispatch.confirmationMission}
-            onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationMission: v } })}
+            onChange={(v: boolean) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationMission: v } })}
           />
+
         </Grille>
       </div>
       <Grille cols={3}>
