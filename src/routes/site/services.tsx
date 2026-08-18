@@ -51,7 +51,7 @@ function Services() {
           </p>
           <div className="mt-6">
             <Button asChild>
-              <Link to="/demande">Faire une demande</Link>
+              <Link to="/site/demande">Faire une demande</Link>
             </Button>
           </div>
         </div>

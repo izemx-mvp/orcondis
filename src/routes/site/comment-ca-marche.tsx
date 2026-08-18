@@ -106,7 +106,7 @@ function CommentCaMarche() {
 
         <div className="mt-8">
           <Button asChild>
-            <Link to="/demande">Faire une demande</Link>
+            <Link to="/site/demande">Faire une demande</Link>
           </Button>
         </div>
       </section>

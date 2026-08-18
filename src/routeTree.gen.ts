@@ -9,7 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AccesRouteImport } from './routes/acces'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as BackofficeRouteImport } from './routes/backoffice'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
@@ -34,9 +34,9 @@ import { Route as SiteContactRouteImport } from './routes/site/contact'
 import { Route as SiteDemandeRouteImport } from './routes/site/demande'
 import { Route as SiteServicesRouteImport } from './routes/site/services'
 
-const AccesRoute = AccesRouteImport.update({
-  id: '/acces',
-  path: '/acces',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BackofficeRoute = BackofficeRouteImport.update({
@@ -156,7 +156,7 @@ const SiteServicesRoute = SiteServicesRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/acces': typeof AccesRoute
+  '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRouteWithChildren
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
@@ -182,7 +182,7 @@ export interface FileRoutesByFullPath {
   '/site/': typeof SiteIndexRoute
 }
 export interface FileRoutesByTo {
-  '/acces': typeof AccesRoute
+  '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
   '/backoffice/courses': typeof BackofficeCoursesRoute
@@ -208,7 +208,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/acces': typeof AccesRoute
+  '/': typeof IndexRoute
   '/backoffice': typeof BackofficeRouteWithChildren
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
@@ -236,7 +236,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/acces'
+    | '/'
     | '/backoffice'
     | '/connexion'
     | '/backoffice/clients'
@@ -262,7 +262,7 @@ export interface FileRouteTypes {
     | '/site/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/acces'
+    | '/'
     | '/connexion'
     | '/backoffice/clients'
     | '/backoffice/courses'
@@ -287,7 +287,7 @@ export interface FileRouteTypes {
     | '/site'
   id:
     | '__root__'
-    | '/acces'
+    | '/'
     | '/backoffice'
     | '/connexion'
     | '/backoffice/clients'
@@ -314,7 +314,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AccesRoute: typeof AccesRoute
+  IndexRoute: typeof IndexRoute
   BackofficeRoute: typeof BackofficeRouteWithChildren
   ConnexionRoute: typeof ConnexionRoute
   SiteAProposRoute: typeof SiteAProposRoute
@@ -327,11 +327,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/acces': {
-      id: '/acces'
-      path: '/acces'
-      fullPath: '/acces'
-      preLoaderRoute: typeof AccesRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/backoffice': {
@@ -539,7 +539,7 @@ const BackofficeRouteWithChildren = BackofficeRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  AccesRoute: AccesRoute,
+  IndexRoute: IndexRoute,
   BackofficeRoute: BackofficeRouteWithChildren,
   ConnexionRoute: ConnexionRoute,
   SiteAProposRoute: SiteAProposRoute,
