@@ -86,9 +86,9 @@ function Dashboard() {
         }
       />
 
-      <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
-        <StatCard label="Courses actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
-        <StatCard label="Courses urgentes" valeur={stats.urgentes} ton="alerte" detail={`${stats.bloquees} bloquée(s)`} />
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+        <StatCard label="Missions actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
+        <StatCard label="Urgences" valeur={stats.urgentes} ton="alerte" detail={`${stats.bloquees} bloquée(s)`} />
         <StatCard
           label="Paiements"
           valeur={stats.paiementsAEffectuer.length}
@@ -97,7 +97,7 @@ function Dashboard() {
         />
         <StatCard label="À facturer" valeur={stats.aFacturer.length} detail={dh(stats.montantAFacturer)} />
         <StatCard label="Factures impayées" valeur={stats.impayees.length} ton="critique" detail={dh(stats.resteImpaye)} />
-        <StatCard label="CA du mois" valeur={dh(stats.caMois)} ton="positif" />
+        <StatCard label="CA Mensuel" valeur={dh(stats.caMois)} ton="positif" />
         <StatCard label="WhatsApp" valeur={data.conversations.length} detail={`${alertesWA.length} alertes`} />
         <StatCard label="Clients" valeur={data.clients.filter((c) => c.actif && !c.archive).length} />
         <StatCard
@@ -109,7 +109,7 @@ function Dashboard() {
       </div>
 
 
-      <div className="grid gap-10 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="grid gap-8 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
         <Panel
           titre="Facturation"
           actions={
