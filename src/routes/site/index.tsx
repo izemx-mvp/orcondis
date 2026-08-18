@@ -29,7 +29,7 @@ export const Route = createFileRoute("/site/")({
       {
         name: "description",
         content:
-          "ORCONDIS redéfinit la course urbaine avec Tizzla & Serve. Documents, chèques, démarches administratives : nous traitons vos urgences avec une précision chirurgicale.",
+          "ORCONDIS redéfinit la course urbaine. Documents, chèques, démarches administratives : nous traitons vos urgences avec une précision chirurgicale.",
       },
       { property: "og:title", content: "ORCONDIS | Excellence Logistique" },
       {
@@ -105,7 +105,7 @@ function Accueil() {
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button asChild size="lg" className="rounded-full px-8 text-base font-bold shadow-lg shadow-primary/20 transition-transform hover:scale-105">
-                <Link to="/demande">
+                <Link to="/site/demande">
                   Nouvelle Demande <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -208,7 +208,7 @@ function Accueil() {
                   ))}
                 </ul>
                 <Button asChild className="mt-8 w-full font-bold py-6 rounded-xl transition-transform hover:scale-[1.02]" variant={f.highlight ? "default" : "outline"}>
-                  <Link to="/demande">Choisir {f.name}</Link>
+                  <Link to="/site/demande">Choisir {f.name}</Link>
                 </Button>
               </div>
             ))}
