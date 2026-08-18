@@ -27,8 +27,10 @@ function Connexion() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background">
       <section className="mx-auto flex w-full max-w-md flex-col px-4 sm:px-6">
-        <div className="flex flex-col items-center mb-10">
-          <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-20 w-auto object-contain mb-4" />
+        <div className="flex flex-col items-center mb-10 group">
+          <div className="bg-white p-5 rounded-3xl shadow-xl shadow-navy/5 transition-all group-hover:scale-105 duration-500 mb-6">
+            <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-20 w-auto object-contain" />
+          </div>
           <h1 className="text-2xl font-black text-navy tracking-tight">Connexion Back-Office</h1>
           <p className="text-sm text-muted-foreground font-medium">
             Accès sécurisé réservé aux collaborateurs.
