@@ -45,7 +45,14 @@ type Ctx = {
   marquerNotifLue: (id: string) => void;
   toutMarquerLu: () => void;
   reinitialiser: () => void;
+  // Agent de Dispatch
+  majSettingsAgent: (patch: Partial<OpsData["settingsAgent"]>) => void;
+  programmerCommunication: (courseId: string, patch: Partial<CourseOps["dispatch"]>) => void;
+  annulerCommunication: (courseId: string) => void;
+  envoyerCommunication: (courseId: string) => void;
+  repondreCommunication: (courseId: string, reponse: "Accepté" | "Refusé" | "Question", motif?: string) => void;
 };
+
 
 const OpsContext = createContext<Ctx | null>(null);
 
@@ -120,6 +127,13 @@ export function OpsProvider({ children }: { children: ReactNode }) {
       affecterCoursier: (courseId, coursierId) =>
         setData((prev) => {
           const coursier = prev.coursiers.find((c) => c.id === coursierId);
+          const course = prev.courses.find((c) => c.id === courseId);
+          if (!course) return prev;
+
+          // Logic for Agent Dispatch on assignment
+          const dispatchStatut = prev.settingsAgent.actif ? "Programmé" : "En attente";
+          const immediate = prev.settingsAgent.programmationParDefaut === "Immédiatement après affectation";
+
           return {
             ...prev,
             courses: prev.courses.map((c) =>
@@ -128,7 +142,21 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     ...c,
                     coursierId,
                     statut: "Affectée" as StatutCourse,
-                    heureEnvoiOrdre: new Date().toTimeString().slice(0, 5),
+                    heureEnvoiOrdre: immediate ? new Date().toTimeString().slice(0, 5) : c.heureEnvoiOrdre,
+                    dispatch: {
+                      ...c.dispatch,
+                      statut: immediate ? "Envoyé" : "Programmé",
+                      historique: [
+                        ...c.dispatch.historique,
+                        {
+                          id: oid("dsh"),
+                          date: horodatage(),
+                          action: immediate ? "Envoyé automatiquement" : "Programmé automatiquement",
+                          details: `Affectation à ${nomCoursier(coursier)}`,
+                          format: c.dispatch.mode === "Audio" ? "Audio" : c.dispatch.mode === "Message texte" ? "Texte" : "Les deux",
+                        },
+                      ],
+                    },
                     historique: [...c.historique, evt(`Course affectée à ${nomCoursier(coursier)}`)],
                   }
                 : c,
@@ -142,6 +170,8 @@ export function OpsProvider({ children }: { children: ReactNode }) {
           const course = prev.courses.find((c) => c.id === courseId);
           const ancien = prev.coursiers.find((c) => c.id === course?.coursierId);
           const nouveau = prev.coursiers.find((c) => c.id === coursierId);
+          if (!course) return prev;
+
           return {
             ...prev,
             courses: prev.courses.map((c) =>
@@ -150,6 +180,23 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     ...c,
                     coursierId,
                     statut: "Affectée" as StatutCourse,
+                    // Agent Dispatch: reset dispatch status for new courier
+                    dispatch: {
+                      ...c.dispatch,
+                      statut: "Programmé",
+                      confirmationRecue: false,
+                      confirmationMission: false,
+                      historique: [
+                        ...c.dispatch.historique,
+                        {
+                          id: oid("dsh"),
+                          date: horodatage(),
+                          action: "Réaffectation",
+                          details: `Passage de ${nomCoursier(ancien)} à ${nomCoursier(nouveau)}. Motif: ${motif}`,
+                          format: "Texte",
+                        },
+                      ],
+                    },
                     reaffectations: [
                       ...c.reaffectations,
                       {
@@ -173,6 +220,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
             audit: [evt(`Réaffectation course ${course?.numero ?? ""}`), ...prev.audit],
           };
         }),
+
       ajouterNote: (key, id, texte, auteur = "Yassine Bennani") =>
         mutate(
           key,
@@ -219,9 +267,124 @@ export function OpsProvider({ children }: { children: ReactNode }) {
       toutMarquerLu: () =>
         setData((prev) => ({ ...prev, notifications: prev.notifications.map((n) => ({ ...n, lue: true })) })),
       reinitialiser: () => setData(seedOps()),
+      majSettingsAgent: (patch) => setData((prev) => ({ ...prev, settingsAgent: { ...prev.settingsAgent, ...patch } })),
+      programmerCommunication: (courseId, patch) =>
+        setData((prev) => ({
+          ...prev,
+          courses: prev.courses.map((c) =>
+            c.id === courseId
+              ? {
+                  ...c,
+                  dispatch: {
+                    ...c.dispatch,
+                    ...patch,
+                    statut: "Programmé",
+                    historique: [
+                      ...c.dispatch.historique,
+                      { id: oid("dsh"), date: horodatage(), action: "Programmation manuelle", details: "Mise à jour des paramètres d'envoi", format: "Texte" },
+                    ],
+                  },
+                }
+              : c,
+          ),
+        })),
+      annulerCommunication: (courseId) =>
+        setData((prev) => ({
+          ...prev,
+          courses: prev.courses.map((c) =>
+            c.id === courseId
+              ? {
+                  ...c,
+                  dispatch: {
+                    ...c.dispatch,
+                    statut: "Annulé",
+                    historique: [...c.dispatch.historique, { id: oid("dsh"), date: horodatage(), action: "Annulation", details: "Communication annulée par l'opérateur", format: "Texte" }],
+                  },
+                }
+              : c,
+          ),
+        })),
+      envoyerCommunication: (courseId) =>
+        setData((prev) => {
+          const course = prev.courses.find((c) => c.id === courseId);
+          if (!course) return prev;
+          return {
+            ...prev,
+            courses: prev.courses.map((c) =>
+              c.id === courseId
+                ? {
+                    ...c,
+                    dispatch: {
+                      ...c.dispatch,
+                      statut: "Envoyé",
+                      historique: [...c.dispatch.historique, { id: oid("dsh"), date: horodatage(), action: "Envoi manuel", details: "Envoyé par l'opérateur", format: "Les deux" }],
+                    },
+                  }
+                : c,
+            ),
+            dispatchLogs: [
+              {
+                id: oid("dlg"),
+                courseId,
+                coursierId: course.coursierId,
+                courseNumero: course.numero,
+                dateCourse: course.dateCourse,
+                heureCourse: course.trancheHoraire,
+                dateEnvoiPrevue: horodatage().split(" ")[0] || "",
+                heureEnvoiPrevue: new Date().toTimeString().slice(0, 5),
+                actualSendingTime: horodatage(),
+                canal: "WhatsApp",
+                format: course.dispatch.mode,
+                messageGenerated: `Nouvelle course ORCONDIS — ${course.numero}. Client: ${nomClient(prev.clients.find(cl => cl.id === course.clientId))}`,
+                statut: "Envoyé",
+                utilisateur: "Yassine Bennani",
+                agentAction: "Envoi manuel",
+              },
+              ...prev.dispatchLogs,
+            ],
+          };
+        }),
+      repondreCommunication: (courseId, reponse, motif) =>
+        setData((prev) => {
+          const course = prev.courses.find((c) => c.id === courseId);
+          if (!course) return prev;
+          const statutCourse: StatutCourse = reponse === "Accepté" ? "Acceptée" : reponse === "Refusé" ? "Affectée" : course.statut;
+          const statutDispatch = reponse === "Accepté" ? "Accepté" : reponse === "Refusé" ? "Refusé" : "Reçu";
+
+          return {
+            ...prev,
+            courses: prev.courses.map((c) =>
+              c.id === courseId
+                ? {
+                    ...c,
+                    statut: statutCourse,
+                    dispatch: {
+                      ...c.dispatch,
+                      statut: statutDispatch,
+                      confirmationRecue: true,
+                      confirmationMission: reponse === "Accepté",
+                      historique: [
+                        ...c.dispatch.historique,
+                        { id: oid("dsh"), date: horodatage(), action: `Réponse coursier: ${reponse}`, details: motif || "", format: "Texte" },
+                      ],
+                    },
+                    historique: [...c.historique, evt(`Réponse coursier : ${reponse}${motif ? ` (${motif})` : ""}`)],
+                  }
+                : c,
+            ),
+            notifications:
+              reponse === "Refusé"
+                ? [
+                    { id: oid("ntf"), titre: "Mission refusée", detail: `Le coursier a refusé la course ${course.numero}. Motif: ${motif}`, date: horodatage(), gravite: "alerte", lue: false },
+                    ...prev.notifications,
+                  ]
+                : prev.notifications,
+          };
+        }),
     }),
     [data, mutate, patchItem],
   );
+
 
   return <OpsContext.Provider value={value}>{children}</OpsContext.Provider>;
 }

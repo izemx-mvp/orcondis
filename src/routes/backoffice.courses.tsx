@@ -17,9 +17,12 @@ import {
   TRANCHES_HORAIRES,
   TRANSPORTS,
   ZONES,
+  MODES_COMMUNICATION,
+  MOMENTS_ENVOI,
   type CourseOps,
   type PointOps,
 } from "@/lib/bo/ops-data";
+
 import { Button } from "@/components/ui/button";
 import { EditeurPoint } from "@/components/bo/ops/courses-points";
 import {
@@ -35,6 +38,7 @@ import {
   Champ,
   ChampSelect,
   ChampTexte,
+  ChampCase,
   FormDialog,
   Grille,
   Onglets,
@@ -43,6 +47,7 @@ import {
   useDialog,
   type Colonne,
 } from "@/components/bo/kit";
+
 
 export const Route = createFileRoute("/backoffice/courses")({
   head: () => ({
@@ -90,6 +95,17 @@ function courseVide(numero: string): CourseOps {
     instructions: "",
     instructionsAudio: "",
     noteInterne: "",
+    dispatch: {
+      mode: "Message texte",
+      moment: "Immédiatement après affectation",
+      dateEnvoi: todayIso(),
+      heureEnvoi: new Date().toTimeString().slice(0, 5),
+      confirmationRecue: false,
+      confirmationMission: false,
+      statut: "En attente",
+      nbRelances: 0,
+      historique: [],
+    },
     heureEnvoiOrdre: "",
     heureDepart: "",
     kmDepart: 0,
@@ -110,8 +126,9 @@ function courseVide(numero: string): CourseOps {
   };
 }
 
+
 function CoursesPage() {
-  const { data, ajouter, modifier, archiver, ajouterNote, ajouterDocument, changerStatutCourse, affecterCoursier, reaffecterCoursier } = useOps();
+  const { data, ajouter, modifier, archiver, ajouterNote, ajouterDocument, changerStatutCourse, affecterCoursier, reaffecterCoursier, programmerCommunication, envoyerCommunication, repondreCommunication, annulerCommunication } = useOps();
   const l = useOpsLookups();
 
   const [recherche, setRecherche] = useState("");
@@ -358,7 +375,44 @@ function CoursesPage() {
         ))}
         <Button size="sm" variant="outline" className="mt-2" onClick={ajouterDestination}>+ Ajouter une destination</Button>
       </div>
+      <div className="border-t pt-4">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Communication au coursier</p>
+        <Grille>
+          <ChampSelect
+            label="Mode d'envoi"
+            value={form.dispatch.mode}
+            onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, mode: v as any } })}
+            options={MODES_COMMUNICATION}
+          />
+          <ChampSelect
+            label="Moment d'envoi"
+            value={form.dispatch.moment}
+            onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, moment: v as any } })}
+            options={MOMENTS_ENVOI}
+          />
+        </Grille>
+        {(form.dispatch.moment === "À une date et heure programmées") && (
+          <Grille>
+            <Champ label="Date d'envoi" type="date" value={form.dispatch.dateEnvoi} onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, dateEnvoi: v } })} />
+            <Champ label="Heure d'envoi" type="time" value={form.dispatch.heureEnvoi} onChange={(v) => setForm({ ...form, dispatch: { ...form.dispatch, heureEnvoi: v } })} />
+          </Grille>
+        )}
+        <Grille>
+          <ChampCase
+            label="Demander au coursier de confirmer la réception"
+            checked={form.dispatch.confirmationRecue}
+            onChange={(v: boolean) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationRecue: v } })}
+          />
+          <ChampCase
+            label="Demander au coursier d'accepter ou refuser la mission"
+            checked={form.dispatch.confirmationMission}
+            onChange={(v: boolean) => setForm({ ...form, dispatch: { ...form.dispatch, confirmationMission: v } })}
+          />
+
+        </Grille>
+      </div>
       <Grille cols={3}>
+
         <Champ label="Km départ" type="number" value={form.kmDepart} onChange={(v) => setForm({ ...form, kmDepart: Number(v) || 0 })} />
         <Champ label="Km arrivée" type="number" value={form.kmArrivee} onChange={(v) => setForm({ ...form, kmArrivee: Number(v) || 0 })} />
         <Champ label="Km à vide" type="number" value={form.kmVide} onChange={(v) => setForm({ ...form, kmVide: Number(v) || 0 })} />
@@ -479,10 +533,11 @@ function CoursesPage() {
         {detailDialog.item && (
           <div className="space-y-4">
             <Onglets
-              items={["Informations", "Nature", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
+              items={["Informations", "Communication coursier", "Nature", "Trajet", "Documents", "Notes", "Réaffectations", "Historique"]}
               actif={ongletDetail}
               onChange={setOngletDetail}
             />
+
             {ongletDetail === "Informations" && (
               <div className="space-y-4">
                 <Grille>
@@ -520,7 +575,43 @@ function CoursesPage() {
                 </div>
               </div>
             )}
+            {ongletDetail === "Communication coursier" && (
+              <div className="space-y-4">
+                <Panel titre="Statut du Dispatch">
+                  <Grille cols={3}>
+                    <Detail label="Coursier affecté">{l.coursierNom(detailDialog.item.coursierId)}</Detail>
+                    <Detail label="Mode">{detailDialog.item.dispatch.mode}</Detail>
+                    <Detail label="Statut Dispatch"><Statut ton={tonStatut(detailDialog.item.dispatch.statut)}>{detailDialog.item.dispatch.statut}</Statut></Detail>
+                    <Detail label="Programmation">{detailDialog.item.dispatch.moment}</Detail>
+                    <Detail label="Date/Heure d'envoi">{detailDialog.item.dispatch.dateEnvoi} {detailDialog.item.dispatch.heureEnvoi}</Detail>
+                    <Detail label="Confirmations">{detailDialog.item.dispatch.confirmationRecue ? "Réception " : ""}{detailDialog.item.dispatch.confirmationMission ? "Acceptation" : ""}</Detail>
+                  </Grille>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <Button size="sm" onClick={() => detailDialog.item && envoyerCommunication(detailDialog.item.id)}>Envoyer maintenant</Button>
+                    <Button size="sm" variant="outline" onClick={() => detailDialog.item && annulerCommunication(detailDialog.item.id)}>Annuler l'envoi</Button>
+                    {detailDialog.item.dispatch.statut === "Envoyé" && (
+                      <>
+                        <Button size="sm" variant="secondary" onClick={() => detailDialog.item && repondreCommunication(detailDialog.item.id, "Accepté")}>Simuler Acceptation</Button>
+                        <Button size="sm" variant="secondary" onClick={() => detailDialog.item && repondreCommunication(detailDialog.item.id, "Refusé", "Indisponible")}>Simuler Refus</Button>
+                      </>
+                    )}
+                  </div>
+                </Panel>
+                <Panel titre="Historique Dispatch">
+                   <ul className="space-y-2">
+                    {detailDialog.item.dispatch.historique.map(h => (
+                      <li key={h.id} className="rounded-md border border-border px-3 py-2 text-sm">
+                        <p className="font-medium text-navy">{h.action} <span className="text-[10px] text-muted-foreground">{h.format}</span></p>
+                        <p className="text-xs text-muted-foreground">{h.date} · {h.details}</p>
+                      </li>
+                    ))}
+                    {detailDialog.item.dispatch.historique.length === 0 && <li className="text-sm text-muted-foreground">Aucun historique de dispatch.</li>}
+                   </ul>
+                </Panel>
+              </div>
+            )}
             {ongletDetail === "Nature" && (
+
               <div className="space-y-4">
                 <Grille cols={3}>
                   <Detail label="Genre">{detailDialog.item.genreCourse}</Detail>

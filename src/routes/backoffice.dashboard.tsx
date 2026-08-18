@@ -1,9 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo } from "react";
-import { PageHeader, Panel, StatCard, Statut, tonStatut } from "@/components/bo/kit";
+import { PageHeader, Panel, StatCard, Statut, tonStatut, Detail } from "@/components/bo/kit";
 import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
+import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import { calculerCourse, dh, fr, tarifApplicable, totalFacture } from "@/lib/bo-data";
+import { tonStatutDispatch } from "@/lib/bo/ops-data";
+
+
 
 export const Route = createFileRoute("/backoffice/dashboard")({
   head: () => ({
@@ -19,7 +23,10 @@ export const Route = createFileRoute("/backoffice/dashboard")({
 
 function Dashboard() {
   const { data } = useBO();
+  const { data: opsData } = useOps();
   const l = useLookups();
+  const ol = useOpsLookups();
+
 
   const stats = useMemo(() => {
     const mois = new Date().toISOString().slice(0, 7);
@@ -51,8 +58,17 @@ function Dashboard() {
       resteImpaye,
       caMois,
       paiementsAEffectuer,
+      dispatch: {
+        totalToday: opsData.courses.filter(c => c.dateCourse === new Date().toISOString().slice(0, 10)).length,
+        envoyes: opsData.courses.filter(c => c.dispatch.statut === "Envoyé").length,
+        enAttente: opsData.courses.filter(c => c.dispatch.statut === "Programmé" || c.dispatch.statut === "En attente").length,
+        acceptes: opsData.courses.filter(c => c.dispatch.statut === "Accepté").length,
+        refuses: opsData.courses.filter(c => c.dispatch.statut === "Refusé").length,
+        echecs: opsData.courses.filter(c => c.dispatch.statut === "Échec d'envoi").length,
+      }
     };
-  }, [data]);
+  }, [data, opsData]);
+
 
   const alertesWA = data.conversations.filter(
     (c) => c.statut === "Intervention humaine" || c.statut === "En attente client",
@@ -84,7 +100,14 @@ function Dashboard() {
         <StatCard label="CA du mois" valeur={dh(stats.caMois)} ton="positif" />
         <StatCard label="Conversations WhatsApp" valeur={data.conversations.length} detail={`${alertesWA.length} à traiter`} />
         <StatCard label="Clients actifs" valeur={data.clients.filter((c) => c.actif && !c.archive).length} />
+        <StatCard
+          label="Dispatch Coursiers"
+          valeur={stats.dispatch.totalToday}
+          detail={`${stats.dispatch.envoyes} envoyés · ${stats.dispatch.acceptes} acceptés`}
+          ton={stats.dispatch.refuses > 0 ? "alerte" : "neutre"}
+        />
       </div>
+
 
       <div className="grid gap-4 lg:grid-cols-2">
         <Panel
@@ -180,7 +203,7 @@ function Dashboard() {
           </ul>
         </Panel>
 
-        <Panel titre="Derniers paiements enregistrés" className="lg:col-span-2">
+        <Panel titre="Derniers paiements enregistrés" className="lg:col-span-1">
           <ul className="space-y-2 text-sm">
             {data.paiements.slice(0, 6).map((p) => (
               <li key={p.id} className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2 last:border-0">
@@ -199,7 +222,31 @@ function Dashboard() {
             ))}
           </ul>
         </Panel>
+
+        <Panel titre="Prochains envois programmés" className="lg:col-span-1">
+          <ul className="space-y-2 text-sm">
+            {opsData.courses
+              .filter(c => c.dispatch.statut === "Programmé")
+              .slice(0, 5)
+              .map(c => (
+                <li key={c.id} className="flex items-center justify-between gap-2 border-b border-border pb-2 last:border-0">
+                  <div className="flex flex-col">
+                    <span className="font-medium text-navy">{c.numero} — {ol.coursierNom(c.coursierId)}</span>
+                    <span className="text-[10px] text-muted-foreground">
+                      Envoi prévu : {c.dispatch.dateEnvoi} {c.dispatch.heureEnvoi} · {c.dispatch.mode}
+                    </span>
+                  </div>
+                  <Statut ton={tonStatutDispatch(c.dispatch.statut)}>{c.dispatch.statut}</Statut>
+                </li>
+
+              ))}
+            {opsData.courses.filter(c => c.dispatch.statut === "Programmé").length === 0 && (
+              <li className="text-muted-foreground">Aucun envoi programmé.</li>
+            )}
+          </ul>
+        </Panel>
       </div>
+
     </div>
   );
 }

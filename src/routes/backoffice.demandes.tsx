@@ -10,6 +10,7 @@ import {
   TYPES_COURSE,
   TYPES_DOSSIER,
   horodatage,
+  jourDe,
   nomClient,
   oid,
   pointVide,
@@ -22,6 +23,7 @@ import {
   type CourseOps,
   type DossierOps,
 } from "@/lib/bo/ops-data";
+
 import type { Demande, Statut } from "@/lib/orcondis";
 import { STATUSES, statutTone } from "@/lib/orcondis";
 import { SERVICES } from "@/lib/orcondis";
@@ -334,7 +336,7 @@ function DemandeDetail({
     const course: CourseOps = {
       id: oid("crs"),
       numero: prochainNumeroCourse(opsData.courses),
-      jour: "",
+      jour: jourDe(q.planning.date || todayIso()),
       dateAppel: todayIso(),
       heureAppel: demande.heure,
       correspondant: `${demande.prenom} ${demande.nom}`.trim(),
@@ -351,8 +353,8 @@ function DemandeDetail({
       trancheHoraire: q.planning.trancheHoraire || TRANCHES_HORAIRES[0],
       heureDebutSouhaitee: (q as any).heureDebut || "08:00",
       heureFinSouhaitee: (q as any).heureFin || "18:30",
-      heureFixe: q.planning.heureFixe,
-      transport: "",
+      heureFixe: q.planning.heureFixe || "",
+      transport: "" as CourseOps["transport"],
       coursierId: "",
       statut: "À affecter",
       retrait: {
@@ -367,9 +369,20 @@ function DemandeDetail({
       destinations: q.destinations.length
         ? q.destinations.map((d, i) => ({ ...pointVide(i + 1), ...d }))
         : [pointVide(1)],
-      instructions: q.instructionsSpeciales,
+      instructions: q.instructionsSpeciales || q.resumeIA,
       instructionsAudio: "",
       noteInterne: "",
+      dispatch: {
+        mode: "Message texte",
+        moment: "Immédiatement après affectation",
+        dateEnvoi: todayIso(),
+        heureEnvoi: new Date().toTimeString().slice(0, 5),
+        confirmationRecue: false,
+        confirmationMission: false,
+        statut: "En attente",
+        nbRelances: 0,
+        historique: [],
+      },
       heureEnvoiOrdre: "",
       heureDepart: "",
       kmDepart: 0,
@@ -387,10 +400,12 @@ function DemandeDetail({
       reaffectations: [],
       historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: `Course créée depuis la demande ${demande.numero}` }],
       archive: false,
+      quantite: 1,
     };
     creerCourse("courses", course);
     majDemande(demande.id, { statut: "Transformée" }, `Course créée (${course.numero})`);
   }
+
 
   return (
     <FormDialog open={open} onOpenChange={onOpenChange} titre={`Demande ${demande.numero}`} large>

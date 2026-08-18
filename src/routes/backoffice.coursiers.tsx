@@ -11,9 +11,11 @@ import {
   STATUTS_COURSIER,
   TRANSPORTS,
   ZONES,
+  tonStatutDispatch,
   type CoursierOps,
   type MoyenTransport,
 } from "@/lib/bo/ops-data";
+
 import { Button } from "@/components/ui/button";
 import {
   PageHeader,
@@ -245,7 +247,7 @@ function CoursiersPage() {
         {detailDialog.item && (
           <div className="space-y-4">
             <Onglets
-              items={["Informations", "Courses affectées", "Kilométrage", "Réaffectations", "Audios", "Historique"]}
+              items={["Informations", "Communication missions", "Courses affectées", "Kilométrage", "Réaffectations", "Audios", "Historique"]}
               actif={ongletDetail}
               onChange={setOngletDetail}
             />
@@ -262,7 +264,40 @@ function CoursiersPage() {
                 <div className="sm:col-span-2"><Detail label="Notes">{detailDialog.item.notes}</Detail></div>
               </Grille>
             )}
+            {ongletDetail === "Communication missions" && (
+              <div className="space-y-4">
+                <Panel titre="Derniers dispatchs envoyés">
+                  <ul className="space-y-3">
+                    {data.courses
+                      .filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulé")
+                      .sort((a, b) => b.dispatch.dateEnvoi.localeCompare(a.dispatch.dateEnvoi))
+                      .map(c => (
+                        <li key={c.id} className="rounded-md border border-border px-3 py-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="font-bold text-navy">{c.numero} — {c.typeCourse}</span>
+                            <Statut ton={tonStatutDispatch(c.dispatch.statut)}>{c.dispatch.statut}</Statut>
+                          </div>
+                          <p className="mt-1 text-xs text-muted-foreground">
+                            Envoi : {c.dispatch.dateEnvoi} {c.dispatch.heureEnvoi} · {c.dispatch.mode}
+                          </p>
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {c.dispatch.historique.slice(-1).map(h => (
+                              <span key={h.id} className="text-[10px] text-muted-foreground italic">
+                                Dernier événement : {h.action} le {h.date}
+                              </span>
+                            ))}
+                          </div>
+                        </li>
+                      ))}
+                    {data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulé").length === 0 && (
+                      <p className="text-sm text-muted-foreground">Aucune communication de mission trouvée.</p>
+                    )}
+                  </ul>
+                </Panel>
+              </div>
+            )}
             {ongletDetail === "Courses affectées" && (
+
               <ul className="space-y-2">
                 {coursesDu(detailDialog.item.id).map((c) => (
                   <li key={c.id} className="rounded-md border border-border px-3 py-2 text-sm">
