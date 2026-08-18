@@ -157,7 +157,7 @@ export function emptyQualification(): Qualification {
     instructionsSpeciales: "",
     retrait: null,
     destinations: [],
-    planning: { date: "", trancheHoraire: "", heureFixe: "", urgence: "Normale" },
+    planning: { date: "", trancheHoraire: "", heureFixe: "", urgence: "Normale" as "Normale" | "Urgente" | "Exclusive" },
     resumeIA: "",
   };
 }
