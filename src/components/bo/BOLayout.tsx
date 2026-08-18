@@ -22,9 +22,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { useBO } from "@/lib/bo-store";
+import { useBO, useLookups } from "@/lib/bo-store";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { dh } from "@/lib/bo-data";
+import { dh, fr } from "@/lib/bo-data";
 
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
 
