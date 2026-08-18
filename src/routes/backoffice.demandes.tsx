@@ -17,6 +17,7 @@ import {
   prochainNumeroCourse,
   prochainNumeroDossier,
   todayIso,
+  type CategorieClient,
   type ClientOps,
   type CourseOps,
   type DossierOps,
