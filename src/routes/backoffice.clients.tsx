@@ -4,14 +4,18 @@ import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import {
   CATEGORIES_CLIENT,
   SOUS_TYPES_AUTRES,
+  ROLES_CONTACT,
   ZONES,
   horodatage,
   nomClient,
   oid,
   prochainCodeClient,
+  prochainCodeContact,
   todayIso,
   type CategorieClient,
   type ClientOps,
+  type ContactOps,
+  type RoleContact,
 } from "@/lib/bo/ops-data";
 import { Button } from "@/components/ui/button";
 import {
@@ -302,7 +306,24 @@ function ClientDetail({
   const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Informations");
   const [note, setNote] = useState("");
   const [contactDialog, setContactDialog] = useState(false);
-  const [contactForm, setContactForm] = useState({ nom: "", prenom: "", gsm: "", email: "", role: "Responsable" });
+  const [contactForm, setContactForm] = useState({
+    nom: "",
+    prenom: "",
+    service: "",
+    fonction: "",
+    role: "Responsable" as RoleContact,
+    autreRole: "",
+    gsm: "",
+    fixe: "",
+    fax: "",
+    email: "",
+    whatsapp: "",
+    notes: "",
+  });
+
+  const setFormContactField = (field: keyof typeof contactForm, value: string) => {
+    setContactForm((prev) => ({ ...prev, [field]: value }));
+  };
 
   const c = data.clients.find((x) => x.id === client.id) ?? client;
   const contacts = data.contacts.filter((x) => x.clientId === c.id);
@@ -311,28 +332,41 @@ function ClientDetail({
 
   function ajouterContact() {
     if (!contactForm.nom) return;
-    const contact = {
+    const contact: ContactOps = {
       id: oid("ct"),
-      code: `CT-${String(data.contacts.length + 1).padStart(5, "0")}`,
+      code: prochainCodeContact(data.contacts),
       clientId: c.id,
       nom: contactForm.nom,
       prenom: contactForm.prenom,
-      service: "",
-      fonction: "",
-      role: contactForm.role as never,
-      autreRole: "",
+      service: contactForm.service,
+      fonction: contactForm.fonction,
+      role: contactForm.role,
+      autreRole: contactForm.autreRole,
       gsm: contactForm.gsm,
-      fixe: "",
-      fax: "",
+      fixe: contactForm.fixe,
+      fax: contactForm.fax,
       email: contactForm.email,
-      whatsapp: contactForm.gsm,
-      notes: "",
+      whatsapp: contactForm.whatsapp,
+      notes: contactForm.notes,
       actif: true,
       archive: false,
       historique: [{ id: oid("ev"), date: horodatage(), auteur: "Back-Office", action: "Contact créé" }],
     };
     ajouter("contacts", contact);
-    setContactForm({ nom: "", prenom: "", gsm: "", email: "", role: "Responsable" });
+    setContactForm({
+      nom: "",
+      prenom: "",
+      service: "",
+      fonction: "",
+      role: "Responsable" as RoleContact,
+      autreRole: "",
+      gsm: "",
+      fixe: "",
+      fax: "",
+      email: "",
+      whatsapp: "",
+      notes: "",
+    });
     setContactDialog(false);
   }
 
