@@ -76,7 +76,9 @@ function Barre({ label, valeur, max }: { label: string; valeur: number; max: num
 
 function Rapports() {
   const { data } = useBO();
+  const { data: opsData } = useOps();
   const l = useLookups();
+  const ol = useOpsLookups();
   const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Activité");
 
   const [dateDebut, setDateDebut] = useState("");
