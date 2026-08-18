@@ -10,9 +10,11 @@ import {
   Panel,
   SelectFilter,
   StatCard,
+  Statut,
 } from "@/components/bo/kit";
 import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
+import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import {
   STATUTS_COURSE,
   calculerCourse,
@@ -22,6 +24,7 @@ import {
   totalFacture,
   type Course,
 } from "@/lib/bo-data";
+import { tonStatutDispatch } from "@/lib/bo/ops-data";
 
 export const Route = createFileRoute("/backoffice/rapports")({
   head: () => ({
