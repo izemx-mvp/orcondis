@@ -6,6 +6,8 @@ import { useOps } from "@/lib/bo/ops-store";
 import {
   CATEGORIES_CLIENT,
   PRIORITES_COURSE,
+  STATUTS_COURSE,
+  STATUTS_DISPATCH,
   TRANCHES_HORAIRES,
   TYPES_COURSE,
   TYPES_DOSSIER,
