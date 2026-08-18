@@ -38,7 +38,7 @@ export const Route = createFileRoute("/backoffice/rapports")({
   component: Rapports,
 });
 
-const ONGLETS = ["Activité", "Clients", "Coursiers", "Financier", "Opérations"] as const;
+const ONGLETS = ["Activité", "Clients", "Coursiers", "Dispatch", "Financier", "Opérations"] as const;
 
 function exporterCsv(nom: string, colonnes: string[], lignes: (string | number)[][]) {
   const escape = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
