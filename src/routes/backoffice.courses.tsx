@@ -963,7 +963,7 @@ function CalendarDayView({ date, courses, onCourseClick, l }: { date: Date, cour
             <div className="p-2 flex flex-wrap gap-2 items-start relative bg-card/50">
               {dayCourses
                 .filter(c => {
-                  if (c.heureFixe?.includes(':')) return parseInt(c.heureFixe.split(':')[0]) === hour;
+                  if (c.heureFixe && c.heureFixe.includes(':')) return parseInt(c.heureFixe.split(':')[0]) === hour;
                   if (c.trancheHoraire?.includes('Matin') && hour === 9) return true;
                   if (c.trancheHoraire?.includes('Midi') && hour === 12) return true;
                   if (c.trancheHoraire?.includes('Après-midi') && hour === 15) return true;
