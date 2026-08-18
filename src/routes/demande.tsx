@@ -149,7 +149,7 @@ function Demande() {
         <div className="text-center">
           <h1 className="text-2xl font-black sm:text-4xl text-navy uppercase tracking-tighter">Faire une demande</h1>
           <p className="mx-auto mt-4 max-w-lg text-lg text-muted-foreground font-medium">
-            Tizzla and Serve by ORCONDIS vous accompagne dans vos opérations.
+            ORCONDIS vous accompagne dans vos opérations.
           </p>
         </div>
 
