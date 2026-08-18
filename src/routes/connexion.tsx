@@ -25,8 +25,8 @@ function Connexion() {
   const [email, setEmail] = useState("y.bennani@orcondis.ma");
 
   return (
-    <PublicLayout>
-      <section className="mx-auto flex w-full max-w-md flex-col px-4 py-16 sm:px-6">
+    <div className="flex min-h-screen items-center justify-center bg-background">
+      <section className="mx-auto flex w-full max-w-md flex-col px-4 sm:px-6">
         <div className="surface-card p-6">
           <h1 className="text-xl font-semibold">Connexion collaborateur</h1>
           <p className="mt-1 text-sm text-muted-foreground">
@@ -60,6 +60,6 @@ function Connexion() {
           </form>
         </div>
       </section>
-    </PublicLayout>
+    </div>
   );
 }
