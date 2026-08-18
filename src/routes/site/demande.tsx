@@ -134,7 +134,7 @@ function Demande() {
                 </a>
               </Button>
               <Button asChild>
-                <Link to="/">Retour à l’accueil</Link>
+                <Link to="/site">Retour à l’accueil</Link>
               </Button>
             </div>
           </div>

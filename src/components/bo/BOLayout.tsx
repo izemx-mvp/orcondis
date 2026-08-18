@@ -224,7 +224,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
             <ThemeToggle />
             <NotificationCenter />
             <Button asChild variant="ghost" size="sm">
-              <Link to="/">Site public</Link>
+              <Link to="/site">Site public</Link>
             </Button>
           </div>
         </header>
