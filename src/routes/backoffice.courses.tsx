@@ -273,11 +273,21 @@ function CoursesPage() {
         <Champ label="Heure début souhaitée" type="time" value={form.heureDebutSouhaitee} onChange={(v) => setForm({ ...form, heureDebutSouhaitee: v })} />
         <Champ label="Heure fin souhaitée" type="time" value={form.heureFinSouhaitee} onChange={(v) => setForm({ ...form, heureFinSouhaitee: v })} />
       </Grille>
-      <Grille cols={3}>
-        <Champ label="Poids (kg)" type="number" value={(form as any).poids || 0} onChange={(v) => setForm({ ...form, [ "poids" as any]: Number(v) })} />
-        <Champ label="Volume" value={(form as any).volume || ""} onChange={(v) => setForm({ ...form, [ "volume" as any]: v })} />
-        <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
-      </Grille>
+      <div className="border-t pt-4">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Nature de l'envoi</p>
+        <Grille cols={3}>
+          <Champ label="Quantité" type="number" value={form.quantite} onChange={(v) => setForm({ ...form, quantite: Number(v) })} />
+          <Champ label="Poids (kg)" type="number" value={form.poids} onChange={(v) => setForm({ ...form, poids: Number(v) })} />
+          <Champ label="Volume" value={form.volume} onChange={(v) => setForm({ ...form, volume: v })} />
+        </Grille>
+        <Grille cols={2} className="mt-2">
+          <Champ label="Précautions" value={form.precautions} onChange={(v) => setForm({ ...form, precautions: v })} />
+          <Champ label="Formalités" value={form.formalitesAdministratives} onChange={(v) => setForm({ ...form, formalitesAdministratives: v })} />
+        </Grille>
+        <div className="mt-2 max-w-xs">
+          <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
+        </div>
+      </div>
       <ChampTexte label="Message / instructions" value={form.message} onChange={(v) => setForm({ ...form, message: v })} rows={2} />
       <EditeurPoint titre="Point de retrait" point={form.retrait} onChange={(p) => setForm({ ...form, retrait: p })} />
       <div className="space-y-3">
