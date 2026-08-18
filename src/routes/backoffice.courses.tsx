@@ -1073,9 +1073,9 @@ function CalendarMonthView({ date, courses, onCourseClick, l }: { date: Date, co
                     onClick={() => onCourseClick(c)}
                     className={cn(
                       "text-[9px] px-1.5 py-0.5 rounded border border-border truncate cursor-pointer",
-                      toneCourse(c.statut) === "positif" ? "bg-success/10 text-success border-success/20" :
-                      toneCourse(c.statut) === "alerte" ? "bg-warning/10 text-warning border-warning/20" :
-                      toneCourse(c.statut) === "critique" ? "bg-destructive/10 text-destructive border-destructive/20" :
+                      toneCourse(c.statut).includes("success") ? "bg-success/10 text-success border-success/20" :
+                      toneCourse(c.statut).includes("warning") ? "bg-warning/10 text-warning border-warning/20" :
+                      toneCourse(c.statut).includes("destructive") ? "bg-destructive/10 text-destructive border-destructive/20" :
                       "bg-surface text-navy"
                     )}
                   >
