@@ -204,10 +204,11 @@ function CoursesPage() {
 
   const colonnes: Colonne<CourseOps>[] = [
     { cle: "numero", titre: "N°", rendu: (c) => <span className="font-medium text-navy">{c.numero}</span> },
-    { cle: "client", titre: "Client", rendu: (c) => l.clientNom(c.clientId) },
-    { cle: "type", titre: "Type", rendu: (c) => c.typeCourse },
-    { cle: "date", titre: "Date", rendu: (c) => `${c.dateCourse} · ${c.trancheHoraire}` },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => l.coursierNom(c.coursierId) },
+    { cle: "client", titre: "Client", rendu: (c) => <span className="text-sm font-medium">{l.clientNom(c.clientId)}</span> },
+    { cle: "type", titre: "Type", rendu: (c) => <span className="text-xs">{c.typeCourse}</span> },
+    { cle: "genre", titre: "Genre", rendu: (c) => <span className="text-xs">{c.genreCourse}</span> },
+    { cle: "date", titre: "Date", rendu: (c) => <span className="text-xs">{c.dateCourse} · {c.trancheHoraire}</span> },
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <span className="text-sm">{l.coursierNom(c.coursierId)}</span> },
     { cle: "priorite", titre: "Priorité", rendu: (c) => <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
