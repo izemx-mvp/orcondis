@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, MessageCircle } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV = [
   { to: "/", label: "Accueil" },
@@ -19,7 +20,7 @@ export function Logo({ dark = false }: { dark?: boolean }) {
         O
       </span>
       <span
-        className={`text-lg font-semibold tracking-tight ${dark ? "text-navy-foreground" : "text-navy"}`}
+        className={`text-lg font-semibold tracking-tight ${dark ? "text-navy-foreground" : "text-foreground"}`}
       >
         ORCONDIS
       </span>
@@ -51,6 +52,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <ThemeToggle />
             <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
               <Link to="/connexion">Connexion</Link>
             </Button>

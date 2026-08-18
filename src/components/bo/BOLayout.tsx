@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useBO } from "@/lib/bo-store";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { dh } from "@/lib/bo-data";
 
 type NavItem = { to: string; label: string; icon: typeof Gauge; exact?: boolean };
@@ -222,6 +223,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
           </button>
           <GlobalSearch />
           <div className="ml-auto flex items-center gap-2">
+            <ThemeToggle />
             <NotificationCenter />
             <Button asChild variant="ghost" size="sm">
               <Link to="/">Site public</Link>
