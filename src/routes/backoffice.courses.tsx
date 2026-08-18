@@ -276,13 +276,13 @@ function CoursesPage() {
       <div className="border-t pt-4">
         <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Nature de l'envoi</p>
         <Grille cols={3}>
-          <Champ label="Quantité" type="number" value={form.quantite} onChange={(v) => setForm({ ...form, quantite: Number(v) })} />
-          <Champ label="Poids (kg)" type="number" value={form.poids} onChange={(v) => setForm({ ...form, poids: Number(v) })} />
-          <Champ label="Volume" value={form.volume} onChange={(v) => setForm({ ...form, volume: v })} />
+          <Champ label="Quantité" type="number" value={form.quantite || 1} onChange={(v) => setForm({ ...form, quantite: Number(v) })} />
+          <Champ label="Poids (kg)" type="number" value={form.poids || 0} onChange={(v) => setForm({ ...form, poids: Number(v) })} />
+          <Champ label="Volume" value={form.volume || ""} onChange={(v) => setForm({ ...form, volume: v })} />
         </Grille>
-        <Grille cols={2} className="mt-2">
-          <Champ label="Précautions" value={form.precautions} onChange={(v) => setForm({ ...form, precautions: v })} />
-          <Champ label="Formalités" value={form.formalitesAdministratives} onChange={(v) => setForm({ ...form, formalitesAdministratives: v })} />
+        <Grille cols={2}>
+          <Champ label="Précautions" value={form.precautions || ""} onChange={(v) => setForm({ ...form, precautions: v })} />
+          <Champ label="Formalités" value={form.formalitesAdministratives || ""} onChange={(v) => setForm({ ...form, formalitesAdministratives: v })} />
         </Grille>
         <div className="mt-2 max-w-xs">
           <ChampSelect label="Transport" value={form.transport} onChange={(v) => setForm({ ...form, transport: v as CourseOps["transport"] })} options={TRANSPORTS} />
