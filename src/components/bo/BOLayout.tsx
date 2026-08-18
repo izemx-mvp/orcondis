@@ -38,10 +38,8 @@ const NAV: NavItem[] = [
   { to: "/backoffice/coursiers", label: "Coursiers", icon: Truck },
   { to: "/backoffice/procedures", label: "Procédures", icon: ClipboardList },
   { to: "/backoffice/whatsapp", label: "WhatsApp", icon: MessageCircle },
-  { to: "/backoffice/fournisseurs", label: "Fournisseurs & Paiements", icon: Building2 },
-  { to: "/backoffice/paiements", label: "Paiements", icon: Wallet },
-  { to: "/backoffice/documents", label: "Documents", icon: FileText },
-  { to: "/backoffice/facturation", label: "Facturation", icon: Receipt },
+  { to: "/backoffice/fournisseurs", label: "Fournisseurs", icon: Building2 },
+  { to: "/backoffice/facturation", label: "Facturation & Paiements", icon: Receipt },
   { to: "/backoffice/rapports", label: "Rapports", icon: Gauge },
   { to: "/backoffice/parametres", label: "Paramètres", icon: Settings },
 ];
