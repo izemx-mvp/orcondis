@@ -131,7 +131,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
           if (!course) return prev;
 
           // Logic for Agent Dispatch on assignment
-          const dispatchStatut = prev.settingsAgent.actif ? "Programmé" : "En attente";
+          const dispatchStatut = prev.settingsAgent.actif ? "Programmée" : "À programmer";
           const immediate = prev.settingsAgent.programmationParDefaut === "Immédiatement après affectation";
 
           return {
@@ -145,7 +145,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     heureEnvoiOrdre: immediate ? new Date().toTimeString().slice(0, 5) : c.heureEnvoiOrdre,
                     dispatch: {
                       ...c.dispatch,
-                      statut: immediate ? "Envoyé" : "Programmé",
+                      statut: immediate ? "Envoyée" : "Programmée",
                       historique: [
                         ...c.dispatch.historique,
                         {
@@ -183,7 +183,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     // Agent Dispatch: reset dispatch status for new courier
                     dispatch: {
                       ...c.dispatch,
-                      statut: "Programmé",
+                      statut: "Programmée",
                       confirmationRecue: false,
                       confirmationMission: false,
                       historique: [

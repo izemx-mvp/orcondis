@@ -379,7 +379,7 @@ function DemandeDetail({
         heureEnvoi: new Date().toTimeString().slice(0, 5),
         confirmationRecue: false,
         confirmationMission: false,
-        statut: "En attente",
+        statut: "À programmer",
         nbRelances: 0,
         historique: [],
       },

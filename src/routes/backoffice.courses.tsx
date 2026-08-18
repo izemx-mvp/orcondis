@@ -102,7 +102,7 @@ function courseVide(numero: string): CourseOps {
       heureEnvoi: new Date().toTimeString().slice(0, 5),
       confirmationRecue: false,
       confirmationMission: false,
-      statut: "En attente",
+      statut: "À programmer",
       nbRelances: 0,
       historique: [],
     },
@@ -581,7 +581,7 @@ function CoursesPage() {
                   <Grille cols={3}>
                     <Detail label="Coursier affecté">{l.coursierNom(detailDialog.item.coursierId)}</Detail>
                     <Detail label="Mode">{detailDialog.item.dispatch.mode}</Detail>
-                    <Detail label="Statut Dispatch"><Statut ton={tonStatut(detailDialog.item.dispatch.statut)}>{detailDialog.item.dispatch.statut}</Statut></Detail>
+                    <Detail label="Statut Dispatch"><Statut ton={tonStatutDispatch(detailDialog.item.dispatch.statut)}>{detailDialog.item.dispatch.statut}</Statut></Detail>
                     <Detail label="Programmation">{detailDialog.item.dispatch.moment}</Detail>
                     <Detail label="Date/Heure d'envoi">{detailDialog.item.dispatch.dateEnvoi} {detailDialog.item.dispatch.heureEnvoi}</Detail>
                     <Detail label="Confirmations">{detailDialog.item.dispatch.confirmationRecue ? "Réception " : ""}{detailDialog.item.dispatch.confirmationMission ? "Acceptation" : ""}</Detail>
@@ -589,7 +589,7 @@ function CoursesPage() {
                   <div className="mt-4 flex flex-wrap gap-2">
                     <Button size="sm" onClick={() => detailDialog.item && envoyerCommunication(detailDialog.item.id)}>Envoyer maintenant</Button>
                     <Button size="sm" variant="outline" onClick={() => detailDialog.item && annulerCommunication(detailDialog.item.id)}>Annuler l'envoi</Button>
-                    {detailDialog.item.dispatch.statut === "Envoyé" && (
+                    {detailDialog.item.dispatch.statut === "Envoyée" && (
                       <>
                         <Button size="sm" variant="secondary" onClick={() => detailDialog.item && repondreCommunication(detailDialog.item.id, "Accepté")}>Simuler Acceptation</Button>
                         <Button size="sm" variant="secondary" onClick={() => detailDialog.item && repondreCommunication(detailDialog.item.id, "Refusé", "Indisponible")}>Simuler Refus</Button>
