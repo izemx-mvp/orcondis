@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute("/comment-ca-marche")({
+export const Route = createFileRoute("/site/comment-ca-marche")({
   head: () => ({
     meta: [
       { title: "Comment ça marche — ORCONDIS" },
@@ -106,7 +106,7 @@ function CommentCaMarche() {
 
         <div className="mt-8">
           <Button asChild>
-            <Link to="/demande">Faire une demande</Link>
+            <Link to="/site/demande">Faire une demande</Link>
           </Button>
         </div>
       </section>

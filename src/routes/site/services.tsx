@@ -3,7 +3,7 @@ import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { SERVICES, SERVICE_DETAILS } from "@/lib/orcondis";
 
-export const Route = createFileRoute("/services")({
+export const Route = createFileRoute("/site/services")({
   head: () => ({
     meta: [
       { title: "Nos services — ORCONDIS" },
@@ -51,7 +51,7 @@ function Services() {
           </p>
           <div className="mt-6">
             <Button asChild>
-              <Link to="/demande">Faire une demande</Link>
+              <Link to="/site/demande">Faire une demande</Link>
             </Button>
           </div>
         </div>

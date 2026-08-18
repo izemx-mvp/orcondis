@@ -5,12 +5,12 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 const NAV = [
-  { to: "/", label: "Accueil" },
-  { to: "/services", label: "Nos services" },
-  { to: "/comment-ca-marche", label: "Comment ça marche" },
-  { to: "/demande", label: "Faire une demande" },
-  { to: "/a-propos", label: "À propos" },
-  { to: "/contact", label: "Contact" },
+  { to: "/site", label: "Accueil" },
+  { to: "/site/services", label: "Nos services" },
+  { to: "/site/comment-ca-marche", label: "Comment ça marche" },
+  { to: "/site/demande", label: "Faire une demande" },
+  { to: "/site/a-propos", label: "À propos" },
+  { to: "/site/contact", label: "Contact" },
 ] as const;
 
 export function Logo({ dark = false, backoffice = false }: { dark?: boolean; backoffice?: boolean }) {
@@ -35,7 +35,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col bg-background">
       <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur">
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link to="/">
+          <Link to="/site">
             <Logo />
           </Link>
           <nav className="hidden items-center gap-1 lg:flex">
@@ -43,7 +43,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               <Link
                 key={item.to}
                 to={item.to}
-                activeOptions={{ exact: item.to === "/" }}
+                activeOptions={{ exact: item.to === "/site" }}
                 activeProps={{ className: "bg-accent text-navy" }}
                 className="rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-navy"
               >
@@ -54,10 +54,10 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
-              <Link to="/acces">Connexion</Link>
+              <Link to="/connexion">Connexion</Link>
             </Button>
             <Button asChild size="sm">
-              <Link to="/demande">Faire une demande</Link>
+              <Link to="/site/demande">Faire une demande</Link>
             </Button>
             <Button
               variant="ghost"
@@ -83,7 +83,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
             <Link
-              to="/acces"
+              to="/connexion"
               onClick={() => setOpen(false)}
               className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-navy"
             >

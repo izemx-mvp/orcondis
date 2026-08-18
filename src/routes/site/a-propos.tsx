@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/PublicLayout";
 
-export const Route = createFileRoute("/a-propos")({
+export const Route = createFileRoute("/site/a-propos")({
   head: () => ({
     meta: [
       { title: "À propos — ORCONDIS" },
