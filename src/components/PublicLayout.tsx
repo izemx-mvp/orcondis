@@ -13,15 +13,19 @@ const NAV = [
   { to: "/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ dark = false }: { dark?: boolean }) {
+export function Logo({ dark = false, backoffice = false }: { dark?: boolean; backoffice?: boolean }) {
   return (
     <span className="flex items-center gap-2">
-      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-base font-black text-primary-foreground shadow-sm">
-        O
-      </span>
-      <span className={`text-xl font-black tracking-tighter ${dark ? "text-white" : "text-navy"}`}>
-        ORCONDIS
-      </span>
+      <div className="flex flex-col">
+        <span className={`text-xl font-black tracking-tighter leading-none ${dark ? "text-white" : "text-navy"}`}>
+          ORCONDIS
+        </span>
+        {backoffice ? (
+          <span className="text-[10px] font-medium opacity-70">Back-Office</span>
+        ) : (
+          <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">Tizzla and Serve</span>
+        )}
+      </div>
     </span>
   );
 }
