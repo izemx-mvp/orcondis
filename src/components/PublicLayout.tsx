@@ -14,21 +14,26 @@ const NAV = [
   { to: "/site/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ dark = false, backoffice = false }: { dark?: boolean; backoffice?: boolean }) {
+export function Logo({ dark = false, backoffice = false, className }: { dark?: boolean; backoffice?: boolean; className?: string }) {
   return (
-    <span className="flex items-center gap-2 group transition-transform hover:scale-105 duration-300">
-      <div className="flex flex-col">
-        <span className={cn(
-          "text-2xl font-black tracking-tighter leading-none transition-colors",
-          dark ? "text-white" : "text-navy group-hover:text-primary"
-        )}>
-          ORCONDIS
-        </span>
-        {backoffice && (
-          <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Back-Office</span>
-        )}
+    <div className={cn("flex flex-col items-center gap-1 group transition-transform hover:scale-105 duration-300", className)}>
+      <div className="relative">
+        <img 
+          src="/assets/orcondis-logo.png" 
+          alt="ORCONDIS" 
+          className={cn(
+            "object-contain transition-all",
+            backoffice ? "h-12 w-auto" : "h-14 md:h-16 lg:h-20 w-auto"
+          )}
+          style={{ maxWidth: backoffice ? '180px' : '210px' }}
+        />
       </div>
-    </span>
+      {backoffice && (
+        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40 text-white mt-1">
+          Back-Office
+        </span>
+      )}
+    </div>
   );
 }
 

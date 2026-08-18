@@ -20,12 +20,12 @@ function AccessSelectionPage() {
     <div className="relative flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 overflow-hidden">
       <AnimatedBackground variant="expressive" />
       
-      <div className="mb-16 text-center relative z-10">
-        <div className="inline-block p-4 rounded-3xl bg-white/50 backdrop-blur-xl shadow-panel mb-8 border border-white/20">
-          <Logo />
+      <div className="mb-16 text-center relative z-10 flex flex-col items-center">
+        <div className="mb-12 transition-all hover:scale-105 duration-500">
+          <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-32 w-auto object-contain drop-shadow-2xl" />
         </div>
         <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-6xl max-w-2xl mx-auto leading-[1.1]">
-          Espace ORCONDIS
+          Bienvenue sur ORCONDIS
         </h1>
         <p className="mt-6 text-lg text-muted-foreground font-semibold max-w-lg mx-auto">
           Choisissez votre portail d'accès sécurisé.
