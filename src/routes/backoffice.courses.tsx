@@ -1,6 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useOps, useOpsLookups, recommanderCoursiers } from "@/lib/bo/ops-store";
+import {
+  format,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameDay,
+  addDays,
+  startOfMonth,
+  endOfMonth,
+  isSameMonth,
+  addMonths,
+  parseISO,
+} from "date-fns";
+import { fr as localeFr } from "date-fns/locale";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Plus, 
+  Calendar as CalendarIcon, 
+  List as ListIcon, 
+  Clock, 
+  Check, 
+  CheckCheck, 
+  AlertTriangle, 
+  XCircle,
+  MoreVertical,
+  MapPin,
+  User,
+  Truck,
+  FileText
+} from "lucide-react";
 import {
   oid,
   horodatage,
@@ -27,6 +58,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { EditeurPoint } from "@/components/bo/ops/courses-points";
+import { cn } from "@/lib/utils";
 import {
   PageHeader,
   StatCard,
@@ -49,17 +81,9 @@ import {
   useDialog,
   type Colonne,
 } from "@/components/bo/kit";
+import { CalendarContainer, type CalendarViewType } from "@/components/bo/ops/calendar";
 
 
-export const Route = createFileRoute("/backoffice/courses")({
-  head: () => ({
-    meta: [
-      { title: "Courses — Back-Office ORCONDIS" },
-      { name: "description", content: "Gestion des courses ORCONDIS : affectation coursier, suivi, kilométrage et documents." },
-    ],
-  }),
-  component: CoursesPage,
-});
 
 function courseVide(numero: string): CourseOps {
   return {
@@ -133,6 +157,19 @@ function CoursesPage() {
   const { data, ajouter, modifier, archiver, ajouterNote, ajouterDocument, changerStatutCourse, affecterCoursier, reaffecterCoursier, programmerCommunication, envoyerCommunication, repondreCommunication, annulerCommunication } = useOps();
   const l = useOpsLookups();
 
+  // Navigation et Vue
+  const [vue, setVue] = useState<"Liste" | "Planning">(() => {
+    if (typeof window !== "undefined") {
+      return (window.localStorage.getItem("orcondis.courses.vue") as any) || "Liste";
+    }
+    return "Liste";
+  });
+  
+  useEffect(() => {
+    window.localStorage.setItem("orcondis.courses.vue", vue);
+  }, [vue]);
+
+  // Filtres communs
   const [recherche, setRecherche] = useState("");
   const [statut, setStatut] = useState("");
   const [priorite, setPriorite] = useState("");
@@ -143,11 +180,18 @@ function CoursesPage() {
   const [dateF, setDateF] = useState("");
   const [voirArchives, setVoirArchives] = useState(false);
 
+  // État Calendrier
+  const [calendarDate, setCalendarDate] = useState(new Date());
+  const [calendarView, setCalendarView] = useState<CalendarViewType>("Semaine");
+
+  // Dialogs
   const nouveauDialog = useDialog<null>();
   const editDialog = useDialog<CourseOps>();
   const detailDialog = useDialog<CourseOps>();
   const affectationDialog = useDialog<CourseOps>();
   const reaffectationDialog = useDialog<CourseOps>();
+  
+  // États de saisie
   const [ongletDetail, setOngletDetail] = useState("Informations");
   const [note, setNote] = useState("");
   const [docNom, setDocNom] = useState("");
@@ -159,7 +203,8 @@ function CoursesPage() {
 
   const services = useMemo(() => Array.from(new Set(data.courses.map((c) => c.service).filter(Boolean))).sort(), [data.courses]);
 
-  const courses = useMemo(() => {
+  // Filtrage des données
+  const coursesFiltrees = useMemo(() => {
     const terme = recherche.trim().toLowerCase();
     return data.courses.filter((c) => {
       if (c.archive !== voirArchives) return false;
@@ -189,6 +234,7 @@ function CoursesPage() {
     };
   }, [data.courses]);
 
+  // Actions
   const ouvrirCreation = () => {
     setForm(courseVide(prochainNumeroCourse(data.courses)));
     nouveauDialog.ouvrir(null);
@@ -221,25 +267,55 @@ function CoursesPage() {
     return recommanderCoursiers(data.coursiers, l.chargeCoursier, affectationDialog.item);
   }, [affectationDialog.item, data.coursiers, l]);
 
+  // Colonnes de la table
   const colonnes: Colonne<CourseOps>[] = [
-    { cle: "numero", titre: "N°", rendu: (c) => <span className="font-medium text-navy">{c.numero}</span> },
-    { cle: "client", titre: "Client", rendu: (c) => <span className="text-sm font-medium">{l.clientNom(c.clientId)}</span> },
-    { cle: "type", titre: "Type", rendu: (c) => <span className="text-xs">{c.typeCourse}</span> },
-    { cle: "genre", titre: "Genre", rendu: (c) => <span className="text-xs">{c.genreCourse}</span> },
-    { cle: "date", titre: "Date", rendu: (c) => <span className="text-xs">{c.dateCourse} · {c.trancheHoraire}</span> },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => <span className="text-sm">{l.coursierNom(c.coursierId)}</span> },
-    { cle: "priorite", titre: "Priorité", rendu: (c) => <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut> },
+    { cle: "numero", titre: "N°", rendu: (c) => <span className="font-bold text-navy">{c.numero}</span> },
+    { cle: "date", titre: "Date", rendu: (c) => <div className="text-xs">
+        <p className="font-medium">{format(parseISO(c.dateCourse), "dd/MM")}</p>
+        <p className="text-muted-foreground">{c.heureFixe || c.trancheHoraire.split(' ')[0]}</p>
+      </div> },
+    { cle: "client", titre: "Client / Corresp.", rendu: (c) => <div>
+        <p className="font-medium text-sm">{l.clientNom(c.clientId)}</p>
+        <p className="text-[10px] text-muted-foreground uppercase">{c.correspondant}</p>
+      </div> },
+    { cle: "commande", titre: "Service / Commande", rendu: (c) => <div className="max-w-[150px]">
+        <p className="text-xs font-medium truncate">{c.service || c.typeCourse}</p>
+        <p className="text-[10px] text-muted-foreground truncate">{c.message}</p>
+      </div> },
+    { cle: "type", titre: "Type/Genre", rendu: (c) => <div className="text-[10px]">
+        <p>{c.typeCourse}</p>
+        <p className="text-muted-foreground">{c.genreCourse}</p>
+      </div> },
+    { cle: "trajet", titre: "Retrait → Dest.", rendu: (c) => <div className="text-[10px]">
+        <p className="font-medium text-navy">Ret: {c.retrait.zone}</p>
+        <p className="text-muted-foreground">Dest: {c.destinations[0]?.zone || "—"}</p>
+      </div> },
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <div className="text-sm">
+        {c.coursierId ? (
+          <p className="font-medium">{l.coursierNom(c.coursierId)}</p>
+        ) : (
+          <span className="text-warning text-xs font-medium">⚠ À affecter</span>
+        )}
+      </div> },
+    { cle: "dispatch", titre: "Dispatch", rendu: (c) => <div className="flex flex-col items-center">
+        {c.dispatch.statut === "Confirmée" ? <CheckCheck className="w-4 h-4 text-success" /> : 
+         c.dispatch.statut === "Envoyée" ? <Check className="w-4 h-4 text-primary" /> :
+         c.dispatch.statut === "Programmée" ? <Clock className="w-4 h-4 text-warning" /> :
+         c.dispatch.statut === "Refusée" ? <XCircle className="w-4 h-4 text-destructive" /> :
+         <span className="text-[9px] text-muted-foreground">—</span>}
+        <span className="text-[9px] text-muted-foreground mt-1">{c.dispatch.statut}</span>
+      </div> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
       cle: "actions",
       titre: "Actions",
       align: "right",
       rendu: (c) => (
-        <div className="flex flex-wrap justify-end gap-1.5" onClick={(e) => e.stopPropagation()}>
+        <div className="flex flex-wrap justify-end gap-1" onClick={(e) => e.stopPropagation()}>
           <Button size="sm" variant="ghost" onClick={() => ouvrirDetail(c)}>Voir</Button>
           <Button size="sm" variant="ghost" onClick={() => ouvrirEdition(c)}>Modifier</Button>
           {!c.coursierId ? (
-            <Button size="sm" variant="ghost" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
+            <Button size="sm" variant="outline" className="h-7 text-[10px]" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
           ) : (
             <Button size="sm" variant="ghost" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
               Réaffecter
@@ -432,8 +508,32 @@ function CoursesPage() {
     <div className="space-y-6">
       <PageHeader
         titre="Courses"
-        sous="Planification, affectation et suivi des courses coursiers."
-        actions={<Button size="sm" onClick={ouvrirCreation}>Nouvelle course</Button>}
+        sous="Planification, affectation et suivi des courses ORCONDIS."
+        actions={
+          <div className="flex items-center gap-2">
+             <div className="flex bg-surface p-1 rounded-lg border border-border">
+              {(["Liste", "Planning"] as const).map((v) => (
+                <button
+                  key={v}
+                  onClick={() => setVue(v)}
+                  className={cn(
+                    "px-3 py-1.5 text-xs font-medium rounded-md transition-all flex items-center gap-1.5",
+                    vue === v 
+                      ? "bg-card text-navy shadow-sm" 
+                      : "text-muted-foreground hover:text-navy"
+                  )}
+                >
+                  {v === "Liste" ? <ListIcon className="w-3.5 h-3.5" /> : <CalendarIcon className="w-3.5 h-3.5" />}
+                  {v}
+                </button>
+              ))}
+            </div>
+            <Button size="sm" onClick={ouvrirCreation}>
+              <Plus className="w-4 h-4 mr-1.5" />
+              Nouvelle course
+            </Button>
+          </div>
+        }
       />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
@@ -444,26 +544,45 @@ function CoursesPage() {
         <StatCard label="Terminées" valeur={stats.terminees} ton="positif" />
       </div>
 
-      <Panel
-        titre="Liste des courses"
-        actions={
-          <Button size="sm" variant="outline" onClick={() => setVoirArchives((v) => !v)}>
-            {voirArchives ? "Voir actives" : "Voir archivées"}
-          </Button>
-        }
-      >
-        <div className="mb-3 space-y-2">
-          <FilterBar>
-            <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, type…" />
-            <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
-            <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
-            <SelectFilter label="Service" value={service} onChange={setService} options={services} />
-            <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
-            <Champ label="" type="date" value={dateF} onChange={setDateF} />
-          </FilterBar>
-        </div>
-        <DataTable colonnes={colonnes} lignes={courses} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
-      </Panel>
+      {vue === "Liste" ? (
+        <Panel
+          titre="Liste des courses"
+          actions={
+            <div className="flex items-center gap-2">
+              <Button size="sm" variant="outline" onClick={() => setVoirArchives((v) => !v)}>
+                {voirArchives ? "Voir actives" : "Voir archivées"}
+              </Button>
+            </div>
+          }
+        >
+          <div className="mb-3 space-y-2">
+            <FilterBar>
+              <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, coursier…" />
+              <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
+              <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
+              <SelectFilter label="Service" value={service} onChange={setService} options={services} />
+              <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
+              <Champ label="" type="date" value={dateF} onChange={setDateF} />
+            </FilterBar>
+          </div>
+          <DataTable colonnes={colonnes} lignes={coursesFiltrees} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
+        </Panel>
+      ) : (
+        <CoursesPlanning 
+          data={data}
+          courses={coursesFiltrees}
+          calendarDate={calendarDate}
+          setCalendarDate={setCalendarDate}
+          calendarView={calendarView}
+          setCalendarView={setCalendarView}
+          onCourseClick={ouvrirDetail}
+          onAssignClick={(c) => {
+            setCoursierChoisi("");
+            affectationDialog.ouvrir(c);
+          }}
+          l={l}
+        />
+      )}
 
       <FormDialog open={nouveauDialog.open} onOpenChange={nouveauDialog.setOpen} titre="Nouvelle course" onSubmit={soumettreCreation} large>
         <p className="text-xs text-muted-foreground">Numéro : <span className="font-medium text-navy">{form.numero}</span></p>
@@ -717,3 +836,332 @@ function CoursesPage() {
     </div>
   );
 }
+
+function CoursesPlanning({ 
+  data, 
+  courses, 
+  calendarDate, 
+  setCalendarDate, 
+  calendarView, 
+  setCalendarView, 
+  onCourseClick,
+  onAssignClick,
+  l 
+}: { 
+  data: any, 
+  courses: CourseOps[], 
+  calendarDate: Date, 
+  setCalendarDate: (d: Date) => void, 
+  calendarView: CalendarViewType, 
+  setCalendarView: (v: CalendarViewType) => void,
+  onCourseClick: (c: CourseOps) => void,
+  onAssignClick: (c: CourseOps) => void,
+  l: any
+}) {
+  const unplannedCourses = useMemo(() => {
+    return courses.filter(c => !c.dateCourse || c.statut === "À affecter");
+  }, [courses]);
+
+  return (
+    <div className="flex flex-col lg:flex-row gap-6 h-[800px]">
+      <div className="flex-1 min-w-0 h-full">
+        <CalendarContainer
+          date={calendarDate}
+          onDateChange={setCalendarDate}
+          view={calendarView}
+          onViewChange={setCalendarView}
+        >
+          {calendarView === "Jour" && (
+            <CalendarDayView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+          {calendarView === "Semaine" && (
+            <CalendarWeekView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+          {calendarView === "Mois" && (
+            <CalendarMonthView 
+              date={calendarDate} 
+              courses={courses} 
+              onCourseClick={onCourseClick} 
+              l={l} 
+            />
+          )}
+        </CalendarContainer>
+      </div>
+      
+      <div className="w-full lg:w-80 flex flex-col gap-4">
+        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col">
+          <div className="flex-1 overflow-auto space-y-2 pr-2">
+            {unplannedCourses.length === 0 ? (
+              <p className="text-xs text-center text-muted-foreground py-8 italic">Toutes les courses sont planifiées.</p>
+            ) : (
+              unplannedCourses.map(c => (
+                <div 
+                  key={c.id} 
+                  className="p-3 bg-surface border border-border rounded-lg hover:border-primary cursor-pointer transition-colors group"
+                  onClick={() => onCourseClick(c)}
+                >
+                  <div className="flex justify-between items-start mb-1">
+                    <span className="text-xs font-bold text-navy">{c.numero}</span>
+                    <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut>
+                  </div>
+                  <p className="text-[11px] font-medium truncate">{l.clientNom(c.clientId)}</p>
+                  <div className="flex items-center gap-1 mt-2 text-[10px] text-muted-foreground">
+                    <MapPin className="w-3 h-3" />
+                    <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="w-full h-7 mt-3 text-[10px] hidden group-hover:flex"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onAssignClick(c);
+                    }}
+                  >
+                    Affecter
+                  </Button>
+                </div>
+              ))
+            )}
+          </div>
+        </Panel>
+      </div>
+    </div>
+  );
+}
+
+function CalendarDayView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const hours = Array.from({ length: 14 }, (_, i) => i + 7);
+  
+  const dayCourses = useMemo(() => {
+    const dStr = format(date, "yyyy-MM-dd");
+    return courses.filter(c => c.dateCourse === dStr);
+  }, [date, courses]);
+
+  return (
+    <div className="flex flex-col h-full bg-card">
+      <div className="grid grid-cols-[80px_1fr] border-b border-border bg-surface/50">
+        <div className="p-3 text-[10px] font-bold text-muted-foreground uppercase text-center border-r border-border">Heure</div>
+        <div className="p-3 text-[10px] font-bold text-navy uppercase">{format(date, "EEEE d MMMM", { locale: localeFr })}</div>
+      </div>
+      <div className="flex-1 overflow-y-auto relative">
+        {hours.map(hour => (
+          <div key={hour} className="grid grid-cols-[80px_1fr] min-h-[80px] border-b border-border/50 group">
+            <div className="text-[11px] font-medium text-muted-foreground p-3 text-center border-r border-border/50 bg-surface/30">
+              {hour}:00
+            </div>
+            <div className="p-2 flex flex-wrap gap-2 items-start relative bg-card/50">
+              {dayCourses
+                .filter(c => {
+                  const hf = c.heureFixe;
+                  if (hf && hf.includes(':')) {
+                    const parts = hf.split(':');
+                    const firstPart = parts[0];
+                    if (firstPart) return parseInt(firstPart) === hour;
+                  }
+                  const th = c.trancheHoraire;
+                  if (th?.includes('Matin') && hour === 9) return true;
+                  if (th?.includes('Midi') && hour === 12) return true;
+                  if (th?.includes('Après-midi') && hour === 15) return true;
+                  return false;
+                })
+                .map(c => (
+                  <CourseCard key={c.id} c={c} onClick={() => onCourseClick(c)} l={l} />
+                ))
+              }
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function CalendarWeekView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const start = startOfWeek(date, { weekStartsOn: 1 });
+  const weekDays = eachDayOfInterval({ start, end: addDays(start, 5) });
+
+  return (
+    <div className="flex flex-col h-full bg-card">
+      <div className="grid grid-cols-6 border-b border-border bg-surface/50">
+        {weekDays.map(day => (
+          <div key={day.toString()} className={cn(
+            "p-3 text-center border-r border-border last:border-r-0",
+            isSameDay(day, new Date()) ? "bg-primary/5" : ""
+          )}>
+            <p className="text-[10px] font-bold text-muted-foreground uppercase">{format(day, "EEE", { locale: localeFr })}</p>
+            <p className={cn(
+              "text-lg font-black mt-0.5",
+              isSameDay(day, new Date()) ? "text-primary" : "text-navy"
+            )}>{format(day, "d")}</p>
+          </div>
+        ))}
+      </div>
+      <div className="flex-1 grid grid-cols-6 overflow-y-auto">
+        {weekDays.map(day => {
+          const dayStr = format(day, "yyyy-MM-dd");
+          const dayCourses = courses.filter(c => c.dateCourse === dayStr);
+          return (
+            <div key={day.toString()} className={cn(
+              "min-h-[400px] border-r border-border last:border-r-0 p-2 space-y-2 bg-card/50",
+              isSameDay(day, new Date()) ? "bg-primary/[0.02]" : ""
+            )}>
+              {dayCourses.map(c => (
+                <CourseCard key={c.id} c={c} onClick={() => onCourseClick(c)} l={l} compact />
+              ))}
+              {dayCourses.length === 0 && (
+                <div className="h-full border-2 border-dashed border-border/20 rounded-xl flex items-center justify-center">
+                   <p className="text-[9px] text-muted-foreground/30 font-medium rotate-90">VIDE</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CalendarMonthView({ date, courses, onCourseClick, l }: { date: Date, courses: CourseOps[], onCourseClick: (c: CourseOps) => void, l: any }) {
+  const start = startOfMonth(date);
+  const end = endOfMonth(date);
+  const days = eachDayOfInterval({ start, end });
+
+  return (
+    <div className="h-full flex flex-col bg-card">
+      <div className="grid grid-cols-7 border-b border-border bg-surface/50">
+        {["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map(d => (
+          <div key={d} className="p-2 text-center text-[10px] font-bold text-muted-foreground uppercase border-r border-border last:border-r-0">{d}</div>
+        ))}
+      </div>
+      <div className="flex-1 grid grid-cols-7 auto-rows-fr">
+        {days.map((day, i) => {
+          const dayStr = format(day, "yyyy-MM-dd");
+          const dayCourses = courses.filter(c => c.dateCourse === dayStr);
+          const isToday = isSameDay(day, new Date());
+          const isCurrentMonth = isSameMonth(day, date);
+
+          return (
+            <div 
+              key={day.toString()} 
+              className={cn(
+                "min-h-[100px] border-r border-b border-border p-1 flex flex-col gap-1",
+                !isCurrentMonth ? "bg-muted/10 opacity-50" : "bg-card/50",
+                isToday ? "ring-1 ring-inset ring-primary/20" : ""
+              )}
+            >
+              <span className={cn(
+                "text-[10px] font-bold w-6 h-6 flex items-center justify-center rounded-full",
+                isToday ? "bg-primary text-white" : "text-muted-foreground"
+              )}>
+                {format(day, "d")}
+              </span>
+              <div className="flex flex-col gap-0.5 overflow-y-auto">
+                {dayCourses.slice(0, 4).map(c => (
+                  <div 
+                    key={c.id} 
+                    onClick={() => onCourseClick(c)}
+                    className={cn(
+                      "text-[9px] px-1.5 py-0.5 rounded border border-border truncate cursor-pointer",
+                      toneCourse(c.statut).includes("success") ? "bg-success/10 text-success border-success/20" :
+                      toneCourse(c.statut).includes("warning") ? "bg-warning/10 text-warning border-warning/20" :
+                      toneCourse(c.statut).includes("destructive") ? "bg-destructive/10 text-destructive border-destructive/20" :
+                      "bg-surface text-navy"
+                    )}
+                  >
+                    {c.numero} - {l.clientNom(c.clientId)}
+                  </div>
+                ))}
+                {dayCourses.length > 4 && (
+                  <div className="text-[8px] text-muted-foreground px-1 font-medium">
+                    + {dayCourses.length - 4} autres...
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick: () => void, l: any, compact?: boolean }) {
+  const isExclusive = c.priorite === "Exclusive";
+  
+  return (
+    <div 
+      onClick={onClick}
+      className={cn(
+        "bg-card border-l-4 rounded shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col overflow-hidden",
+        toneCourse(c.statut).includes("success") ? "border-l-success" :
+        toneCourse(c.statut).includes("warning") ? "border-l-warning" :
+        toneCourse(c.statut).includes("destructive") ? "border-l-destructive" :
+        "border-l-primary",
+        compact ? "p-2 min-h-[80px]" : "p-3 w-[220px]"
+      )}
+    >
+      <div className="flex justify-between items-start mb-1.5">
+        <span className="text-[10px] font-black text-navy">{c.numero}</span>
+        <div className="flex gap-1">
+          {isExclusive && <Statut ton={tonStatut("Exclusive")}>EXCLU</Statut>}
+          <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut>
+        </div>
+      </div>
+      
+      <p className={cn("font-bold text-navy mb-1 leading-tight", compact ? "text-[10px]" : "text-xs")}>
+        {l.clientNom(c.clientId)}
+      </p>
+      
+      {!compact && (
+        <p className="text-[10px] text-muted-foreground mb-2 line-clamp-1">{c.typeCourse}</p>
+      )}
+
+      <div className="mt-auto pt-2 border-t border-border/50 flex flex-col gap-1">
+        <div className="flex items-center gap-1.5 text-[9px] text-muted-foreground">
+          <MapPin className="w-3 h-3 text-primary/60" />
+          <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
+        </div>
+        
+        <div className="flex items-center justify-between mt-1">
+          <div className="flex items-center gap-1 text-[9px] font-medium text-navy">
+            {c.coursierId ? (
+              <>
+                <User className="w-3 h-3 text-navy/40" />
+                <span className="truncate max-w-[80px]">{l.coursierNom(c.coursierId)}</span>
+              </>
+            ) : (
+              <span className="text-destructive font-black uppercase text-[8px]">À affecter</span>
+            )}
+          </div>
+          
+          <div className="flex items-center gap-1">
+             {c.dispatch.statut === "Confirmée" && <CheckCheck className="w-3 h-3 text-success" />}
+             {c.dispatch.statut === "Envoyée" && <Check className="w-3 h-3 text-primary" />}
+             {c.heureFixe && <span className="text-[9px] bg-navy text-white px-1 rounded font-bold">{c.heureFixe}</span>}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export const Route = createFileRoute("/backoffice/courses")({
+  head: () => ({
+    meta: [
+      { title: "Courses — Back-Office ORCONDIS" },
+      { name: "description", content: "Gestion des courses ORCONDIS : affectation coursier, suivi, kilométrage et documents." },
+    ],
+  }),
+  component: CoursesPage,
+});
