@@ -22,7 +22,7 @@ import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { SERVICES } from "@/lib/orcondis";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/site/")({
   head: () => ({
     meta: [
       { title: "ORCONDIS | Excellence Logistique" },

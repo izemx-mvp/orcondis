@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
-export const Route = createFileRoute("/contact")({
+export const Route = createFileRoute("/site/contact")({
   head: () => ({
     meta: [
       { title: "Contact — ORCONDIS" },

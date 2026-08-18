@@ -9,15 +9,9 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AProposRouteImport } from './routes/a-propos'
 import { Route as AccesRouteImport } from './routes/acces'
 import { Route as BackofficeRouteImport } from './routes/backoffice'
-import { Route as CommentCaMarcheRouteImport } from './routes/comment-ca-marche'
 import { Route as ConnexionRouteImport } from './routes/connexion'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as DemandeRouteImport } from './routes/demande'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
 import { Route as BackofficeClientsRouteImport } from './routes/backoffice.clients'
 import { Route as BackofficeCoursesRouteImport } from './routes/backoffice.courses'
@@ -33,17 +27,13 @@ import { Route as BackofficeParametresRouteImport } from './routes/backoffice.pa
 import { Route as BackofficeProceduresRouteImport } from './routes/backoffice.procedures'
 import { Route as BackofficeRapportsRouteImport } from './routes/backoffice.rapports'
 import { Route as BackofficeWhatsappRouteImport } from './routes/backoffice.whatsapp'
+import { Route as SiteIndexRouteImport } from './routes/site/index'
+import { Route as SiteAProposRouteImport } from './routes/site/a-propos'
+import { Route as SiteCommentCaMarcheRouteImport } from './routes/site/comment-ca-marche'
+import { Route as SiteContactRouteImport } from './routes/site/contact'
+import { Route as SiteDemandeRouteImport } from './routes/site/demande'
+import { Route as SiteServicesRouteImport } from './routes/site/services'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AProposRoute = AProposRouteImport.update({
-  id: '/a-propos',
-  path: '/a-propos',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AccesRoute = AccesRouteImport.update({
   id: '/acces',
   path: '/acces',
@@ -54,29 +44,9 @@ const BackofficeRoute = BackofficeRouteImport.update({
   path: '/backoffice',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CommentCaMarcheRoute = CommentCaMarcheRouteImport.update({
-  id: '/comment-ca-marche',
-  path: '/comment-ca-marche',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ConnexionRoute = ConnexionRouteImport.update({
   id: '/connexion',
   path: '/connexion',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemandeRoute = DemandeRouteImport.update({
-  id: '/demande',
-  path: '/demande',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
@@ -154,17 +124,41 @@ const BackofficeWhatsappRoute = BackofficeWhatsappRouteImport.update({
   path: '/whatsapp',
   getParentRoute: () => BackofficeRoute,
 } as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/site/',
+  path: '/site/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteAProposRoute = SiteAProposRouteImport.update({
+  id: '/site/a-propos',
+  path: '/site/a-propos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteCommentCaMarcheRoute = SiteCommentCaMarcheRouteImport.update({
+  id: '/site/comment-ca-marche',
+  path: '/site/comment-ca-marche',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteContactRoute = SiteContactRouteImport.update({
+  id: '/site/contact',
+  path: '/site/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteDemandeRoute = SiteDemandeRouteImport.update({
+  id: '/site/demande',
+  path: '/site/demande',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteServicesRoute = SiteServicesRouteImport.update({
+  id: '/site/services',
+  path: '/site/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/a-propos': typeof AProposRoute
   '/acces': typeof AccesRoute
   '/backoffice': typeof BackofficeRouteWithChildren
-  '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
-  '/contact': typeof ContactRoute
-  '/demande': typeof DemandeRoute
-  '/services': typeof ServicesRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
   '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
@@ -179,17 +173,17 @@ export interface FileRoutesByFullPath {
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
+  '/site/a-propos': typeof SiteAProposRoute
+  '/site/comment-ca-marche': typeof SiteCommentCaMarcheRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site/demande': typeof SiteDemandeRoute
+  '/site/services': typeof SiteServicesRoute
   '/backoffice/': typeof BackofficeIndexRoute
+  '/site/': typeof SiteIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/a-propos': typeof AProposRoute
   '/acces': typeof AccesRoute
-  '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
-  '/contact': typeof ContactRoute
-  '/demande': typeof DemandeRoute
-  '/services': typeof ServicesRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
   '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
@@ -204,19 +198,19 @@ export interface FileRoutesByTo {
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
+  '/site/a-propos': typeof SiteAProposRoute
+  '/site/comment-ca-marche': typeof SiteCommentCaMarcheRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site/demande': typeof SiteDemandeRoute
+  '/site/services': typeof SiteServicesRoute
   '/backoffice': typeof BackofficeIndexRoute
+  '/site': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/a-propos': typeof AProposRoute
   '/acces': typeof AccesRoute
   '/backoffice': typeof BackofficeRouteWithChildren
-  '/comment-ca-marche': typeof CommentCaMarcheRoute
   '/connexion': typeof ConnexionRoute
-  '/contact': typeof ContactRoute
-  '/demande': typeof DemandeRoute
-  '/services': typeof ServicesRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
   '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
@@ -231,20 +225,20 @@ export interface FileRoutesById {
   '/backoffice/procedures': typeof BackofficeProceduresRoute
   '/backoffice/rapports': typeof BackofficeRapportsRoute
   '/backoffice/whatsapp': typeof BackofficeWhatsappRoute
+  '/site/a-propos': typeof SiteAProposRoute
+  '/site/comment-ca-marche': typeof SiteCommentCaMarcheRoute
+  '/site/contact': typeof SiteContactRoute
+  '/site/demande': typeof SiteDemandeRoute
+  '/site/services': typeof SiteServicesRoute
   '/backoffice/': typeof BackofficeIndexRoute
+  '/site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/a-propos'
     | '/acces'
     | '/backoffice'
-    | '/comment-ca-marche'
     | '/connexion'
-    | '/contact'
-    | '/demande'
-    | '/services'
     | '/backoffice/clients'
     | '/backoffice/courses'
     | '/backoffice/coursiers'
@@ -259,17 +253,17 @@ export interface FileRouteTypes {
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
+    | '/site/a-propos'
+    | '/site/comment-ca-marche'
+    | '/site/contact'
+    | '/site/demande'
+    | '/site/services'
     | '/backoffice/'
+    | '/site/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/a-propos'
     | '/acces'
-    | '/comment-ca-marche'
     | '/connexion'
-    | '/contact'
-    | '/demande'
-    | '/services'
     | '/backoffice/clients'
     | '/backoffice/courses'
     | '/backoffice/coursiers'
@@ -284,18 +278,18 @@ export interface FileRouteTypes {
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
+    | '/site/a-propos'
+    | '/site/comment-ca-marche'
+    | '/site/contact'
+    | '/site/demande'
+    | '/site/services'
     | '/backoffice'
+    | '/site'
   id:
     | '__root__'
-    | '/'
-    | '/a-propos'
     | '/acces'
     | '/backoffice'
-    | '/comment-ca-marche'
     | '/connexion'
-    | '/contact'
-    | '/demande'
-    | '/services'
     | '/backoffice/clients'
     | '/backoffice/courses'
     | '/backoffice/coursiers'
@@ -310,37 +304,29 @@ export interface FileRouteTypes {
     | '/backoffice/procedures'
     | '/backoffice/rapports'
     | '/backoffice/whatsapp'
+    | '/site/a-propos'
+    | '/site/comment-ca-marche'
+    | '/site/contact'
+    | '/site/demande'
+    | '/site/services'
     | '/backoffice/'
+    | '/site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AProposRoute: typeof AProposRoute
   AccesRoute: typeof AccesRoute
   BackofficeRoute: typeof BackofficeRouteWithChildren
-  CommentCaMarcheRoute: typeof CommentCaMarcheRoute
   ConnexionRoute: typeof ConnexionRoute
-  ContactRoute: typeof ContactRoute
-  DemandeRoute: typeof DemandeRoute
-  ServicesRoute: typeof ServicesRoute
+  SiteAProposRoute: typeof SiteAProposRoute
+  SiteCommentCaMarcheRoute: typeof SiteCommentCaMarcheRoute
+  SiteContactRoute: typeof SiteContactRoute
+  SiteDemandeRoute: typeof SiteDemandeRoute
+  SiteServicesRoute: typeof SiteServicesRoute
+  SiteIndexRoute: typeof SiteIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/a-propos': {
-      id: '/a-propos'
-      path: '/a-propos'
-      fullPath: '/a-propos'
-      preLoaderRoute: typeof AProposRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/acces': {
       id: '/acces'
       path: '/acces'
@@ -355,39 +341,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/comment-ca-marche': {
-      id: '/comment-ca-marche'
-      path: '/comment-ca-marche'
-      fullPath: '/comment-ca-marche'
-      preLoaderRoute: typeof CommentCaMarcheRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/connexion': {
       id: '/connexion'
       path: '/connexion'
       fullPath: '/connexion'
       preLoaderRoute: typeof ConnexionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demande': {
-      id: '/demande'
-      path: '/demande'
-      fullPath: '/demande'
-      preLoaderRoute: typeof DemandeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/backoffice/': {
@@ -495,6 +453,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BackofficeWhatsappRouteImport
       parentRoute: typeof BackofficeRoute
     }
+    '/site/': {
+      id: '/site/'
+      path: '/site'
+      fullPath: '/site/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/a-propos': {
+      id: '/site/a-propos'
+      path: '/site/a-propos'
+      fullPath: '/site/a-propos'
+      preLoaderRoute: typeof SiteAProposRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/comment-ca-marche': {
+      id: '/site/comment-ca-marche'
+      path: '/site/comment-ca-marche'
+      fullPath: '/site/comment-ca-marche'
+      preLoaderRoute: typeof SiteCommentCaMarcheRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/contact': {
+      id: '/site/contact'
+      path: '/site/contact'
+      fullPath: '/site/contact'
+      preLoaderRoute: typeof SiteContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/demande': {
+      id: '/site/demande'
+      path: '/site/demande'
+      fullPath: '/site/demande'
+      preLoaderRoute: typeof SiteDemandeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/site/services': {
+      id: '/site/services'
+      path: '/site/services'
+      fullPath: '/site/services'
+      preLoaderRoute: typeof SiteServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -539,15 +539,15 @@ const BackofficeRouteWithChildren = BackofficeRoute._addFileChildren(
 )
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AProposRoute: AProposRoute,
   AccesRoute: AccesRoute,
   BackofficeRoute: BackofficeRouteWithChildren,
-  CommentCaMarcheRoute: CommentCaMarcheRoute,
   ConnexionRoute: ConnexionRoute,
-  ContactRoute: ContactRoute,
-  DemandeRoute: DemandeRoute,
-  ServicesRoute: ServicesRoute,
+  SiteAProposRoute: SiteAProposRoute,
+  SiteCommentCaMarcheRoute: SiteCommentCaMarcheRoute,
+  SiteContactRoute: SiteContactRoute,
+  SiteDemandeRoute: SiteDemandeRoute,
+  SiteServicesRoute: SiteServicesRoute,
+  SiteIndexRoute: SiteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

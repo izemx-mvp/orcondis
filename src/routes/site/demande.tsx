@@ -18,7 +18,7 @@ import { SERVICES } from "@/lib/orcondis";
 import { useStore } from "@/lib/store";
 import { CATEGORIES_CLIENT, SOUS_TYPES_AUTRES, type CategorieClient } from "@/lib/bo/ops-data";
 
-export const Route = createFileRoute("/demande")({
+export const Route = createFileRoute("/site/demande")({
   head: () => ({
     meta: [
       { title: "Faire une demande — ORCONDIS" },
