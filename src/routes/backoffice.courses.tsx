@@ -236,20 +236,50 @@ function CoursesPage() {
 
   const champsFormulaire = (
     <>
-      <Grille>
-        <ChampSelect
-          label="Client"
-          value={form.clientId}
-          onChange={(v) => setForm({ ...form, clientId: v, contactId: "" })}
-          options={data.clients.filter((c) => !c.archive).map((c) => ({ value: c.id, label: nomClient(c) }))}
-        />
-        <ChampSelect
-          label="Contact"
-          value={form.contactId}
-          onChange={(v) => setForm({ ...form, contactId: v })}
-          options={data.contacts.filter((c) => c.clientId === form.clientId).map((c) => ({ value: c.id, label: `${c.prenom} ${c.nom}` }))}
-        />
-      </Grille>
+      <div className="border-b pb-4">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Informations de la demande</p>
+        <Grille cols={3}>
+          <Detail label="Jour">{form.jour}</Detail>
+          <Detail label="Date d'appel">{form.dateAppel}</Detail>
+          <Detail label="Heure d'appel">{form.heureAppel}</Detail>
+        </Grille>
+      </div>
+
+      <div className="pt-4">
+        <p className="mb-4 text-xs font-bold uppercase tracking-wider text-navy">Client & Correspondant</p>
+        <Grille>
+          <div className="space-y-2">
+            <ChampSelect
+              label="Donneur d'ordres / Client"
+              value={form.clientId}
+              onChange={(v) => {
+                const cli = data.clients.find(c => c.id === v);
+                setForm({ ...form, clientId: v, contactId: "", retrait: { ...form.retrait, zone: cli?.zone || "" } });
+              }}
+              options={data.clients.filter((c) => !c.archive).map((c) => ({ value: c.id, label: `${c.code} — ${nomClient(c)}` }))}
+            />
+            {form.clientId && (
+              <p className="text-[10px] text-muted-foreground uppercase">
+                Zone Client : {data.clients.find(c => c.id === form.clientId)?.zone || "Non définie"}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <ChampSelect
+              label="Le correspondant"
+              value={form.contactId}
+              onChange={(v) => setForm({ ...form, contactId: v, correspondant: data.contacts.find(c => c.id === v)?.nom || "" })}
+              options={data.contacts.filter((c) => c.clientId === form.clientId).map((c) => ({ value: c.id, label: `${c.code} — ${c.prenom} ${c.nom}` }))}
+            />
+            {form.clientId && (
+              <Button size="xs" variant="ghost" className="h-6 text-[10px]" onClick={() => { /* Logic to open add contact for this client */ }}>
+                + Créer un contact
+              </Button>
+            )}
+          </div>
+        </Grille>
+      </div>
+
       <Grille>
         <ChampSelect
           label="Dossier (optionnel)"
@@ -257,7 +287,12 @@ function CoursesPage() {
           onChange={(v) => setForm({ ...form, dossierId: v })}
           options={data.dossiers.filter((d) => d.clientId === form.clientId).map((d) => ({ value: d.id, label: d.numero }))}
         />
-        <Champ label="Service" value={form.service} onChange={(v) => setForm({ ...form, service: v })} />
+        <ChampSelect 
+          label="Message / Commande (Service)" 
+          value={form.service} 
+          onChange={(v) => setForm({ ...form, service: v })} 
+          options={TYPES_COURSE}
+        />
       </Grille>
       <Grille cols={3}>
         <ChampSelect label="Type de course" value={form.typeCourse} onChange={(v) => setForm({ ...form, typeCourse: v })} options={TYPES_COURSE} />
