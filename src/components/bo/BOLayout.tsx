@@ -181,11 +181,20 @@ export function BOLayout({ children }: { children: ReactNode }) {
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex min-h-[120px] flex-col items-center justify-center px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10 py-6">
-          <Link to="/backoffice/dashboard" className="flex flex-col items-center">
-            <Logo backoffice className="scale-90" />
+        <div className="flex min-h-[160px] flex-col items-center justify-center px-8 border-b border-sidebar-border/10 bg-white/5 backdrop-blur-xl sticky top-0 z-10 py-8">
+          <Link to="/backoffice/dashboard" className="flex flex-col items-center gap-4 group">
+            <div className="bg-white p-4 rounded-2xl shadow-xl shadow-black/20 transition-transform group-hover:scale-105 duration-500">
+              <img 
+                src="/assets/orcondis-logo.png" 
+                alt="ORCONDIS" 
+                className="h-10 w-auto object-contain"
+              />
+            </div>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-colors">
+              Back-Office
+            </span>
           </Link>
-          <button className="lg:hidden p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
+          <button className="lg:hidden absolute top-4 right-4 p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
           </button>
         </div>
