@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
-import { SERVICES } from "@/lib/orcondis";
+import { SERVICES, SERVICE_DETAILS } from "@/lib/orcondis";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
@@ -22,25 +22,6 @@ export const Route = createFileRoute("/services")({
   component: Services,
 });
 
-const DETAILS: Record<string, string> = {
-  "Récupération de documents":
-    "Retrait de dossiers, contrats, originaux ou pièces administratives auprès de vos partenaires.",
-  "Livraison de documents":
-    "Remise en main propre avec justificatif de réception signé et horodaté.",
-  "Courses administratives":
-    "Communes, préfectures, tribunaux, caisses sociales, organismes publics et privés.",
-  "Paiement de factures": "Règlement de factures d’eau, d’électricité, de téléphonie ou de services.",
-  "Paiement de fournisseurs":
-    "Remise de paiements à vos fournisseurs avec récupération du reçu ou de la décharge.",
-  "Récupération de chèques": "Collecte de chèques chez vos clients et partenaires.",
-  "Dépôt de chèques": "Dépôt en agence bancaire et transmission du bordereau.",
-  "Procédures administratives":
-    "Constitution, dépôt et suivi de dossiers auprès des administrations.",
-  "Procédure provisoire": "Démarches temporaires : attestations, autorisations, duplicatas.",
-  "Vérification / contrôle": "Constat sur site, vérification d’affichage, contrôle de conformité.",
-  "Autres prestations": "Toute mission ponctuelle décrite lors de la qualification WhatsApp.",
-};
-
 function Services() {
   return (
     <PublicLayout>
@@ -48,8 +29,8 @@ function Services() {
         <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6">
           <h1 className="text-3xl font-semibold sm:text-4xl">Nos services</h1>
           <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-            ORCONDIS réalise vos opérations terrain avec un cadre professionnel : mission qualifiée,
-            coursier affecté, justificatifs remis et traçabilité complète.
+            Gagnez du temps et optimisez vos opérations avec les services de proximité et de coursiers ORCONDIS. 
+            Un véritable service d’accompagnement selon les directives du client.
           </p>
         </div>
       </section>
@@ -59,14 +40,20 @@ function Services() {
           {SERVICES.map((service) => (
             <article key={service} className="surface-card p-5">
               <h2 className="text-base font-medium text-navy">{service}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">{DETAILS[service]}</p>
+              <p className="mt-2 text-sm text-muted-foreground">{SERVICE_DETAILS[service]}</p>
             </article>
           ))}
         </div>
-        <div className="mt-10">
-          <Button asChild>
-            <Link to="/demande">Faire une demande</Link>
-          </Button>
+        <div className="mt-10 p-6 border border-border rounded-xl bg-muted/30">
+          <p className="text-sm font-medium text-navy italic">
+            "Toutes nos prestations font l’objet d’une étude et d’un devis au cas par cas, tenant compte de vos besoins spécifiques. 
+            Nous répondons à vos besoins dans les plus brefs délais."
+          </p>
+          <div className="mt-6">
+            <Button asChild>
+              <Link to="/demande">Faire une demande</Link>
+            </Button>
+          </div>
         </div>
       </section>
     </PublicLayout>
