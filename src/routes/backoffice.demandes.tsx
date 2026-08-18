@@ -259,7 +259,7 @@ function DemandeDetail({
   const [clientCreeId, setClientCreeId] = useState("");
 
   function creerClientDepuisDemande() {
-    const categorie = demande.societe ? "Entreprise" : "Personne physique";
+    const categorie = (demande.qualification.typeClient || (demande.societe ? "Entreprise" : "Personne physique")) as CategorieClient;
     const code = prochainCodeClient(opsData.clients, categorie);
     const client: ClientOps = {
       id: oid("cli"),
@@ -271,13 +271,13 @@ function DemandeDetail({
       prenom: demande.prenom,
       denomination: demande.societe,
       raisonSociale: demande.societe,
-      ville: "Casablanca",
-      quartier: "",
+      ville: demande.qualification.retrait?.ville || "Casablanca",
+      quartier: demande.qualification.retrait?.quartier || "",
       rue: "",
       numeroRue: "",
       etage: "",
       appartement: "",
-      adresseComplete: "",
+      adresseComplete: demande.qualification.retrait?.adresse || "",
       pays: "Maroc",
       site: "",
       email: demande.email,
@@ -287,7 +287,7 @@ function DemandeDetail({
       whatsapp: demande.whatsapp,
       facebook: "",
       instagram: "",
-      zone: "",
+      zone: demande.qualification.retrait?.zone || "",
       notes: `Créé depuis la demande ${demande.numero}.`,
       archive: false,
       creeLe: todayIso(),

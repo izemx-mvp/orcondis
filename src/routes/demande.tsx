@@ -146,15 +146,15 @@ function Demande() {
 
   return (
     <PublicLayout>
-      <section className="mx-auto w-full max-w-2xl px-4 py-12 sm:px-6 lg:py-16">
+      <section className="mx-auto w-full max-w-3xl px-4 py-12 sm:px-6 lg:py-16">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold sm:text-3xl">Faire une demande</h1>
-          <p className="mx-auto mt-2 max-w-lg text-sm text-muted-foreground">
-            Décrivez votre besoin. ORCONDIS le qualifie par WhatsApp et vous tient informé à chaque étape.
+          <h1 className="text-2xl font-black sm:text-4xl text-navy uppercase tracking-tighter">Faire une demande</h1>
+          <p className="mx-auto mt-4 max-w-lg text-lg text-muted-foreground font-medium">
+            Tizzla and Serve by ORCONDIS vous accompagne dans vos opérations.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-8 surface-card p-6 sm:p-8">
+        <form onSubmit={handleSubmit} className="mt-12 surface-card p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-border/50">
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <Label>Je suis</Label>
