@@ -7,7 +7,9 @@ export function SectionAgentCoursier() {
   const s = data.settingsAgent;
 
   return (
-    <Panel titre="Agent de communication coursier" sous="Configuration de l'automate de dispatch des missions.">
+    <Panel titre="Agent de communication coursier">
+      <div className="mb-4 text-sm text-muted-foreground">Configuration de l'automate de dispatch des missions.</div>
+
       <div className="space-y-6">
         <div className="border-b pb-4">
           <ChampCase
