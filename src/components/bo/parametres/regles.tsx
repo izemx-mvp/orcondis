@@ -1,7 +1,7 @@
 // ORCONDIS — Règles de fonctionnement et paramètres métier.
 import { useState } from "react";
 import { useBO } from "@/lib/bo-store";
-import { Panel, PageHeader, Champ, ChampSelect, ChampTexte, Grille } from "@/components/bo/kit";
+import { Panel, PageHeader, Champ, ChampTexte, Grille } from "@/components/bo/kit";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,6 @@ const UTILISATEUR_COURANT = "Yassine Bennani";
 export function SectionRegles() {
   const { data, set, log } = useBO();
   
-  // Initialisation des règles si absentes
   const [regles, setRegles] = useState(data.regles || {
     commandeVeilleObligatoire: true,
     autoriserDemandeMemeJour: true,
@@ -71,8 +70,8 @@ export function SectionRegles() {
                 label="Message / Supplément (Même jour)" 
                 value={regles.supplementMemeJour} 
                 onChange={(v) => setRegles({...regles, supplementMemeJour: v})}
-                description="Note affichée en interne lors d'une demande le jour même."
               />
+              <p className="mt-1 text-xs text-muted-foreground">Note affichée en interne lors d'une demande le jour même.</p>
             </div>
           </div>
         </Panel>
