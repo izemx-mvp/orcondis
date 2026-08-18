@@ -536,6 +536,15 @@ export type BOData = {
   audit: AuditEntry[];
   messages: MessageClient[];
   conversations: Conversation[];
+  societe: {
+    nom: string;
+    nomCommercial: string;
+    telephone: string;
+    email: string;
+    horaires: string;
+    villePrincipale: string;
+    description: string;
+  };
   services: ServiceParam[];
   typesCourse: Referentiel[];
   typesClient: Referentiel[];

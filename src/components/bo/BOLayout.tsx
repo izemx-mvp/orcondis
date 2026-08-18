@@ -182,7 +182,10 @@ export function BOLayout({ children }: { children: ReactNode }) {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
               O
             </span>
-            <span className="text-base font-black tracking-tighter">ORCONDIS</span>
+            <div className="flex flex-col">
+              <span className="text-base font-black tracking-tighter leading-none">ORCONDIS</span>
+              <span className="text-[10px] font-medium opacity-70">Back-Office</span>
+            </div>
           </Link>
           <button className="lg:hidden" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
