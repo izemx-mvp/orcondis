@@ -14,6 +14,7 @@ import { Route as BackofficeRouteImport } from './routes/backoffice'
 import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as BackofficeIndexRouteImport } from './routes/backoffice.index'
 import { Route as BackofficeClientsRouteImport } from './routes/backoffice.clients'
+import { Route as BackofficeCoursesRouteImport } from './routes/backoffice.courses'
 import { Route as BackofficeCoursiersRouteImport } from './routes/backoffice.coursiers'
 import { Route as BackofficeDashboardRouteImport } from './routes/backoffice.dashboard'
 import { Route as BackofficeDemandesRouteImport } from './routes/backoffice.demandes'
@@ -55,6 +56,11 @@ const BackofficeIndexRoute = BackofficeIndexRouteImport.update({
 const BackofficeClientsRoute = BackofficeClientsRouteImport.update({
   id: '/clients',
   path: '/clients',
+  getParentRoute: () => BackofficeRoute,
+} as any)
+const BackofficeCoursesRoute = BackofficeCoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
   getParentRoute: () => BackofficeRoute,
 } as any)
 const BackofficeCoursiersRoute = BackofficeCoursiersRouteImport.update({
@@ -148,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/backoffice': typeof BackofficeRouteWithChildren
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/dashboard': typeof BackofficeDashboardRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
@@ -171,6 +178,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/dashboard': typeof BackofficeDashboardRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
@@ -196,6 +204,7 @@ export interface FileRoutesById {
   '/backoffice': typeof BackofficeRouteWithChildren
   '/connexion': typeof ConnexionRoute
   '/backoffice/clients': typeof BackofficeClientsRoute
+  '/backoffice/courses': typeof BackofficeCoursesRoute
   '/backoffice/coursiers': typeof BackofficeCoursiersRoute
   '/backoffice/dashboard': typeof BackofficeDashboardRoute
   '/backoffice/demandes': typeof BackofficeDemandesRoute
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/backoffice'
     | '/connexion'
     | '/backoffice/clients'
+    | '/backoffice/courses'
     | '/backoffice/coursiers'
     | '/backoffice/dashboard'
     | '/backoffice/demandes'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
     | '/'
     | '/connexion'
     | '/backoffice/clients'
+    | '/backoffice/courses'
     | '/backoffice/coursiers'
     | '/backoffice/dashboard'
     | '/backoffice/demandes'
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '/backoffice'
     | '/connexion'
     | '/backoffice/clients'
+    | '/backoffice/courses'
     | '/backoffice/coursiers'
     | '/backoffice/dashboard'
     | '/backoffice/demandes'
@@ -336,6 +348,13 @@ declare module '@tanstack/react-router' {
       path: '/clients'
       fullPath: '/backoffice/clients'
       preLoaderRoute: typeof BackofficeClientsRouteImport
+      parentRoute: typeof BackofficeRoute
+    }
+    '/backoffice/courses': {
+      id: '/backoffice/courses'
+      path: '/courses'
+      fullPath: '/backoffice/courses'
+      preLoaderRoute: typeof BackofficeCoursesRouteImport
       parentRoute: typeof BackofficeRoute
     }
     '/backoffice/coursiers': {
@@ -462,6 +481,7 @@ declare module '@tanstack/react-router' {
 
 interface BackofficeRouteChildren {
   BackofficeClientsRoute: typeof BackofficeClientsRoute
+  BackofficeCoursesRoute: typeof BackofficeCoursesRoute
   BackofficeCoursiersRoute: typeof BackofficeCoursiersRoute
   BackofficeDashboardRoute: typeof BackofficeDashboardRoute
   BackofficeDemandesRoute: typeof BackofficeDemandesRoute
@@ -478,6 +498,7 @@ interface BackofficeRouteChildren {
 
 const BackofficeRouteChildren: BackofficeRouteChildren = {
   BackofficeClientsRoute: BackofficeClientsRoute,
+  BackofficeCoursesRoute: BackofficeCoursesRoute,
   BackofficeCoursiersRoute: BackofficeCoursiersRoute,
   BackofficeDashboardRoute: BackofficeDashboardRoute,
   BackofficeDemandesRoute: BackofficeDemandesRoute,
