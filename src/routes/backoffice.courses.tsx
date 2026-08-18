@@ -912,7 +912,7 @@ function CoursesPlanning({
                 >
                   <div className="flex justify-between items-start mb-1">
                     <span className="text-xs font-bold text-navy">{c.numero}</span>
-                    <Statut ton={tonStatut(c.priorite)} className="text-[9px] px-1.5 h-4">{c.priorite}</Statut>
+                    <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut>
                   </div>
                   <p className="text-[11px] font-medium truncate">{l.clientNom(c.clientId)}</p>
                   <div className="flex items-center gap-1 mt-2 text-[10px] text-muted-foreground">
