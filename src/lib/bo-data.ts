@@ -161,7 +161,7 @@ export type Course = {
   demandeNumero: string;
   service: string;
   typeCourse: string;
-  priorite: "Normale" | "Urgente";
+  priorite: "Normale" | "Urgente" | "Exclusive";
   transport: string;
   date: string;
   trancheHoraire: string;
