@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState, useEffect } from "react";
 import { useOps, useOpsLookups, recommanderCoursiers } from "@/lib/bo/ops-store";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
 import {
   format,
   startOfWeek,
@@ -26,6 +27,7 @@ import {
   CheckCheck, 
   AlertTriangle, 
   XCircle,
+  CheckCircle2,
   MoreVertical,
   MapPin,
   User,
@@ -863,8 +865,9 @@ function CoursesPlanning({
   }, [courses]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 h-[800px]">
-      <div className="flex-1 min-w-0 h-full">
+    <div className="flex flex-col lg:flex-row gap-10 h-[850px] animate-in fade-in slide-in-from-right-4 duration-700">
+      <div className="flex-1 min-w-0 h-full relative">
+        <AnimatedBackground variant="subtle" />
         <CalendarContainer
           date={calendarDate}
           onDateChange={setCalendarDate}
@@ -898,37 +901,39 @@ function CoursesPlanning({
         </CalendarContainer>
       </div>
       
-      <div className="w-full lg:w-80 flex flex-col gap-4">
-        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col">
-          <div className="flex-1 overflow-auto space-y-2 pr-2">
+      <div className="w-full lg:w-96 flex flex-col gap-6">
+        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col border-none shadow-panel bg-white/60 backdrop-blur-xl rounded-[2rem]">
+          <div className="flex-1 overflow-auto space-y-4 pr-2 custom-scrollbar">
             {unplannedCourses.length === 0 ? (
-              <p className="text-xs text-center text-muted-foreground py-8 italic">Toutes les courses sont planifiées.</p>
+              <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
+                <CheckCircle2 className="w-12 h-12 mb-4 text-success" />
+                <p className="text-xs font-bold uppercase tracking-widest">Tout est planifié</p>
+              </div>
             ) : (
               unplannedCourses.map(c => (
                 <div 
                   key={c.id} 
-                  className="p-3 bg-surface border border-border rounded-lg hover:border-primary cursor-pointer transition-colors group"
+                  className="p-5 bg-white border border-border/50 rounded-2xl hover:border-primary hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
                   onClick={() => onCourseClick(c)}
                 >
-                  <div className="flex justify-between items-start mb-1">
-                    <span className="text-xs font-bold text-navy">{c.numero}</span>
+                  <div className="absolute top-0 left-0 w-1 h-full bg-warning" />
+                  <div className="flex justify-between items-start mb-3">
+                    <span className="text-xs font-black text-navy tracking-tight">{c.numero}</span>
                     <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut>
                   </div>
-                  <p className="text-[11px] font-medium truncate">{l.clientNom(c.clientId)}</p>
-                  <div className="flex items-center gap-1 mt-2 text-[10px] text-muted-foreground">
-                    <MapPin className="w-3 h-3" />
+                  <p className="text-sm font-black text-navy truncate mb-2">{l.clientNom(c.clientId)}</p>
+                  <div className="flex items-center gap-2 text-[11px] font-bold text-muted-foreground">
+                    <MapPin className="w-3.5 h-3.5 text-primary/60" />
                     <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
                   </div>
                   <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="w-full h-7 mt-3 text-[10px] hidden group-hover:flex"
+                    className="w-full h-10 mt-5 text-xs font-black rounded-xl hidden group-hover:flex shadow-sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       onAssignClick(c);
                     }}
                   >
-                    Affecter
+                    Affecter un coursier
                   </Button>
                 </div>
               ))

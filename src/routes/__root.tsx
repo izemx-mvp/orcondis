@@ -8,6 +8,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { AnimatedBackground } from "../components/ui/design-system/AnimatedBackground";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -123,8 +124,10 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
         <ThemeProvider>
-          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-          <Outlet />
+          <div className="relative isolate min-h-screen">
+            <AnimatedBackground variant="ambient" />
+            <Outlet />
+          </div>
         </ThemeProvider>
       </StoreProvider>
     </QueryClientProvider>

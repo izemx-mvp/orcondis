@@ -21,6 +21,8 @@ import {
 import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { SERVICES } from "@/lib/orcondis";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/site/")({
   head: () => ({
@@ -90,28 +92,29 @@ const FORMULAS = [
 function Accueil() {
   return (
     <PublicLayout>
-      <section className="relative overflow-hidden border-b border-border bg-surface py-16 sm:py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:grid lg:grid-cols-2 lg:gap-12">
-          <div className="flex flex-col justify-center">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-bold text-primary">
+      <section className="relative overflow-hidden py-24 sm:py-32 lg:py-40">
+        <AnimatedBackground variant="expressive" />
+        <div className="mx-auto max-w-7xl px-6 lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="flex flex-col">
+            <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/20 bg-white/50 backdrop-blur-md px-5 py-2 text-sm font-black text-primary uppercase tracking-widest shadow-sm">
               <Building2 className="h-4 w-4" /> Bureau de services — Casablanca
-            </span>
-            <h1 className="mt-8 text-4xl font-black tracking-tighter text-navy sm:text-6xl lg:text-7xl">
+            </div>
+            <h1 className="mt-10 text-5xl font-black tracking-tight text-navy sm:text-7xl lg:text-8xl leading-[0.9]">
               ORCONDIS
             </h1>
-            <p className="mt-8 max-w-xl text-lg text-muted-foreground sm:text-xl">
-              Vos courses et démarches professionnelles, simplement prises en charge. 
-              ORCONDIS vous accompagne dans vos opérations de collecte, d’enlèvement, de livraison, de distribution et dans le suivi de vos dossiers professionnels ou particuliers.
+            <p className="mt-10 max-w-xl text-lg text-muted-foreground sm:text-2xl font-medium leading-relaxed">
+              L'excellence logistique au service de vos urgences. 
+              <span className="block mt-4 text-navy">Collecte, distribution et suivi rigoureux de vos dossiers stratégiques.</span>
             </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <Button asChild size="lg" className="rounded-full px-8 text-base font-bold shadow-lg shadow-primary/20 transition-transform hover:scale-105">
+            <div className="mt-12 flex flex-wrap gap-5">
+              <Button asChild size="lg" className="rounded-2xl px-10 h-16 text-lg font-black shadow-xl shadow-primary/20 transition-all hover:scale-105 hover:shadow-2xl">
                 <Link to="/site/demande">
-                  Nouvelle Demande <ArrowRight className="ml-2 h-4 w-4" />
+                  Nouvelle Demande <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full px-8 text-base font-bold transition-transform hover:scale-105">
+              <Button asChild size="lg" variant="secondary" className="rounded-2xl px-10 h-16 text-lg font-black transition-all hover:scale-105 bg-white border border-border shadow-sm">
                 <a href="tel:0666709941">
-                  <Phone className="mr-2 h-4 w-4 text-primary" /> 0666 70 99 41
+                  <Phone className="mr-3 h-5 w-5 text-primary" /> 0666 70 99 41
                 </a>
               </Button>
             </div>
@@ -130,21 +133,22 @@ function Accueil() {
           </div>
 
           <div className="mt-12 lg:mt-0">
-            <div className="rounded-2xl border border-border bg-white p-8 shadow-2xl shadow-navy/5">
-              <h3 className="text-lg font-bold text-navy">Déroulé d'une demande</h3>
-              <div className="mt-6 space-y-6">
+            <div className="rounded-[2.5rem] border border-white/20 bg-white/70 backdrop-blur-2xl p-10 shadow-elevated relative overflow-hidden group">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-info opacity-50" />
+              <h3 className="text-xl font-black text-navy uppercase tracking-tight">Déroulé d'une mission</h3>
+              <div className="mt-10 space-y-8">
                 {ETAPES.map((etape, i) => (
-                  <div key={etape} className="flex gap-4">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                  <div key={etape} className="flex gap-6 items-center group/item">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-primary text-white text-sm font-black shadow-lg shadow-primary/20 group-hover/item:scale-110 transition-transform">
                       {i + 1}
                     </span>
-                    <span className="text-base text-muted-foreground font-medium">{etape}</span>
+                    <span className="text-lg text-muted-foreground font-bold group-hover/item:text-navy transition-colors">{etape}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-8 rounded-xl bg-surface p-5 border border-border">
-                <p className="text-xs font-bold uppercase tracking-wider text-primary">Exemple de mission</p>
-                <p className="mt-3 text-sm font-medium text-navy leading-relaxed italic">
+              <div className="mt-12 rounded-2xl bg-primary/5 p-6 border border-primary/10 shadow-inner">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3">Exemple opérationnel</p>
+                <p className="text-base font-bold text-navy leading-relaxed italic opacity-80">
                   « Récupérer un chèque à Maarif, payer un fournisseur à Aïn Sebaâ et déposer le reçu au siège avant 11h. »
                 </p>
               </div>
@@ -153,23 +157,23 @@ function Accueil() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-4 py-24 sm:px-6">
-        <div className="text-center">
-          <h2 className="text-base font-bold uppercase tracking-widest text-primary">Services</h2>
-          <p className="mt-2 text-3xl font-black tracking-tight text-navy sm:text-4xl">Gagnez du temps et optimisez vos opérations avec les services de proximité et de coursiers ORCONDIS.</p>
-          <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">Un véritable service d’accompagnement selon les directives du client. Toutes nos prestations font l’objet d’une étude et d’un devis au cas par cas.</p>
+      <section className="mx-auto w-full max-w-7xl px-6 py-32 relative">
+        <div className="text-center max-w-3xl mx-auto">
+          <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-primary mb-4">Prestations</h2>
+          <p className="text-4xl font-black tracking-tight text-navy sm:text-5xl leading-tight">Optimisez vos opérations avec ORCONDIS</p>
+          <p className="mt-6 text-xl text-muted-foreground font-medium">Un service d’accompagnement premium selon vos directives. Étude et devis personnalisés pour chaque mission.</p>
         </div>
-        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICES.map((service, i) => {
             const Icon = ICONS[i % ICONS.length]!;
             return (
-              <div key={service} className="group relative rounded-2xl border border-border bg-white p-6 transition-all hover:border-primary/30 hover:shadow-xl hover:shadow-navy/5">
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                  <Icon className="h-6 w-6" />
-                </span>
-                <h3 className="mt-6 text-lg font-bold text-navy">{service}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  Service professionnel avec remise de justificatifs et traçabilité en temps réel.
+              <div key={service} className="group relative rounded-[2rem] border border-border bg-white/50 backdrop-blur-sm p-8 transition-all hover:shadow-elevated hover:-translate-y-2 hover:bg-white hover:border-primary/20">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/5 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:rotate-6 shadow-sm">
+                  <Icon className="h-8 w-8" />
+                </div>
+                <h3 className="mt-8 text-2xl font-black text-navy tracking-tight">{service}</h3>
+                <p className="mt-4 text-base text-muted-foreground font-medium leading-relaxed opacity-70">
+                  Accompagnement rigoureux avec traçabilité totale et reporting en temps réel.
                 </p>
               </div>
             );

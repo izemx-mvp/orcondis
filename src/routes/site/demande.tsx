@@ -153,22 +153,23 @@ function Demande() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-12 surface-card p-6 sm:p-10 shadow-2xl shadow-navy/5 border border-border/50">
-          <div className="grid gap-6 sm:grid-cols-2">
+        <form onSubmit={handleSubmit} className="mt-12 surface-card p-10 sm:p-14 shadow-elevated border-none bg-white/70 backdrop-blur-xl rounded-[2.5rem] relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-info opacity-50" />
+          <div className="grid gap-10 sm:grid-cols-2">
             <div className="sm:col-span-2">
-              <Label>Vous êtes :</Label>
-              <div className="mt-2 flex flex-wrap gap-4">
+              <Label className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-3 block">Vous êtes :</Label>
+              <div className="mt-4 flex flex-wrap gap-6">
                 {CATEGORIES_CLIENT.map((opt) => (
-                  <label key={opt} className="flex items-center gap-2 text-sm">
+                  <label key={opt} className="flex items-center gap-3 text-sm font-bold text-navy cursor-pointer group">
                     <input
                       type="radio"
                       name="categorie"
                       value={opt}
                       checked={form.categorie === opt}
                       onChange={() => setField("categorie", opt)}
-                      className="h-4 w-4 text-primary"
+                      className="h-5 w-5 text-primary border-border bg-muted/20 checked:bg-primary transition-all cursor-pointer"
                     />
-                    {opt}
+                    <span className="group-hover:text-primary transition-colors">{opt}</span>
                   </label>
                 ))}
               </div>
@@ -182,7 +183,7 @@ function Demande() {
                     id="prenom"
                     value={form.prenom}
                     onChange={(e) => setField("prenom", e.target.value)}
-                    className="mt-1.5"
+                    className="mt-2 h-12 rounded-xl bg-muted/20 border-border/40 focus:ring-primary/20 px-4 font-medium"
                     placeholder="Jean"
                   />
                   {errors.prenom && <p className="mt-1 text-xs text-destructive">{errors.prenom}</p>}
@@ -193,7 +194,7 @@ function Demande() {
                     id="nom"
                     value={form.nom}
                     onChange={(e) => setField("nom", e.target.value)}
-                    className="mt-1.5"
+                    className="mt-2 h-12 rounded-xl bg-muted/20 border-border/40 focus:ring-primary/20 px-4 font-medium"
                     placeholder="Dupont"
                   />
                   {errors.nom && <p className="mt-1 text-xs text-destructive">{errors.nom}</p>}
@@ -338,13 +339,13 @@ function Demande() {
             </div>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <Button type="submit" size="lg" className="w-full sm:w-auto">
-              Envoyer ma demande <ArrowRight className="ml-2 h-4 w-4" />
+          <div className="mt-12 flex flex-wrap items-center gap-5">
+            <Button type="submit" size="lg" className="w-full sm:w-auto rounded-2xl h-14 px-10 font-black shadow-xl shadow-primary/20 hover:scale-[1.02] transition-all">
+              Envoyer ma demande <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button asChild type="button" variant="outline" size="lg" className="w-full sm:w-auto">
+            <Button asChild type="button" variant="outline" size="lg" className="w-full sm:w-auto rounded-2xl h-14 px-10 font-bold border-whatsapp text-whatsapp hover:bg-whatsapp/5">
               <a href="https://wa.me/212666709941">
-                <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                <MessageCircle className="mr-2 h-5 w-5" /> WhatsApp Direct
               </a>
             </Button>
           </div>

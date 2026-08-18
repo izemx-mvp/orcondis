@@ -75,33 +75,33 @@ function Dashboard() {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Tableau de bord"
         sous="Vue consolidée des opérations, de la facturation et des paiements."
         actions={
-          <Button asChild size="sm">
-            <Link to="/backoffice/whatsapp">Ouvrir la messagerie WhatsApp</Link>
+          <Button asChild size="lg" className="rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8">
+            <Link to="/backoffice/whatsapp">Messagerie WhatsApp</Link>
           </Button>
         }
       />
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         <StatCard label="Courses actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
         <StatCard label="Courses urgentes" valeur={stats.urgentes} ton="alerte" detail={`${stats.bloquees} bloquée(s)`} />
         <StatCard
-          label="Paiements à effectuer"
+          label="Paiements"
           valeur={stats.paiementsAEffectuer.length}
           ton="alerte"
           detail={dh(stats.paiementsAEffectuer.reduce((s, p) => s + p.montant, 0))}
         />
-        <StatCard label="Courses à facturer" valeur={stats.aFacturer.length} detail={dh(stats.montantAFacturer)} />
+        <StatCard label="À facturer" valeur={stats.aFacturer.length} detail={dh(stats.montantAFacturer)} />
         <StatCard label="Factures impayées" valeur={stats.impayees.length} ton="critique" detail={dh(stats.resteImpaye)} />
         <StatCard label="CA du mois" valeur={dh(stats.caMois)} ton="positif" />
-        <StatCard label="Conversations WhatsApp" valeur={data.conversations.length} detail={`${alertesWA.length} à traiter`} />
-        <StatCard label="Clients actifs" valeur={data.clients.filter((c) => c.actif && !c.archive).length} />
+        <StatCard label="WhatsApp" valeur={data.conversations.length} detail={`${alertesWA.length} alertes`} />
+        <StatCard label="Clients" valeur={data.clients.filter((c) => c.actif && !c.archive).length} />
         <StatCard
-          label="Dispatch Coursiers"
+          label="Dispatch"
           valeur={stats.dispatch.totalToday}
           detail={`${stats.dispatch.envoyes} envoyés · ${stats.dispatch.acceptes} acceptés`}
           ton={stats.dispatch.refuses > 0 ? "alerte" : "neutre"}
