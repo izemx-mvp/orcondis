@@ -175,24 +175,24 @@ export function BOLayout({ children }: { children: ReactNode }) {
   const alertesWA = data.conversations.filter((c) => c.statut === "Intervention humaine").length;
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-background relative isolate">
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-72 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-80 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex h-20 items-center justify-between px-6 border-b border-sidebar-border">
-          <Link to="/backoffice/dashboard" className="flex items-center gap-2">
-            <Logo backoffice />
+        <div className="flex h-24 items-center justify-between px-8 border-b border-sidebar-border/30 bg-sidebar/30 backdrop-blur-xl sticky top-0 z-10">
+          <Link to="/backoffice/dashboard" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300">
+            <Logo backoffice dark />
           </Link>
           <button className="lg:hidden p-2 rounded-xl hover:bg-sidebar-accent transition-colors" onClick={() => setOpen(false)} aria-label="Fermer">
             <X className="h-5 w-5" />
           </button>
         </div>
         
-        <div className="px-4 py-8">
-          <p className="px-4 mb-4 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50">Menu Principal</p>
-          <nav className="space-y-1">
+        <div className="px-6 py-10">
+          <p className="px-4 mb-8 text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/30">Menu Opérationnel</p>
+          <nav className="space-y-2">
             {NAV.map((n) => {
               const actif = n.exact ? pathname === n.to : pathname.startsWith(n.to);
               const Icon = n.icon;
@@ -202,10 +202,10 @@ export function BOLayout({ children }: { children: ReactNode }) {
                   to={n.to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold transition-all",
+                    "group flex items-center gap-4 rounded-2xl px-5 py-4 text-sm font-black transition-all duration-300",
                     actif 
-                      ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20 scale-[1.02]" 
-                      : "text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground hover:translate-x-1"
+                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.02] border-none" 
+                      : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white hover:translate-x-2 border border-transparent"
                   )}
                 >
                   <Icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", actif ? "text-primary-foreground" : "text-primary/60")} />
@@ -225,7 +225,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
       {open && <div className="fixed inset-0 z-40 bg-navy/20 backdrop-blur-sm lg:hidden transition-all" onClick={() => setOpen(false)} />}
 
       <div className="flex min-w-0 flex-1 flex-col relative z-10">
-        <header className="sticky top-0 z-30 flex h-20 items-center gap-4 border-b border-border bg-background/80 px-6 backdrop-blur-xl">
+        <header className="sticky top-0 z-30 flex h-24 items-center gap-8 border-b border-border/40 bg-background/60 px-10 backdrop-blur-2xl">
           <button className="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>
