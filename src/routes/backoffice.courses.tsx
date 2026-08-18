@@ -1103,10 +1103,11 @@ function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick:
     <div 
       onClick={onClick}
       className={cn(
+      className={cn(
         "bg-card border-l-4 rounded shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col overflow-hidden",
-        toneCourse(c.statut) === "positif" ? "border-l-success" :
-        toneCourse(c.statut) === "alerte" ? "border-l-warning" :
-        toneCourse(c.statut) === "critique" ? "border-l-destructive" :
+        toneCourse(c.statut).includes("success") ? "border-l-success" :
+        toneCourse(c.statut).includes("warning") ? "border-l-warning" :
+        toneCourse(c.statut).includes("destructive") ? "border-l-destructive" :
         "border-l-primary",
         compact ? "p-2 min-h-[80px]" : "p-3 w-[220px]"
       )}
@@ -1114,8 +1115,8 @@ function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick:
       <div className="flex justify-between items-start mb-1.5">
         <span className="text-[10px] font-black text-navy">{c.numero}</span>
         <div className="flex gap-1">
-          {isExclusive && <Statut ton="critique" className="text-[8px] h-3 px-1">EXCLU</Statut>}
-          <Statut ton={toneCourse(c.statut)} className="text-[8px] h-3 px-1">{c.statut}</Statut>
+          {isExclusive && <Statut ton={tonStatut("Exclusive")}>EXCLU</Statut>}
+          <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut>
         </div>
       </div>
       
