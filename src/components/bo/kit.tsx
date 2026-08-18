@@ -49,8 +49,8 @@ export function StatCard({
 }) {
   const tons: Record<string, string> = {
     neutre: "text-navy",
-    positif: "text-emerald-600",
-    alerte: "text-amber-600",
+    positif: "text-success",
+    alerte: "text-warning",
     critique: "text-destructive",
   };
   return (
@@ -215,12 +215,12 @@ export function Statut({ children, ton }: { children: ReactNode; ton?: string })
 export function tonStatut(s: string) {
   const v = s.toLowerCase();
   if (["annulée", "annulé", "bloquée", "en retard", "impayée", "problème signalé"].some((k) => v.includes(k)))
-    return "border-destructive/30 bg-destructive/10 text-destructive";
+    return "border-destructive/30 bg-destructive/15 text-destructive";
   if (["payée", "validée", "validé", "terminée", "effectué", "reçu", "complètes", "émise", "envoyée"].some((k) => v.includes(k)))
-    return "border-emerald-300 bg-emerald-50 text-emerald-700";
+    return "border-success/30 bg-success/15 text-success";
   if (["attente", "à valider", "brouillon", "à facturer", "à payer", "à recevoir", "à affecter", "urgente"].some((k) => v.includes(k)))
-    return "border-amber-300 bg-amber-50 text-amber-700";
-  return "border-primary/30 bg-primary/10 text-primary";
+    return "border-warning/30 bg-warning/15 text-warning";
+  return "border-primary/30 bg-primary/15 text-primary";
 }
 
 /* ---------- Formulaires ---------- */
