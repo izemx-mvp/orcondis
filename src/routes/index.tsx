@@ -25,17 +25,17 @@ import { SERVICES } from "@/lib/orcondis";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ORCONDIS — Tizzla & Serve | Excellence Logistique" },
+      { title: "ORCONDIS | Excellence Logistique" },
       {
         name: "description",
         content:
           "ORCONDIS redéfinit la course urbaine avec Tizzla & Serve. Documents, chèques, démarches administratives : nous traitons vos urgences avec une précision chirurgicale.",
       },
-      { property: "og:title", content: "ORCONDIS — Tizzla & Serve | Excellence Logistique" },
+      { property: "og:title", content: "ORCONDIS | Excellence Logistique" },
       {
         property: "og:description",
         content:
-          "Bureau de services spécialisé : documents, démarches administratives, paiements fournisseurs et chèques. Service Premium Tizzla & Serve.",
+          "Bureau de services spécialisé : documents, démarches administratives, paiements fournisseurs et chèques.",
       },
     ],
   }),
@@ -97,8 +97,7 @@ function Accueil() {
               <Building2 className="h-4 w-4" /> Bureau de services — Casablanca
             </span>
             <h1 className="mt-8 text-4xl font-black tracking-tighter text-navy sm:text-6xl lg:text-7xl">
-              Tizzla and Serve <br />
-              <span className="text-primary">By ORCONDIS</span>
+              ORCONDIS
             </h1>
             <p className="mt-8 max-w-xl text-lg text-muted-foreground sm:text-xl">
               Vos courses et démarches professionnelles, simplement prises en charge. 

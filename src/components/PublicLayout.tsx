@@ -20,10 +20,8 @@ export function Logo({ dark = false, backoffice = false }: { dark?: boolean; bac
         <span className={`text-xl font-black tracking-tighter leading-none ${dark ? "text-white" : "text-navy"}`}>
           ORCONDIS
         </span>
-        {backoffice ? (
+        {backoffice && (
           <span className="text-[10px] font-medium opacity-70">Back-Office</span>
-        ) : (
-          <span className="text-[10px] font-bold tracking-[0.2em] text-primary uppercase">Tizzla and Serve</span>
         )}
       </div>
     </span>
@@ -56,7 +54,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <Button asChild variant="outline" size="sm" className="hidden sm:inline-flex">
-              <Link to="/connexion">Connexion</Link>
+              <Link to="/acces">Connexion</Link>
             </Button>
             <Button asChild size="sm">
               <Link to="/demande">Faire une demande</Link>
@@ -85,7 +83,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
               </Link>
             ))}
             <Link
-              to="/connexion"
+              to="/acces"
               onClick={() => setOpen(false)}
               className="block rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-accent hover:text-navy"
             >
@@ -102,7 +100,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <div className="md:col-span-2">
             <Logo dark />
             <p className="mt-3 max-w-sm text-sm text-navy-foreground/70">
-              Tizzla and Serve by ORCONDIS. Services de courses, accompagnement et prestations de proximité.
+              ORCONDIS. Services de courses, accompagnement et prestations de proximité.
             </p>
             <a
               href="https://wa.me/212666709941"
