@@ -545,6 +545,14 @@ export type BOData = {
     villePrincipale: string;
     description: string;
   };
+  regles: {
+    commandeVeilleObligatoire: boolean;
+    autoriserDemandeMemeJour: boolean;
+    supplementMemeJour: string;
+    rayonStandardKm: number;
+    poidsMaxStandardKg: number;
+    tarifMensuelMin: number;
+  };
   services: ServiceParam[];
   typesCourse: Referentiel[];
   typesClient: Referentiel[];
@@ -1149,7 +1157,15 @@ export function seedBO(): BOData {
       email: "orcondiscourses@gmail.com",
       horaires: "Lundi – Vendredi : 08h00 – 18h30",
       villePrincipale: "Casablanca",
-      description: "Services de courses, accompagnement et prestations de proximité."
+      description: "Services de courses, accompagnement et prestations de proximité.",
+    },
+    regles: {
+      commandeVeilleObligatoire: true,
+      autoriserDemandeMemeJour: true,
+      supplementMemeJour: "Potentiel / À étudier",
+      rayonStandardKm: 7,
+      poidsMaxStandardKg: 3,
+      tarifMensuelMin: 900,
     },
     clients,
     dossiers,
