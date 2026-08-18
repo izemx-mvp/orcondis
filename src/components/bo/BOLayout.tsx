@@ -78,8 +78,10 @@ function GlobalSearch() {
         out.push({ id: f.id, label: `${f.code} — ${f.raisonSociale}`, detail: "Fournisseur", to: "/backoffice/fournisseurs" });
     });
     data.paiements.forEach((p) => {
-      if (match(p.numero, p.numeroCheque, p.banque))
-        out.push({ id: p.id, label: `${p.numero}${p.numeroCheque ? ` · chèque ${p.numeroCheque}` : ""}`, detail: `Paiement · ${dh(p.montant, p.devise)}`, to: "/backoffice/paiements" });
+      if (match(p.numero, p.numeroCheque, p.banque)) {
+        const to = p.fournisseurId ? "/backoffice/fournisseurs" : "/backoffice/facturation";
+        out.push({ id: p.id, label: `${p.numero}${p.numeroCheque ? ` · chèque ${p.numeroCheque}` : ""}`, detail: `Paiement · ${dh(p.montant, p.devise)}`, to });
+      }
     });
     data.factures.forEach((f) => {
       if (match(f.numero, f.periode)) out.push({ id: f.id, label: f.numero, detail: "Facture", to: "/backoffice/facturation" });
