@@ -131,7 +131,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
           if (!course) return prev;
 
           // Logic for Agent Dispatch on assignment
-          const dispatchStatut = prev.settingsAgent.actif ? "Programmé" : "En attente";
+          const dispatchStatut = prev.settingsAgent.actif ? "Programmée" : "À programmer";
           const immediate = prev.settingsAgent.programmationParDefaut === "Immédiatement après affectation";
 
           return {
@@ -145,7 +145,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     heureEnvoiOrdre: immediate ? new Date().toTimeString().slice(0, 5) : c.heureEnvoiOrdre,
                     dispatch: {
                       ...c.dispatch,
-                      statut: immediate ? "Envoyé" : "Programmé",
+                      statut: immediate ? "Envoyée" : "Programmée",
                       historique: [
                         ...c.dispatch.historique,
                         {
@@ -183,7 +183,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     // Agent Dispatch: reset dispatch status for new courier
                     dispatch: {
                       ...c.dispatch,
-                      statut: "Programmé",
+                      statut: "Programmée",
                       confirmationRecue: false,
                       confirmationMission: false,
                       historique: [
@@ -278,7 +278,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                   dispatch: {
                     ...c.dispatch,
                     ...patch,
-                    statut: "Programmé",
+                    statut: "Programmée",
                     historique: [
                       ...c.dispatch.historique,
                       { id: oid("dsh"), date: horodatage(), action: "Programmation manuelle", details: "Mise à jour des paramètres d'envoi", format: "Texte" },
@@ -297,7 +297,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                   ...c,
                   dispatch: {
                     ...c.dispatch,
-                    statut: "Annulé",
+                    statut: "Annulée",
                     historique: [...c.dispatch.historique, { id: oid("dsh"), date: horodatage(), action: "Annulation", details: "Communication annulée par l'opérateur", format: "Texte" }],
                   },
                 }
@@ -316,7 +316,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                     ...c,
                     dispatch: {
                       ...c.dispatch,
-                      statut: "Envoyé",
+                      statut: "Envoyée",
                       historique: [...c.dispatch.historique, { id: oid("dsh"), date: horodatage(), action: "Envoi manuel", details: "Envoyé par l'opérateur", format: "Les deux" }],
                     },
                   }
@@ -336,7 +336,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
                 canal: "WhatsApp",
                 format: course.dispatch.mode,
                 messageGenerated: `Nouvelle course ORCONDIS — ${course.numero}. Client: ${nomClient(prev.clients.find(cl => cl.id === course.clientId))}`,
-                statut: "Envoyé",
+                statut: "Envoyée",
                 utilisateur: "Yassine Bennani",
                 agentAction: "Envoi manuel",
               },
@@ -349,7 +349,7 @@ export function OpsProvider({ children }: { children: ReactNode }) {
           const course = prev.courses.find((c) => c.id === courseId);
           if (!course) return prev;
           const statutCourse: StatutCourse = reponse === "Accepté" ? "Acceptée" : reponse === "Refusé" ? "Affectée" : course.statut;
-          const statutDispatch = reponse === "Accepté" ? "Accepté" : reponse === "Refusé" ? "Refusé" : "Reçu";
+          const statutDispatch = reponse === "Accepté" ? "Confirmée" : reponse === "Refusé" ? "Refusée" : "Reçue";
 
           return {
             ...prev,

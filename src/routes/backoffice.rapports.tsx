@@ -10,9 +10,11 @@ import {
   Panel,
   SelectFilter,
   StatCard,
+  Statut,
 } from "@/components/bo/kit";
 import { Button } from "@/components/ui/button";
 import { useBO, useLookups } from "@/lib/bo-store";
+import { useOps, useOpsLookups } from "@/lib/bo/ops-store";
 import {
   STATUTS_COURSE,
   calculerCourse,
@@ -22,6 +24,7 @@ import {
   totalFacture,
   type Course,
 } from "@/lib/bo-data";
+import { tonStatutDispatch } from "@/lib/bo/ops-data";
 
 export const Route = createFileRoute("/backoffice/rapports")({
   head: () => ({
@@ -35,7 +38,7 @@ export const Route = createFileRoute("/backoffice/rapports")({
   component: Rapports,
 });
 
-const ONGLETS = ["Activité", "Clients", "Coursiers", "Financier", "Opérations"] as const;
+const ONGLETS = ["Activité", "Clients", "Coursiers", "Dispatch", "Financier", "Opérations"] as const;
 
 function exporterCsv(nom: string, colonnes: string[], lignes: (string | number)[][]) {
   const escape = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
@@ -73,7 +76,9 @@ function Barre({ label, valeur, max }: { label: string; valeur: number; max: num
 
 function Rapports() {
   const { data } = useBO();
+  const { data: opsData } = useOps();
   const l = useLookups();
+  const ol = useOpsLookups();
   const [onglet, setOnglet] = useState<(typeof ONGLETS)[number]>("Activité");
 
   const [dateDebut, setDateDebut] = useState("");
@@ -308,6 +313,49 @@ function Rapports() {
     );
   }
 
+  function RapportDispatch() {
+    const courses = opsData.courses.filter(c => !c.archive);
+    const total = courses.length;
+    const confirmes = courses.filter(c => c.dispatch.statut === "Confirmée").length;
+    const refuses = courses.filter(c => c.dispatch.statut === "Refusée").length;
+    const sansReponse = courses.filter(c => c.dispatch.statut === "Sans réponse").length;
+    const tauxConfirmation = total > 0 ? Math.round((confirmes / total) * 100) : 0;
+
+    const statsParCoursier = opsData.coursiers.map(cou => {
+      const cCourses = courses.filter(c => c.coursierId === cou.id);
+      const cConfirmes = cCourses.filter(c => c.dispatch.statut === "Confirmée").length;
+      const cRefuses = cCourses.filter(c => c.dispatch.statut === "Refusée").length;
+      const cTaux = cCourses.length > 0 ? Math.round((cConfirmes / cCourses.length) * 100) : 0;
+      return { id: cou.id, nom: `${cou.prenom} ${cou.nom}`, total: cCourses.length, confirmes: cConfirmes, refuses: cRefuses, taux: cTaux };
+    }).filter(s => s.total > 0);
+
+    return (
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+           <StatCard label="Taux de confirmation" valeur={`${tauxConfirmation}%`} ton={tauxConfirmation > 80 ? "positif" : "alerte"} />
+           <StatCard label="Missions acceptées" valeur={confirmes} ton="positif" />
+           <StatCard label="Missions refusées" valeur={refuses} ton="critique" />
+           <StatCard label="Sans réponse" valeur={sansReponse} ton="alerte" />
+        </div>
+        <Panel
+          titre="Efficacité dispatch par coursier"
+          actions={<BoutonExport nom="efficacite-dispatch" colonnes={["Coursier", "Missions", "Confirmées", "Refusées", "Taux %"]} lignes={statsParCoursier.map(s => [s.nom, s.total, s.confirmes, s.refuses, s.taux])} />}
+        >
+          <DataTable
+            colonnes={[
+              { cle: "nom", titre: "Coursier", rendu: (r) => r.nom },
+              { cle: "total", titre: "Missions", rendu: (r) => r.total, align: "right" },
+              { cle: "confirmes", titre: "Acceptées", rendu: (r) => r.confirmes, align: "right" },
+              { cle: "refuses", titre: "Refusées", rendu: (r) => r.refuses, align: "right" },
+              { cle: "taux", titre: "Taux confirmation", rendu: (r) => <span className="font-bold">{r.taux}%</span>, align: "right" },
+            ]}
+            lignes={statsParCoursier}
+          />
+        </Panel>
+      </div>
+    );
+  }
+
   function RapportFinancier({ courses, factures }: { courses: Course[]; factures: typeof data.factures }) {
     const totFacture = factures.reduce((s, f) => s + totalFacture(f).total, 0);
     const totEncaisse = factures.reduce((s, f) => s + totalFacture(f).paye, 0);
@@ -434,4 +482,19 @@ function Rapports() {
       </div>
     );
   }
+
+  return (
+    <div className="space-y-5">
+      <PageHeader titre="Rapports" sous="Indicateurs de performance, volume d'activité et suivi opérationnel ORCONDIS." />
+      <Onglets items={ONGLETS} actif={onglet} onChange={(v) => setOnglet(v as any)} />
+      <div className="mt-4">
+        {onglet === "Activité" && <RapportActivite courses={coursesFiltrees} dossiers={data.dossiers} />}
+        {onglet === "Clients" && <RapportClients courses={coursesFiltrees} dossiers={data.dossiers} factures={data.factures} />}
+        {onglet === "Coursiers" && <RapportCoursiers courses={coursesFiltrees} />}
+        {onglet === "Dispatch" && <RapportDispatch />}
+        {onglet === "Financier" && <RapportFinancier courses={coursesFiltrees} factures={data.factures} />}
+        {onglet === "Opérations" && <RapportOperations courses={coursesFiltrees} />}
+      </div>
+    </div>
+  );
 }
