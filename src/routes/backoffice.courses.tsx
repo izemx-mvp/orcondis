@@ -966,11 +966,13 @@ function CalendarDayView({ date, courses, onCourseClick, l }: { date: Date, cour
                   const hf = c.heureFixe;
                   if (hf && hf.includes(':')) {
                     const parts = hf.split(':');
-                    if (parts.length > 0) return parseInt(parts[0]) === hour;
+                    const firstPart = parts[0];
+                    if (firstPart) return parseInt(firstPart) === hour;
                   }
-                  if (c.trancheHoraire?.includes('Matin') && hour === 9) return true;
-                  if (c.trancheHoraire?.includes('Midi') && hour === 12) return true;
-                  if (c.trancheHoraire?.includes('Après-midi') && hour === 15) return true;
+                  const th = c.trancheHoraire;
+                  if (th?.includes('Matin') && hour === 9) return true;
+                  if (th?.includes('Midi') && hour === 12) return true;
+                  if (th?.includes('Après-midi') && hour === 15) return true;
                   return false;
                 })
                 .map(c => (
