@@ -266,10 +266,16 @@ function CoursiersPage() {
             )}
             {ongletDetail === "Communication missions" && (
               <div className="space-y-4">
-                <Panel titre="Derniers dispatchs envoyés">
+                <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                   <StatCard label="Acceptées" valeur={data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut === "Confirmée").length} ton="positif" />
+                   <StatCard label="Refusées" valeur={data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut === "Refusée").length} ton="critique" />
+                   <StatCard label="En attente" valeur={data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut === "Envoyée" && !c.dispatch.confirmationRecue).length} ton="alerte" />
+                   <StatCard label="Total" valeur={data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulée").length} />
+                </div>
+                <Panel titre="Historique des missions">
                   <ul className="space-y-3">
                     {data.courses
-                      .filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulé")
+                      .filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulée")
                       .sort((a, b) => b.dispatch.dateEnvoi.localeCompare(a.dispatch.dateEnvoi))
                       .map(c => (
                         <li key={c.id} className="rounded-md border border-border px-3 py-2 text-sm">
@@ -289,7 +295,7 @@ function CoursiersPage() {
                           </div>
                         </li>
                       ))}
-                    {data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulé").length === 0 && (
+                    {data.courses.filter(c => c.coursierId === detailDialog.item?.id && c.dispatch.statut !== "Annulée").length === 0 && (
                       <p className="text-sm text-muted-foreground">Aucune communication de mission trouvée.</p>
                     )}
                   </ul>

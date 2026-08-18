@@ -60,10 +60,10 @@ function Dashboard() {
       paiementsAEffectuer,
       dispatch: {
         totalToday: opsData.courses.filter(c => c.dateCourse === new Date().toISOString().slice(0, 10)).length,
-        envoyes: opsData.courses.filter(c => c.dispatch.statut === "Envoyé").length,
-        enAttente: opsData.courses.filter(c => c.dispatch.statut === "Programmé" || c.dispatch.statut === "En attente").length,
-        acceptes: opsData.courses.filter(c => c.dispatch.statut === "Accepté").length,
-        refuses: opsData.courses.filter(c => c.dispatch.statut === "Refusé").length,
+        envoyes: opsData.courses.filter(c => c.dispatch.statut === "Envoyée").length,
+        enAttente: opsData.courses.filter(c => c.dispatch.statut === "Programmée" || c.dispatch.statut === "À programmer").length,
+        acceptes: opsData.courses.filter(c => c.dispatch.statut === "Confirmée").length,
+        refuses: opsData.courses.filter(c => c.dispatch.statut === "Refusée").length,
         echecs: opsData.courses.filter(c => c.dispatch.statut === "Échec d'envoi").length,
       }
     };
@@ -226,7 +226,7 @@ function Dashboard() {
         <Panel titre="Prochains envois programmés" className="lg:col-span-1">
           <ul className="space-y-2 text-sm">
             {opsData.courses
-              .filter(c => c.dispatch.statut === "Programmé")
+              .filter(c => c.dispatch.statut === "Programmée")
               .slice(0, 5)
               .map(c => (
                 <li key={c.id} className="flex items-center justify-between gap-2 border-b border-border pb-2 last:border-0">
@@ -240,7 +240,7 @@ function Dashboard() {
                 </li>
 
               ))}
-            {opsData.courses.filter(c => c.dispatch.statut === "Programmé").length === 0 && (
+            {opsData.courses.filter(c => c.dispatch.statut === "Programmée").length === 0 && (
               <li className="text-muted-foreground">Aucun envoi programmé.</li>
             )}
           </ul>

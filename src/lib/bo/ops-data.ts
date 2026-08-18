@@ -120,13 +120,14 @@ export type StatutDispatch = (typeof STATUTS_DISPATCH)[number];
 
 export function tonStatutDispatch(statut: StatutDispatch) {
   switch (statut) {
-    case "Accepté": return "positif";
-    case "Refusé":
+    case "Confirmée": return "positif";
+    case "Refusée":
     case "Échec d'envoi": return "critique";
-    case "Envoyé":
-    case "Reçu":
-    case "Confirmé": return "alerte";
-    case "Annulé": return "neutre";
+    case "Envoyée":
+    case "Reçue":
+    case "Programmée": return "alerte";
+    case "Intervention opérateur requise": return "alerte";
+    case "Annulée": return "neutre";
     default: return "neutre";
   }
 }
@@ -988,7 +989,7 @@ export function seedOps(): OpsData {
       heureEnvoi: "09:15",
       confirmationRecue: false,
       confirmationMission: false,
-      statut: "En attente",
+      statut: "À programmer",
       nbRelances: 0,
       historique: [],
     },
