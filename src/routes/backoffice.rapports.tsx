@@ -486,9 +486,9 @@ function Rapports() {
   return (
     <div className="space-y-5">
       <PageHeader titre="Rapports" sous="Indicateurs de performance, volume d'activité et suivi opérationnel ORCONDIS." />
-      <Onglets items={ONGLETS} actif={onglet} onChange={setOnglet} />
+      <Onglets items={ONGLETS} actif={onglet} onChange={(v) => setOnglet(v as any)} />
       <div className="mt-4">
-        {onglet === "Activité" && <RapportActivite courses={coursesFiltrees} dossiers={data.dossiers} factures={data.factures} />}
+        {onglet === "Activité" && <RapportActivite courses={coursesFiltrees} dossiers={data.dossiers} />}
         {onglet === "Clients" && <RapportClients courses={coursesFiltrees} dossiers={data.dossiers} factures={data.factures} />}
         {onglet === "Coursiers" && <RapportCoursiers courses={coursesFiltrees} />}
         {onglet === "Dispatch" && <RapportDispatch />}
