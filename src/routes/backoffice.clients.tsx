@@ -172,32 +172,34 @@ function ClientsPage() {
   ];
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Clients"
-        sous="Fiches clients ORCONDIS : personnes physiques, entreprises, sociétés et autres organisations."
-        actions={<Button onClick={ouvrirCreation}>Nouveau client</Button>}
+        sous="Fiches clients ORCONDIS : personnes physiques, entreprises, sociétés et organisations."
+        actions={<Button size="lg" className="rounded-2xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8 h-12" onClick={ouvrirCreation}>Nouveau client</Button>}
       />
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-8 lg:grid-cols-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Clients actifs" valeur={stats.total} detail={`${stats.archives} archivé(s)`} />
-        <StatCard label="Entreprises / Sociétés" valeur={stats.entreprises} />
+        <StatCard label="Entreprises" valeur={stats.entreprises} />
         <StatCard label="Particuliers" valeur={stats.particuliers} />
         <StatCard label="Dossiers ouverts" valeur={data.dossiers.filter((d) => !d.archive).length} ton="positif" />
       </div>
 
-      <Panel titre="Recherche & filtres">
-        <FilterBar>
-          <SearchInput value={recherche} onChange={setRecherche} placeholder="Code, nom, email, GSM…" />
-          <SelectFilter value={categorieF} onChange={setCategorieF} options={CATEGORIES_CLIENT} label="Catégorie" />
-          <SelectFilter value={zoneF} onChange={setZoneF} options={ZONES} label="Zone" />
-          <Button variant={voirArchives ? "default" : "outline"} size="sm" onClick={() => setVoirArchives((v) => !v)}>
-            {voirArchives ? "Voir actifs" : "Voir archivés"}
-          </Button>
-        </FilterBar>
-      </Panel>
+      <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500 space-y-8">
+        <Panel titre="Recherche & filtres">
+          <FilterBar>
+            <SearchInput value={recherche} onChange={setRecherche} placeholder="Code, nom, email, GSM…" />
+            <SelectFilter value={categorieF} onChange={setCategorieF} options={CATEGORIES_CLIENT} label="Catégorie" />
+            <SelectFilter value={zoneF} onChange={setZoneF} options={ZONES} label="Zone" />
+            <Button variant={voirArchives ? "default" : "outline"} size="lg" className="rounded-2xl font-bold h-10 px-6" onClick={() => setVoirArchives((v) => !v)}>
+              {voirArchives ? "Voir actifs" : "Voir archivés"}
+            </Button>
+          </FilterBar>
+        </Panel>
 
-      <DataTable colonnes={colonnes} lignes={clients} vide="Aucun client trouvé." />
+        <DataTable colonnes={colonnes} lignes={clients} vide="Aucun client trouvé." />
+      </div>
 
       <FormDialog
         open={creerDialog.open}
