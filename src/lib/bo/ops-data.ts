@@ -90,6 +90,32 @@ export type PrioriteCourse = (typeof PRIORITES_COURSE)[number];
 export const GENRES_COURSE = ["Aller simple", "Aller & Retour", "Multiple"] as const;
 export type GenreCourse = (typeof GENRES_COURSE)[number];
 
+export const MODES_COMMUNICATION = ["Message texte", "Audio", "Texte + Audio"] as const;
+export type ModeCommunication = (typeof MODES_COMMUNICATION)[number];
+
+export const MOMENTS_ENVOI = [
+  "Immédiatement après affectation",
+  "À une date et heure programmées",
+  "X minutes avant la course",
+  "X heures avant la course",
+  "Selon règle automatique ORCONDIS",
+] as const;
+export type MomentEnvoi = (typeof MOMENTS_ENVOI)[number];
+
+export const STATUTS_DISPATCH = [
+  "Programmé",
+  "En attente",
+  "Envoyé",
+  "Reçu",
+  "Confirmé",
+  "Accepté",
+  "Refusé",
+  "Échec d'envoi",
+  "Annulé",
+] as const;
+export type StatutDispatch = (typeof STATUTS_DISPATCH)[number];
+
+
 export const TYPES_COURSE = [
   "Collecte",
   "Enlèvement",
@@ -333,7 +359,31 @@ export type CourseOps = {
   instructions: string;
   instructionsAudio: string;
   noteInterne: string;
+  
+  // Communication Agent de Dispatch
+  dispatch: {
+    mode: ModeCommunication;
+    moment: MomentEnvoi;
+    dateEnvoi: string;
+    heureEnvoi: string;
+    minutesAvant?: number;
+    heuresAvant?: number;
+    confirmationRecue: boolean;
+    confirmationMission: boolean;
+    statut: StatutDispatch;
+    derniereRelance?: string;
+    nbRelances: number;
+    historique: {
+      id: string;
+      date: string;
+      action: string;
+      details: string;
+      format: "Texte" | "Audio" | "Les deux";
+    }[];
+  };
+
   heureEnvoiOrdre: string;
+
   heureDepart: string;
   kmDepart: number;
   litresDepart: number;
@@ -418,7 +468,44 @@ export type AudioCoursier = {
   duree: string;
   transcription: string;
   lu: boolean;
+  type: "Instruction" | "Réponse";
 };
+
+export type AgentCoursierSettings = {
+  actif: boolean;
+  canalPrincipal: "WhatsApp" | "Application" | "Les deux";
+  modeParDefaut: ModeCommunication;
+  programmationParDefaut: MomentEnvoi;
+  valeurParDefaut?: number; // X minutes ou heures
+  heureLaVeille?: string;
+  confirmationObligatoire: boolean;
+  relanceAuto: boolean;
+  delaiRelance: number; // minutes
+  nbRelancesMax: number;
+  ton: "Professionnel" | "Direct" | "Court";
+};
+
+export type DispatchLog = {
+  id: string;
+  courseId: string;
+  coursierId: string;
+  courseNumero: string;
+  dateCourse: string;
+  heureCourse: string;
+  dateEnvoiPrevue: string;
+  heureEnvoiPrevue: string;
+  actualSendingTime?: string;
+  canal: string;
+  format: string;
+  messageGenerated: string;
+  audioGenerated?: string;
+  statut: StatutDispatch;
+  reponse?: string;
+  motifRefus?: string;
+  utilisateur: string;
+  agentAction: string;
+};
+
 
 export type NotificationOps = {
   id: string;
@@ -452,7 +539,10 @@ export type OpsData = {
   audios: AudioCoursier[];
   notifications: NotificationOps[];
   audit: Evenement[];
+  dispatchLogs: DispatchLog[];
+  settingsAgent: AgentCoursierSettings;
 };
+
 
 /* ------------------------------------------------------------------ */
 /* Numérotation automatique                                            */

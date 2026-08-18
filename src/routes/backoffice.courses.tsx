@@ -90,6 +90,17 @@ function courseVide(numero: string): CourseOps {
     instructions: "",
     instructionsAudio: "",
     noteInterne: "",
+    dispatch: {
+      mode: "Message texte",
+      moment: "Immédiatement après affectation",
+      dateEnvoi: todayIso(),
+      heureEnvoi: new Date().toTimeString().slice(0, 5),
+      confirmationRecue: false,
+      confirmationMission: false,
+      statut: "En attente",
+      nbRelances: 0,
+      historique: [],
+    },
     heureEnvoiOrdre: "",
     heureDepart: "",
     kmDepart: 0,
@@ -109,6 +120,7 @@ function courseVide(numero: string): CourseOps {
     archive: false,
   };
 }
+
 
 function CoursesPage() {
   const { data, ajouter, modifier, archiver, ajouterNote, ajouterDocument, changerStatutCourse, affecterCoursier, reaffecterCoursier } = useOps();
