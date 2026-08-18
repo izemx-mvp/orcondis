@@ -16,6 +16,7 @@ import { SectionTarification } from "@/components/bo/parametres/tarification";
 import { SectionNumerotation } from "@/components/bo/parametres/numerotation";
 import { SectionNotifications } from "@/components/bo/parametres/notifications";
 import { SectionWhatsapp } from "@/components/bo/parametres/whatsapp";
+import { SectionSociete } from "@/components/bo/parametres/societe";
 
 export const Route = createFileRoute("/backoffice/parametres")({
   head: () => ({
@@ -34,6 +35,7 @@ export const Route = createFileRoute("/backoffice/parametres")({
 });
 
 const SECTIONS = [
+  { cle: "societe", label: "Informations société", rendu: () => <SectionSociete /> },
   { cle: "services", label: "Services", rendu: () => <SectionServices /> },
   { cle: "zones", label: "Zones", rendu: () => <SectionZones /> },
   { cle: "types-course", label: "Types de course", rendu: () => <SectionTypesCourse /> },
@@ -50,7 +52,7 @@ const SECTIONS = [
 ] as const;
 
 function ParametresPage() {
-  const [actif, setActif] = useState<string>("services");
+  const [actif, setActif] = useState<string>("societe");
   const section = SECTIONS.find((s) => s.cle === actif) ?? SECTIONS[0];
 
   return (
