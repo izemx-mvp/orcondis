@@ -14,7 +14,7 @@ const NAV = [
   { to: "/site/contact", label: "Contact" },
 ] as const;
 
-export function Logo({ dark = false, backoffice = false, className }: { dark?: boolean; backoffice?: boolean; className?: string }) {
+export function Logo({ backoffice = false, className }: { backoffice?: boolean; className?: string }) {
   return (
     <div className={cn("flex flex-col items-center gap-1 group transition-transform hover:scale-105 duration-300", className)}>
       <div className="relative">
@@ -22,8 +22,8 @@ export function Logo({ dark = false, backoffice = false, className }: { dark?: b
           src="/assets/orcondis-logo.png" 
           alt="ORCONDIS" 
           className={cn(
-            "object-contain transition-all contrast-[1.1]",
-            backoffice ? "h-12 w-auto brightness-0 invert" : "h-14 md:h-16 lg:h-20 w-auto"
+            "object-contain transition-all",
+            backoffice ? "h-12 w-auto brightness-0 invert opacity-80" : "h-14 md:h-16 lg:h-20 w-auto"
           )}
           style={{ maxWidth: backoffice ? '180px' : '210px' }}
         />
