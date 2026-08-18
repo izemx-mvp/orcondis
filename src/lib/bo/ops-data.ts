@@ -363,6 +363,7 @@ export type CoursierOps = {
   zonePrincipale: string;
   zonesSecondaires: string;
   zoneActuelle: string;
+  positionOperationnelle?: string;
   transport: Transport;
   immatriculation: string;
   statut: StatutCoursier;
