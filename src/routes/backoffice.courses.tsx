@@ -903,8 +903,8 @@ function CoursesPlanning({
         </CalendarContainer>
       </div>
       
-      <div className="w-full lg:w-96 flex flex-col gap-6">
-        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col border-none shadow-panel bg-white/60 backdrop-blur-xl rounded-[2rem]">
+      <div className="w-full lg:w-80 flex flex-col gap-6">
+        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col border-none shadow-panel bg-white/60 backdrop-blur-xl rounded-[1.25rem]">
           <div className="flex-1 overflow-auto space-y-4 pr-2 custom-scrollbar">
             {unplannedCourses.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
@@ -915,12 +915,12 @@ function CoursesPlanning({
               unplannedCourses.map(c => (
                 <div 
                   key={c.id} 
-                  className="p-5 bg-white border border-border/50 rounded-2xl hover:border-primary hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
+                  className="p-3 bg-white border border-border/50 rounded-xl hover:border-primary hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
                   onClick={() => onCourseClick(c)}
                 >
                   <div className="absolute top-0 left-0 w-1 h-full bg-warning" />
-                  <div className="flex justify-between items-start mb-3">
-                    <span className="text-xs font-black text-navy tracking-tight">{c.numero}</span>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="text-[11px] font-black text-navy tracking-tight">{c.numero}</span>
                     <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut>
                   </div>
                   <p className="text-sm font-black text-navy truncate mb-2">{l.clientNom(c.clientId)}</p>
@@ -929,7 +929,7 @@ function CoursesPlanning({
                     <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
                   </div>
                   <Button 
-                    className="w-full h-10 mt-5 text-xs font-black rounded-xl hidden group-hover:flex shadow-sm"
+                    className="w-full h-8 mt-3 text-[11px] font-black rounded-lg hidden group-hover:flex shadow-sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       onAssignClick(c);
@@ -1115,7 +1115,7 @@ function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick:
         toneCourse(c.statut).includes("warning") ? "border-l-warning" :
         toneCourse(c.statut).includes("destructive") ? "border-l-destructive" :
         "border-l-primary",
-        compact ? "p-2 min-h-[80px]" : "p-3 w-[220px]"
+        compact ? "p-1.5 min-h-[70px]" : "p-2.5 w-[200px]"
       )}
     >
       <div className="flex justify-between items-start mb-1.5">
