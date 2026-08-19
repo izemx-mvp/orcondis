@@ -178,7 +178,7 @@ function Accueil() {
           {SERVICES.map((service, i) => {
             const Icon = ICONS[i % ICONS.length]!;
             return (
-              <div key={service} className="group relative rounded-[2.5rem] border border-border bg-white/50 backdrop-blur-sm p-10 transition-all hover:shadow-elevated hover:-translate-y-2 hover:bg-white hover:border-primary/20 animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${i * 50}ms` }}>
+              <div key={service} className="group relative rounded-[2.5rem] border border-border/60 dark:border-white/5 bg-white/50 dark:bg-surface/50 backdrop-blur-sm p-10 transition-all hover:shadow-elevated hover:-translate-y-2 hover:bg-white dark:hover:bg-surface hover:border-primary/20 animate-in fade-in slide-in-from-bottom-8 duration-700" style={{ animationDelay: `${i * 50}ms` }}>
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/5 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:rotate-6 shadow-sm">
                   <Icon className="h-8 w-8" />
                 </div>
@@ -240,7 +240,7 @@ function Accueil() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-white py-32 sm:py-48 relative overflow-hidden">
+      <section className="bg-background py-32 sm:py-48 relative overflow-hidden transition-colors">
         <div className="mx-auto max-w-7xl px-6 text-center relative z-10">
           <h2 className="text-4xl font-black tracking-tight text-navy sm:text-6xl italic uppercase leading-[0.85]">Une question urgente ?</h2>
           <p className="mx-auto mt-10 max-w-2xl text-xl text-muted-foreground font-medium">
@@ -248,7 +248,7 @@ function Accueil() {
           </p>
           <div className="mt-20 flex flex-col items-center gap-12 lg:flex-row lg:justify-center">
             <a href="tel:0666709941" className="flex items-center gap-6 group">
-              <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-primary/20 group-hover:scale-110">
+              <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/5 dark:bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-primary/20 group-hover:scale-110">
                 <Phone className="h-8 w-8" />
               </span>
               <div className="text-left">
@@ -257,7 +257,7 @@ function Accueil() {
               </div>
             </a>
             <a href="mailto:orcondiscourses@gmail.com" className="flex items-center gap-6 group">
-              <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-primary/20 group-hover:scale-110">
+              <span className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary/5 dark:bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm group-hover:shadow-primary/20 group-hover:scale-110">
                 <Mail className="h-8 w-8" />
               </span>
               <div className="text-left">
