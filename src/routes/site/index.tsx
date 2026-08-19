@@ -194,7 +194,7 @@ function Accueil() {
 
       {/* Pricing Section */}
       <section className="bg-navy py-32 sm:py-48 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.02),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.03),transparent)]" />
         <div className="mx-auto max-w-7xl px-6 relative z-10">
           <div className="text-center mb-24">
              <h2 className="text-[10px] font-black uppercase tracking-[0.5em] text-primary mb-6">Tarification</h2>

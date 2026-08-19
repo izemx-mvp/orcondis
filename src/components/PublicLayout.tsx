@@ -22,8 +22,8 @@ export function Logo({ backoffice = false, className }: { backoffice?: boolean; 
           <img 
             src="/assets/orcondis-logo.png" 
             alt="ORCONDIS" 
-            className="h-10 w-auto object-contain"
-            style={{ maxWidth: '160px' }}
+            className="h-8 w-auto object-contain"
+            style={{ maxWidth: '140px' }}
           />
         </div>
         <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-colors">
@@ -39,8 +39,8 @@ export function Logo({ backoffice = false, className }: { backoffice?: boolean; 
         <img 
           src="/assets/orcondis-logo.png" 
           alt="ORCONDIS" 
-          className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all"
-          style={{ maxWidth: '210px' }}
+          className="h-10 md:h-12 w-auto object-contain transition-all"
+          style={{ maxWidth: '180px' }}
         />
       </div>
     </div>
@@ -115,8 +115,8 @@ export function PublicLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-border bg-navy text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.02),transparent)]" />
+      <footer className="border-t border-border/10 bg-navy text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.03),transparent)]" />
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-20 relative z-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Logo className="items-start" />
