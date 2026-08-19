@@ -177,7 +177,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen bg-background relative isolate">
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-60 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-80 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
@@ -202,7 +202,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
                   to={n.to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] font-black transition-all duration-300",
+                    "group flex items-center gap-4 rounded-xl px-6 py-4 text-sm font-black transition-all duration-300",
                     actif 
                       ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.02] border-none" 
                       : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white hover:translate-x-2 border border-transparent"
@@ -225,7 +225,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
       {open && <div className="fixed inset-0 z-40 bg-navy/20 backdrop-blur-sm lg:hidden transition-all" onClick={() => setOpen(false)} />}
 
       <div className="flex min-w-0 flex-1 flex-col relative z-10">
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-6 border-b border-border/40 bg-background/60 px-6 backdrop-blur-2xl">
+        <header className="sticky top-0 z-30 flex h-20 items-center gap-6 border-b border-border/40 bg-background/60 px-8 backdrop-blur-2xl">
           <button className="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>

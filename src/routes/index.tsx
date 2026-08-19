@@ -20,13 +20,13 @@ function AccessSelectionPage() {
     <div className="relative flex min-h-screen flex-col items-center justify-center p-6 sm:p-12 overflow-hidden bg-navy">
       <AnimatedBackground variant="expressive" className="opacity-20" />
       
-      <div className="mb-8 text-center relative z-10 flex flex-col items-center">
-        <div className="mb-8 transition-all hover:scale-105 duration-700 ease-in-out">
-          <div className="bg-white p-5 rounded-[2rem] shadow-[0_15px_45px_rgba(0,0,0,0.4)]">
+      <div className="mb-12 text-center relative z-10 flex flex-col items-center">
+        <div className="mb-10 transition-all hover:scale-105 duration-700 ease-in-out">
+          <div className="bg-white p-8 rounded-[2.5rem] shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
             <img 
               src="/assets/orcondis-logo.png" 
               alt="ORCONDIS" 
-              className="h-20 sm:h-24 w-auto object-contain" 
+              className="h-24 sm:h-32 w-auto object-contain" 
             />
           </div>
         </div>
