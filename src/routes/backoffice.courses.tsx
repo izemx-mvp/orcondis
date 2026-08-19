@@ -507,38 +507,38 @@ function CoursesPage() {
   );
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Courses"
         sous="Planification, affectation et suivi des missions ORCONDIS."
         actions={
           <div className="flex items-center gap-2">
-             <div className="flex bg-white/50 backdrop-blur-md p-1.5 rounded-2xl border border-border shadow-sm">
+             <div className="flex bg-white/50 backdrop-blur-md p-1 rounded-xl border border-border shadow-sm">
               {(["Liste", "Planning"] as const).map((v) => (
                 <button
                   key={v}
                   onClick={() => setVue(v)}
                   className={cn(
-                    "px-6 py-2 text-sm font-black rounded-xl transition-all flex items-center gap-2",
+                    "px-4 py-1.5 text-[13px] font-black rounded-lg transition-all flex items-center gap-2",
                     vue === v 
                       ? "bg-navy text-white shadow-lg" 
                       : "text-muted-foreground hover:text-navy hover:bg-muted/30"
                   )}
                 >
-                  {v === "Liste" ? <ListIcon className="w-4 h-4" /> : <CalendarIcon className="w-4 h-4" />}
+                  {v === "Liste" ? <ListIcon className="w-3.5 h-3.5" /> : <CalendarIcon className="w-3.5 h-3.5" />}
                   {v}
                 </button>
               ))}
             </div>
-            <Button size="lg" className="rounded-2xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8 h-12" onClick={ouvrirCreation}>
-              <Plus className="w-5 h-5 mr-2" />
+            <Button size="default" className="rounded-xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-6 h-10" onClick={ouvrirCreation}>
+              <Plus className="w-4 h-4 mr-2" />
               Nouvelle mission
             </Button>
           </div>
         }
       />
 
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions actives" valeur={stats.total} />
         <StatCard label="À affecter" valeur={stats.aAffecter} ton="alerte" />
         <StatCard label="En cours" valeur={stats.enCours} />
@@ -557,14 +557,16 @@ function CoursesPage() {
             </div>
           }
         >
-          <div className="mb-3 space-y-2">
+          <div className="mb-2 space-y-1">
             <FilterBar>
               <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, coursier…" />
-              <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
-              <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
-              <SelectFilter label="Service" value={service} onChange={setService} options={services} />
-              <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
-              <Champ label="" type="date" value={dateF} onChange={setDateF} />
+              <div className="flex flex-wrap gap-2 items-center">
+                <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
+                <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
+                <SelectFilter label="Service" value={service} onChange={setService} options={services} />
+                <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
+                <Champ label="" type="date" value={dateF} onChange={setDateF} />
+              </div>
             </FilterBar>
           </div>
           <DataTable colonnes={colonnes} lignes={coursesFiltrees} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
