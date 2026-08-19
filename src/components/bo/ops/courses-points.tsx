@@ -14,9 +14,9 @@ export function EditeurPoint({
   onSupprimer?: () => void;
 }) {
   return (
-    <div className="rounded-lg border border-border p-3">
+    <div className="rounded-xl border border-border/60 bg-white/40 p-3 shadow-sm">
       <div className="mb-2 flex items-center justify-between">
-        <p className="text-sm font-semibold text-navy">{titre}</p>
+        <p className="text-[11px] font-black uppercase tracking-wider text-navy/60">{titre}</p>
         {onSupprimer && (
           <Button size="sm" variant="ghost" onClick={onSupprimer}>
             Supprimer
