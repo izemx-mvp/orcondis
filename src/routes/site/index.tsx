@@ -94,71 +94,73 @@ function Accueil() {
   return (
     <PublicLayout>
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-24 sm:py-32 lg:py-48">
-        <AnimatedBackground variant="expressive" />
-        <div className="mx-auto w-full max-w-7xl px-6 lg:grid lg:grid-cols-2 lg:gap-24 items-center">
-          <div className="flex flex-col animate-in fade-in slide-in-from-left-12 duration-1000">
-            <div className="inline-flex w-fit items-center gap-3 rounded-full border border-primary/20 bg-white/50 backdrop-blur-md px-6 py-2.5 text-xs font-black text-primary uppercase tracking-[0.3em] shadow-sm">
-              <Zap className="h-4 w-4 fill-primary" /> Bureau de services premium — Casablanca
+      <section className="relative overflow-hidden py-20 lg:py-32">
+        <AnimatedBackground variant="ambient" />
+        <div className="mx-auto w-full max-w-7xl px-6 lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="flex flex-col animate-in fade-in slide-in-from-left-12 duration-1000 z-10">
+            <div className="inline-flex w-fit items-center gap-3 rounded-full border border-primary/20 bg-white/50 dark:bg-primary/10 backdrop-blur-md px-5 py-2 text-[10px] font-black text-primary uppercase tracking-[0.3em] shadow-sm">
+              <Zap className="h-3.5 w-3.5 fill-primary" /> Bureau de services premium — Casablanca
             </div>
-            <h1 className="mt-12 text-6xl font-black tracking-tight text-navy sm:text-8xl lg:text-9xl leading-[0.85]">
+            
+            <h1 className="mt-8 text-5xl font-black tracking-tight text-navy sm:text-6xl lg:text-7xl leading-tight">
               ORCONDIS
             </h1>
-            <p className="mt-12 max-w-xl text-xl text-muted-foreground sm:text-2xl font-medium leading-relaxed">
+            
+            <p className="mt-6 max-w-xl text-lg text-muted-foreground sm:text-xl font-medium leading-relaxed">
               L'excellence logistique au service de vos urgences. 
-              <span className="block mt-6 text-navy/80 font-black border-l-4 border-primary pl-6">Collecte, distribution et suivi rigoureux de vos dossiers stratégiques.</span>
+              <span className="block mt-4 text-navy/80 font-black border-l-4 border-primary pl-6">Collecte, distribution et suivi rigoureux de vos dossiers stratégiques.</span>
             </p>
-            <div className="mt-16 flex flex-wrap gap-6">
-              <Button asChild size="lg" className="rounded-[1.5rem] px-12 h-20 text-xl font-black shadow-2xl shadow-primary/30 transition-all hover:scale-105 hover:shadow-primary/40 group">
+
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button asChild size="lg" className="rounded-2xl px-8 h-14 text-base font-black shadow-xl shadow-primary/20 transition-all hover:scale-105 group">
                 <Link to="/site/demande">
-                  Nouvelle Demande <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                  Nouvelle Demande <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="rounded-[1.5rem] px-10 h-20 text-xl font-black transition-all hover:scale-105 bg-white border-2 border-border shadow-sm">
+              <Button asChild size="lg" variant="secondary" className="rounded-2xl px-8 h-14 text-base font-black transition-all hover:scale-105 bg-white dark:bg-secondary/50 border border-border shadow-sm">
                 <a href="tel:0666709941">
-                  <Phone className="mr-3 h-6 w-6 text-primary" /> 0666 70 99 41
+                  <Phone className="mr-2 h-5 w-5 text-primary" /> 0666 70 99 41
                 </a>
               </Button>
             </div>
-            <dl className="mt-20 grid grid-cols-3 gap-12 border-t border-border/50 pt-12">
+
+            <dl className="mt-16 grid grid-cols-3 gap-8 border-t border-border/50 pt-10">
               {[
                 ["+15 ans", "Expertise"],
                 ["7 j/7", "Coordination"],
                 ["100 %", "Traçabilité"],
               ].map(([k, v]) => (
-                <div key={k} className="animate-in fade-in slide-in-from-bottom-4 duration-700" style={{ animationDelay: '400ms' }}>
-                  <dt className="text-3xl font-black text-navy">{k}</dt>
-                  <dd className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mt-1">{v}</dd>
+                <div key={k} className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+                  <dt className="text-2xl font-black text-navy">{k}</dt>
+                  <dd className="text-[9px] font-black uppercase tracking-[0.2em] text-primary mt-0.5">{v}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
-          <div className="mt-20 lg:mt-0 animate-in fade-in slide-in-from-right-12 duration-1000">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-primary/5 rounded-[3.5rem] blur-3xl" />
-              <div className="relative rounded-[3rem] border border-white/20 bg-white/70 backdrop-blur-2xl p-12 shadow-elevated overflow-hidden group">
-                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-info opacity-50" />
-                <h3 className="text-xl font-black text-navy uppercase tracking-[0.1em] mb-12">Déroulé d'une mission</h3>
-                <div className="space-y-10">
-                  {ETAPES.map((etape, i) => (
-                    <div key={etape} className="flex gap-8 items-center group/item">
-                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white border border-primary/20 shadow-lg text-primary text-lg font-black group-hover/item:scale-110 group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
-                        {i + 1}
-                      </span>
-                      <span className="text-lg text-muted-foreground font-bold group-hover/item:text-navy transition-colors">{etape}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-14 rounded-3xl bg-navy p-8 border border-white/10 shadow-2xl relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <ClipboardList className="h-16 w-16 text-white" />
+          <div className="mt-16 lg:mt-0 animate-in fade-in slide-in-from-right-12 duration-1000 relative">
+            <div className="relative rounded-[2.5rem] border border-white/20 dark:border-white/5 bg-white/70 dark:bg-surface/80 backdrop-blur-2xl p-8 lg:p-10 shadow-elevated overflow-hidden group">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary to-info opacity-50" />
+              <h3 className="text-lg font-black text-navy uppercase tracking-[0.1em] mb-8">Déroulé d'une mission</h3>
+              <div className="space-y-6">
+                {ETAPES.map((etape, i) => (
+                  <div key={etape} className="flex gap-6 items-center group/item">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white dark:bg-navy/30 border border-primary/20 shadow-sm text-primary text-base font-black group-hover/item:scale-110 group-hover/item:bg-primary group-hover/item:text-white transition-all duration-300">
+                      {i + 1}
+                    </span>
+                    <span className="text-base text-muted-foreground font-bold group-hover/item:text-navy transition-colors">{etape}</span>
                   </div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-primary mb-4">Exemple opérationnel</p>
-                  <p className="text-lg font-bold text-white/90 leading-relaxed italic">
-                    « Récupérer un chèque à Maarif, payer un fournisseur à Aïn Sebaâ et déposer le reçu au siège avant 11h. »
-                  </p>
+                ))}
+              </div>
+              
+              <div className="mt-10 rounded-2xl bg-navy p-6 border border-white/10 shadow-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-10">
+                  <ClipboardList className="h-12 w-12 text-white" />
                 </div>
+                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-primary mb-3">Exemple opérationnel</p>
+                <p className="text-base font-bold text-white/90 leading-relaxed italic">
+                  « Récupérer un chèque à Maarif, payer un fournisseur à Aïn Sebaâ et déposer le reçu au siège avant 11h. »
+                </p>
               </div>
             </div>
           </div>

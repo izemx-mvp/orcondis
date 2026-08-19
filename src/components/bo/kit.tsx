@@ -55,11 +55,11 @@ export function StatCard({
     critique: "text-destructive",
   };
   return (
-    <div className="rounded-[1.5rem] border-none bg-white/70 backdrop-blur-xl p-8 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
-      <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 group-hover:bg-primary transition-all duration-500" />
+    <div className="rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/70 dark:bg-surface/80 backdrop-blur-xl p-8 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
+      <div className="absolute top-0 left-0 w-full h-1 bg-primary/20 group-hover:bg-primary transition-all duration-500" />
       <p className="text-[12px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">{label}</p>
       <div className="flex items-baseline gap-2">
-        <p className={`text-4xl font-black tracking-tighter ${tons[ton]}`}>{valeur}</p>
+        <p className={cn("text-4xl font-black tracking-tighter", tons[ton])}>{valeur}</p>
       </div>
       {detail && <p className="mt-3 text-[13px] font-bold text-muted-foreground/50 tracking-tight">{detail}</p>}
     </div>
@@ -79,7 +79,7 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-[1.5rem] border-none bg-white/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
+    <section className={cn("rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/60 dark:bg-surface/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
       {(titre || actions) && (
         <header className="flex flex-wrap items-center justify-between gap-4 bg-muted/20 px-8 py-6 border-b border-border/40">
           {titre && <h2 className="text-[12px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
@@ -166,7 +166,7 @@ export function DataTable<T extends { id: string }>({
   onRowClick?: (row: T) => void;
 }) {
   return (
-    <div className="overflow-x-auto rounded-[1rem] border-none bg-white/50 backdrop-blur-xl shadow-elevated">
+    <div className="overflow-x-auto rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/50 dark:bg-surface/50 backdrop-blur-xl shadow-elevated">
       <table className="w-full text-[15px] border-collapse">
         <thead className="bg-muted/30 text-left text-[12px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
           <tr>
@@ -356,7 +356,7 @@ export function FormDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn(
-        "max-h-[90vh] overflow-y-auto rounded-2xl border-none shadow-elevated p-0 gap-0",
+        "max-h-[90vh] overflow-y-auto rounded-[2rem] border border-white/20 dark:border-white/10 bg-white dark:bg-surface shadow-elevated p-0 gap-0",
         large ? "max-w-4xl" : "max-w-md"
       )}>
         <DialogHeader className="p-10 border-b border-border bg-muted/20">
