@@ -43,36 +43,36 @@ function AccessSelectionPage() {
 
       <div className="grid w-full max-w-4xl gap-8 sm:grid-cols-2 relative z-10">
         {/* Card 1 — SITE WEB */}
-        <Card className="group flex flex-col border-none shadow-panel transition-all hover:shadow-elevated hover:-translate-y-1 rounded-[1.5rem] bg-white/80 backdrop-blur-2xl overflow-hidden border border-white/20">
-          <CardHeader className="text-center pt-10 px-8">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-primary/5 text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:rotate-[10deg] shadow-sm">
-              <Globe className="h-10 w-10" />
+        <Card className="elevated-card group flex flex-col border-none transition-all rounded-[3rem] bg-white/80 dark:bg-surface/80 backdrop-blur-3xl overflow-hidden">
+          <CardHeader className="text-center pt-12 px-10">
+            <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-primary/5 text-primary transition-all duration-700 group-hover:bg-primary group-hover:text-white group-hover:rotate-[15deg] shadow-lg shadow-primary/5">
+              <Globe className="h-12 w-12" />
             </div>
-            <CardTitle className="text-2xl font-black text-navy">Site Web</CardTitle>
-            <CardDescription className="pt-4 text-[14px] font-bold leading-relaxed text-muted-foreground/80">
+            <CardTitle className="text-3xl font-black text-navy uppercase tracking-tighter">Site Web</CardTitle>
+            <CardDescription className="pt-4 text-base font-bold leading-relaxed text-muted-foreground/60">
               Découvrez nos prestations premium et effectuez vos demandes en ligne.
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-auto flex justify-center pb-10 px-8">
-            <Button asChild size="lg" className="w-full rounded-xl font-black py-6 text-base transition-all hover:scale-[1.02] shadow-primary/20 shadow-lg">
+          <CardContent className="mt-auto flex justify-center pb-12 px-10">
+            <Button asChild size="lg" className="w-full rounded-[1.5rem] font-black py-8 text-lg transition-all hover:scale-[1.05] shadow-primary/30 shadow-2xl uppercase tracking-widest active:scale-95 border-none">
               <Link to="/site">Entrer sur le site</Link>
             </Button>
           </CardContent>
         </Card>
 
         {/* Card 2 — BACK-OFFICE */}
-        <Card className="group flex flex-col border-none shadow-panel transition-all hover:shadow-elevated hover:-translate-y-1 rounded-[1.5rem] bg-white/80 backdrop-blur-2xl overflow-hidden border border-white/20">
-          <CardHeader className="text-center pt-10 px-8">
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.5rem] bg-navy/5 text-navy transition-all duration-500 group-hover:bg-navy group-hover:text-white group-hover:-rotate-[10deg] shadow-sm">
-              <LayoutDashboard className="h-10 w-10" />
+        <Card className="elevated-card group flex flex-col border-none transition-all rounded-[3rem] bg-white/80 dark:bg-surface/80 backdrop-blur-3xl overflow-hidden">
+          <CardHeader className="text-center pt-12 px-10">
+            <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-navy/5 dark:bg-white/10 text-navy dark:text-white transition-all duration-700 group-hover:bg-navy group-hover:text-white group-hover:-rotate-[15deg] shadow-lg shadow-navy/5">
+              <LayoutDashboard className="h-12 w-12" />
             </div>
-            <CardTitle className="text-2xl font-black text-navy">Back-Office</CardTitle>
-            <CardDescription className="pt-4 text-[14px] font-bold leading-relaxed text-muted-foreground/80">
+            <CardTitle className="text-3xl font-black text-navy uppercase tracking-tighter">Back-Office</CardTitle>
+            <CardDescription className="pt-4 text-base font-bold leading-relaxed text-muted-foreground/60">
               Gestion opérationnelle interne des clients, dossiers et courses.
             </CardDescription>
           </CardHeader>
-          <CardContent className="mt-auto flex justify-center pb-10 px-8">
-            <Button asChild size="lg" variant="secondary" className="w-full rounded-xl font-black py-6 text-base transition-all hover:scale-[1.02] shadow-sm bg-navy text-white hover:bg-navy/90">
+          <CardContent className="mt-auto flex justify-center pb-12 px-10">
+            <Button asChild size="lg" variant="secondary" className="w-full rounded-[1.5rem] font-black py-8 text-lg transition-all hover:scale-[1.05] shadow-xl bg-navy text-white hover:bg-navy/90 uppercase tracking-widest active:scale-95 border-none">
               <Link to="/connexion">Connexion Interne</Link>
             </Button>
           </CardContent>
