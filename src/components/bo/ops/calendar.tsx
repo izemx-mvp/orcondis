@@ -22,16 +22,16 @@ export function CalendarContainer({
   actions
 }: CalendarProps) {
   return (
-    <div className="flex flex-col h-full bg-white/50 backdrop-blur-xl border-none rounded-[2.5rem] shadow-elevated overflow-hidden">
-      <header className="flex flex-wrap items-center justify-between gap-6 p-8 border-b border-border/40 bg-muted/20">
+    <div className="flex flex-col h-full bg-white/50 backdrop-blur-xl border-none rounded-[1.25rem] shadow-elevated overflow-hidden">
+      <header className="flex flex-wrap items-center justify-between gap-4 p-4 border-b border-border/40 bg-muted/20">
         <div className="flex items-center gap-4">
-          <div className="flex bg-white/50 backdrop-blur-md p-1.5 rounded-2xl border border-border shadow-sm">
+          <div className="flex bg-white/50 backdrop-blur-md p-1 rounded-xl border border-border shadow-sm">
             {(["Jour", "Semaine", "Mois"] as const).map((v) => (
               <button
                 key={v}
                 onClick={() => onViewChange(v)}
                 className={cn(
-                  "px-6 py-2 text-sm font-black rounded-xl transition-all",
+                  "px-4 py-1.5 text-[13px] font-black rounded-lg transition-all",
                   view === v 
                     ? "bg-navy text-white shadow-lg" 
                     : "text-muted-foreground hover:text-navy hover:bg-muted/30"
@@ -45,12 +45,12 @@ export function CalendarContainer({
           <div className="flex items-center gap-1 ml-4">
             <Button 
               variant="outline" 
-              size="lg" 
+              size="default" 
               onClick={() => {
                 const now = new Date();
                 onDateChange(now);
               }}
-              className="rounded-xl h-10 px-6 font-bold"
+              className="rounded-lg h-9 px-4 text-[13px] font-bold"
             >
               Aujourd'hui
             </Button>
@@ -88,7 +88,7 @@ export function CalendarContainer({
             </div>
           </div>
           
-          <h3 className="ml-8 text-2xl font-black text-navy tracking-tight capitalize">
+          <h3 className="ml-6 text-xl font-black text-navy tracking-tight capitalize">
             {date.toLocaleDateString('fr-FR', { 
               month: 'long', 
               year: 'numeric',

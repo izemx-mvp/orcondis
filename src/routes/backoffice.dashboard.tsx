@@ -75,18 +75,18 @@ function Dashboard() {
   );
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Tableau de bord"
         sous="Vue consolidée des opérations, de la facturation et des paiements."
         actions={
-          <Button asChild size="lg" className="rounded-2xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8">
+          <Button asChild size="default" className="rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-6">
             <Link to="/backoffice/whatsapp">Messagerie WhatsApp</Link>
           </Button>
         }
       />
 
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
         <StatCard label="Urgences" valeur={stats.urgentes} ton="alerte" detail={`${stats.bloquees} bloquée(s)`} />
         <StatCard
@@ -109,7 +109,7 @@ function Dashboard() {
       </div>
 
 
-      <div className="grid gap-8 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="grid gap-6 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
         <Panel
           titre="Facturation"
           actions={

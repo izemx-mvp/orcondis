@@ -272,31 +272,31 @@ function CoursesPage() {
   // Colonnes de la table
   const colonnes: Colonne<CourseOps>[] = [
     { cle: "numero", titre: "N°", rendu: (c) => <span className="font-bold text-navy">{c.numero}</span> },
-    { cle: "date", titre: "Date", rendu: (c) => <div className="text-xs">
+    { cle: "date", titre: "Date", rendu: (c) => <div className="text-[12px]">
         <p className="font-medium">{format(parseISO(c.dateCourse), "dd/MM")}</p>
         <p className="text-muted-foreground">{c.heureFixe || c.trancheHoraire.split(' ')[0]}</p>
       </div> },
     { cle: "client", titre: "Client / Corresp.", rendu: (c) => <div>
-        <p className="font-medium text-sm">{l.clientNom(c.clientId)}</p>
+        <p className="font-medium text-[13px]">{l.clientNom(c.clientId)}</p>
         <p className="text-[10px] text-muted-foreground uppercase">{c.correspondant}</p>
       </div> },
     { cle: "commande", titre: "Service / Commande", rendu: (c) => <div className="max-w-[150px]">
-        <p className="text-xs font-medium truncate">{c.service || c.typeCourse}</p>
+        <p className="text-[12px] font-medium truncate">{c.service || c.typeCourse}</p>
         <p className="text-[10px] text-muted-foreground truncate">{c.message}</p>
       </div> },
-    { cle: "type", titre: "Type/Genre", rendu: (c) => <div className="text-[10px]">
+    { cle: "type", titre: "Type/Genre", rendu: (c) => <div className="text-[11px]">
         <p>{c.typeCourse}</p>
         <p className="text-muted-foreground">{c.genreCourse}</p>
       </div> },
-    { cle: "trajet", titre: "Retrait → Dest.", rendu: (c) => <div className="text-[10px]">
+    { cle: "trajet", titre: "Retrait → Dest.", rendu: (c) => <div className="text-[11px]">
         <p className="font-medium text-navy">Ret: {c.retrait.zone}</p>
         <p className="text-muted-foreground">Dest: {c.destinations[0]?.zone || "—"}</p>
       </div> },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => <div className="text-sm">
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <div className="text-[13px]">
         {c.coursierId ? (
           <p className="font-medium">{l.coursierNom(c.coursierId)}</p>
         ) : (
-          <span className="text-warning text-xs font-medium">⚠ À affecter</span>
+          <span className="text-warning text-[12px] font-medium">⚠ À affecter</span>
         )}
       </div> },
     { cle: "dispatch", titre: "Dispatch", rendu: (c) => <div className="flex flex-col items-center">
@@ -305,7 +305,7 @@ function CoursesPage() {
          c.dispatch.statut === "Programmée" ? <Clock className="w-4 h-4 text-warning" /> :
          c.dispatch.statut === "Refusée" ? <XCircle className="w-4 h-4 text-destructive" /> :
          <span className="text-[9px] text-muted-foreground">—</span>}
-        <span className="text-[9px] text-muted-foreground mt-1">{c.dispatch.statut}</span>
+        <span className="text-[9px] text-muted-foreground mt-0.5">{c.dispatch.statut}</span>
       </div> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
@@ -314,16 +314,16 @@ function CoursesPage() {
       align: "right",
       rendu: (c) => (
         <div className="flex flex-wrap justify-end gap-1" onClick={(e) => e.stopPropagation()}>
-          <Button size="sm" variant="ghost" onClick={() => ouvrirDetail(c)}>Voir</Button>
-          <Button size="sm" variant="ghost" onClick={() => ouvrirEdition(c)}>Modifier</Button>
+          <Button size="sm" variant="ghost" className="h-8 text-[12px] px-2" onClick={() => ouvrirDetail(c)}>Voir</Button>
+          <Button size="sm" variant="ghost" className="h-8 text-[12px] px-2" onClick={() => ouvrirEdition(c)}>Modifier</Button>
           {!c.coursierId ? (
-            <Button size="sm" variant="outline" className="h-7 text-[10px]" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
+            <Button size="sm" variant="outline" className="h-8 text-[11px] px-2" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
           ) : (
-            <Button size="sm" variant="ghost" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
+            <Button size="sm" variant="ghost" className="h-8 text-[11px] px-2" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
               Réaffecter
             </Button>
           )}
-          <Button size="sm" variant="ghost" onClick={() => archiver("courses", c.id, !c.archive)}>
+          <Button size="sm" variant="ghost" className="h-8 text-[11px] px-2 text-muted-foreground" onClick={() => archiver("courses", c.id, !c.archive)}>
             {c.archive ? "Restaurer" : "Archiver"}
           </Button>
         </div>
@@ -507,38 +507,38 @@ function CoursesPage() {
   );
 
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Courses"
         sous="Planification, affectation et suivi des missions ORCONDIS."
         actions={
           <div className="flex items-center gap-2">
-             <div className="flex bg-white/50 backdrop-blur-md p-1.5 rounded-2xl border border-border shadow-sm">
+             <div className="flex bg-white/50 backdrop-blur-md p-1 rounded-xl border border-border shadow-sm">
               {(["Liste", "Planning"] as const).map((v) => (
                 <button
                   key={v}
                   onClick={() => setVue(v)}
                   className={cn(
-                    "px-6 py-2 text-sm font-black rounded-xl transition-all flex items-center gap-2",
+                    "px-4 py-1.5 text-[13px] font-black rounded-lg transition-all flex items-center gap-2",
                     vue === v 
                       ? "bg-navy text-white shadow-lg" 
                       : "text-muted-foreground hover:text-navy hover:bg-muted/30"
                   )}
                 >
-                  {v === "Liste" ? <ListIcon className="w-4 h-4" /> : <CalendarIcon className="w-4 h-4" />}
+                  {v === "Liste" ? <ListIcon className="w-3.5 h-3.5" /> : <CalendarIcon className="w-3.5 h-3.5" />}
                   {v}
                 </button>
               ))}
             </div>
-            <Button size="lg" className="rounded-2xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-8 h-12" onClick={ouvrirCreation}>
-              <Plus className="w-5 h-5 mr-2" />
+            <Button size="default" className="rounded-xl font-black shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-6 h-10" onClick={ouvrirCreation}>
+              <Plus className="w-4 h-4 mr-2" />
               Nouvelle mission
             </Button>
           </div>
         }
       />
 
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions actives" valeur={stats.total} />
         <StatCard label="À affecter" valeur={stats.aAffecter} ton="alerte" />
         <StatCard label="En cours" valeur={stats.enCours} />
@@ -557,14 +557,16 @@ function CoursesPage() {
             </div>
           }
         >
-          <div className="mb-3 space-y-2">
+          <div className="mb-2 space-y-1">
             <FilterBar>
               <SearchInput value={recherche} onChange={setRecherche} placeholder="N°, client, coursier…" />
-              <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
-              <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
-              <SelectFilter label="Service" value={service} onChange={setService} options={services} />
-              <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
-              <Champ label="" type="date" value={dateF} onChange={setDateF} />
+              <div className="flex flex-wrap gap-2 items-center">
+                <SelectFilter label="Statut" value={statut} onChange={setStatut} options={STATUTS_COURSE} />
+                <SelectFilter label="Priorité" value={priorite} onChange={setPriorite} options={PRIORITES_COURSE} />
+                <SelectFilter label="Service" value={service} onChange={setService} options={services} />
+                <SelectFilter label="Zone" value={zone} onChange={setZone} options={ZONES} />
+                <Champ label="" type="date" value={dateF} onChange={setDateF} />
+              </div>
             </FilterBar>
           </div>
           <DataTable colonnes={colonnes} lignes={coursesFiltrees} onRowClick={ouvrirDetail} vide="Aucune course trouvée." />
@@ -901,8 +903,8 @@ function CoursesPlanning({
         </CalendarContainer>
       </div>
       
-      <div className="w-full lg:w-96 flex flex-col gap-6">
-        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col border-none shadow-panel bg-white/60 backdrop-blur-xl rounded-[2rem]">
+      <div className="w-full lg:w-80 flex flex-col gap-6">
+        <Panel titre="Courses non planifiées" className="flex-1 overflow-hidden flex flex-col border-none shadow-panel bg-white/60 backdrop-blur-xl rounded-[1.25rem]">
           <div className="flex-1 overflow-auto space-y-4 pr-2 custom-scrollbar">
             {unplannedCourses.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
@@ -913,12 +915,12 @@ function CoursesPlanning({
               unplannedCourses.map(c => (
                 <div 
                   key={c.id} 
-                  className="p-5 bg-white border border-border/50 rounded-2xl hover:border-primary hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
+                  className="p-3 bg-white border border-border/50 rounded-xl hover:border-primary hover:shadow-lg transition-all cursor-pointer group relative overflow-hidden"
                   onClick={() => onCourseClick(c)}
                 >
                   <div className="absolute top-0 left-0 w-1 h-full bg-warning" />
-                  <div className="flex justify-between items-start mb-3">
-                    <span className="text-xs font-black text-navy tracking-tight">{c.numero}</span>
+                  <div className="flex justify-between items-start mb-2">
+                    <span className="text-[11px] font-black text-navy tracking-tight">{c.numero}</span>
                     <Statut ton={tonStatut(c.priorite)}>{c.priorite}</Statut>
                   </div>
                   <p className="text-sm font-black text-navy truncate mb-2">{l.clientNom(c.clientId)}</p>
@@ -927,7 +929,7 @@ function CoursesPlanning({
                     <span className="truncate">{c.retrait.zone} → {c.destinations[0]?.zone || "?"}</span>
                   </div>
                   <Button 
-                    className="w-full h-10 mt-5 text-xs font-black rounded-xl hidden group-hover:flex shadow-sm"
+                    className="w-full h-8 mt-3 text-[11px] font-black rounded-lg hidden group-hover:flex shadow-sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       onAssignClick(c);
@@ -1113,7 +1115,7 @@ function CourseCard({ c, onClick, l, compact = false }: { c: CourseOps, onClick:
         toneCourse(c.statut).includes("warning") ? "border-l-warning" :
         toneCourse(c.statut).includes("destructive") ? "border-l-destructive" :
         "border-l-primary",
-        compact ? "p-2 min-h-[80px]" : "p-3 w-[220px]"
+        compact ? "p-1.5 min-h-[70px]" : "p-2.5 w-[200px]"
       )}
     >
       <div className="flex justify-between items-start mb-1.5">
