@@ -81,11 +81,11 @@ function DispatchPage() {
   }, [data.courses, recherche, statut, mode, confirmation, ol]);
 
   const colonnes: Colonne<CourseOps>[] = [
-    { cle: "heure", titre: "Heure d'envoi", rendu: (c) => <span className="text-xs">{c.dispatch.dateEnvoi} {c.dispatch.heureEnvoi}</span> },
+    { cle: "heure", titre: "Heure d'envoi", rendu: (c) => <span className="text-[12px]">{c.dispatch.dateEnvoi} {c.dispatch.heureEnvoi}</span> },
     { cle: "numero", titre: "N° Course", rendu: (c) => <span className="font-bold text-navy">{c.numero}</span> },
-    { cle: "client", titre: "Client", rendu: (c) => ol.clientNom(c.clientId) },
-    { cle: "coursier", titre: "Coursier", rendu: (c) => ol.coursierNom(c.coursierId) },
-    { cle: "mode", titre: "Mode", rendu: (c) => <span className="text-xs">{c.dispatch.mode}</span> },
+    { cle: "client", titre: "Client", rendu: (c) => <span className="text-[13px]">{ol.clientNom(c.clientId)}</span> },
+    { cle: "coursier", titre: "Coursier", rendu: (c) => <span className="text-[13px]">{ol.coursierNom(c.coursierId)}</span> },
+    { cle: "mode", titre: "Mode", rendu: (c) => <span className="text-[11px] text-muted-foreground uppercase">{c.dispatch.mode}</span> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={tonStatutDispatch(c.dispatch.statut)}>{c.dispatch.statut}</Statut> },
     {
       cle: "conf",
@@ -102,21 +102,21 @@ function DispatchPage() {
       align: "right",
       rendu: (c) => (
         <div className="flex justify-end gap-1" onClick={(e) => e.stopPropagation()}>
-          <Button size="sm" variant="ghost" onClick={() => detailDialog.ouvrir(c)}>Détails</Button>
-          <Button size="sm" variant="outline" onClick={() => envoyerCommunication(c.id)}>Relancer</Button>
+          <Button size="sm" variant="ghost" className="h-8 text-[12px]" onClick={() => detailDialog.ouvrir(c)}>Détails</Button>
+          <Button size="sm" variant="outline" className="h-8 text-[11px]" onClick={() => envoyerCommunication(c.id)}>Relancer</Button>
         </div>
       ),
     },
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <PageHeader
         titre="Agent Dispatch Coursiers"
         sous="Automatisation et suivi des missions communiquées aux coursiers."
       />
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions à envoyer" valeur={stats.aEnvoyer} />
         <StatCard label="En attente confirmation" valeur={stats.enAttente} ton="alerte" />
         <StatCard label="Acceptées" valeur={stats.acceptées} ton="positif" />
