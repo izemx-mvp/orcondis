@@ -103,7 +103,7 @@ function GlobalSearch() {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Recherche globale : client, contact, N° course, chèque…"
-        className="pl-10 h-11 bg-muted/20 border-border/50 rounded-xl focus-visible:ring-primary/20 transition-all"
+        className="pl-10 h-10 bg-muted/20 border-border/50 rounded-lg focus-visible:ring-primary/20 transition-all text-sm"
       />
       {resultats.length > 0 && (
         <div className="absolute left-0 right-0 top-11 z-50 max-h-80 overflow-y-auto rounded-lg border border-border bg-card p-1 shadow-lg">
@@ -177,11 +177,11 @@ export function BOLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen bg-background relative isolate">
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-80 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-60 shrink-0 overflow-y-auto border-r border-border bg-sidebar text-sidebar-foreground transition-all duration-300 lg:static lg:translate-x-0 ${
           open ? "translate-x-0 shadow-elevated" : "-translate-x-full"
         }`}
       >
-        <div className="flex min-h-[160px] flex-col items-center justify-center px-8 border-b border-sidebar-border/10 bg-white/5 backdrop-blur-xl sticky top-0 z-10 py-8">
+        <div className="flex min-h-[120px] flex-col items-center justify-center px-6 border-b border-sidebar-border/10 bg-white/5 backdrop-blur-xl sticky top-0 z-10 py-6">
           <Link to="/backoffice/dashboard" className="flex flex-col items-center">
             <Logo backoffice />
           </Link>
@@ -190,8 +190,8 @@ export function BOLayout({ children }: { children: ReactNode }) {
           </button>
         </div>
         
-        <div className="px-6 py-10">
-          <p className="px-4 mb-8 text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/30">Menu Opérationnel</p>
+        <div className="px-4 py-8">
+          <p className="px-4 mb-6 text-[10px] font-black uppercase tracking-[0.4em] text-muted-foreground/30">Menu Opérationnel</p>
           <nav className="space-y-2">
             {NAV.map((n) => {
               const actif = n.exact ? pathname === n.to : pathname.startsWith(n.to);
@@ -202,13 +202,13 @@ export function BOLayout({ children }: { children: ReactNode }) {
                   to={n.to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-center gap-4 rounded-2xl px-5 py-4 text-sm font-black transition-all duration-300",
+                    "group flex items-center gap-3 rounded-xl px-4 py-2.5 text-[13px] font-black transition-all duration-300",
                     actif 
                       ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.02] border-none" 
                       : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white hover:translate-x-2 border border-transparent"
                   )}
                 >
-                  <Icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", actif ? "text-primary-foreground" : "text-primary/60")} />
+                  <Icon className={cn("h-4.5 w-4.5 transition-transform group-hover:scale-110", actif ? "text-primary-foreground" : "text-primary/60")} />
                   <span className="flex-1">{n.label}</span>
                   {n.label === "WhatsApp" && alertesWA > 0 && (
                     <span className="flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-[10px] font-black text-destructive-foreground animate-pulse">
@@ -225,7 +225,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
       {open && <div className="fixed inset-0 z-40 bg-navy/20 backdrop-blur-sm lg:hidden transition-all" onClick={() => setOpen(false)} />}
 
       <div className="flex min-w-0 flex-1 flex-col relative z-10">
-        <header className="sticky top-0 z-30 flex h-24 items-center gap-8 border-b border-border/40 bg-background/60 px-10 backdrop-blur-2xl">
+        <header className="sticky top-0 z-30 flex h-16 items-center gap-6 border-b border-border/40 bg-background/60 px-6 backdrop-blur-2xl">
           <button className="lg:hidden p-2 rounded-xl hover:bg-muted transition-colors" onClick={() => setOpen(true)} aria-label="Menu">
             <Menu className="h-5 w-5" />
           </button>
@@ -247,7 +247,7 @@ export function BOLayout({ children }: { children: ReactNode }) {
           </div>
         </header>
         
-        <main className="min-w-0 flex-1 px-6 py-10 sm:px-10 max-w-[1600px] mx-auto w-full">
+        <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 max-w-[1600px] mx-auto w-full">
           {children}
         </main>
         
