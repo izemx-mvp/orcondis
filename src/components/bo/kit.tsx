@@ -28,7 +28,7 @@ export function PageHeader({
   return (
     <div className="flex flex-wrap items-end justify-between gap-8 mb-12 animate-in fade-in slide-in-from-top-4 duration-700">
       <div className="max-w-3xl">
-        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-5xl lg:text-6xl leading-[0.9]">{titre}</h1>
+        <h1 className="text-3xl font-black tracking-tighter text-navy sm:text-4xl leading-[0.9]">{titre}</h1>
         {sous && <p className="mt-4 text-lg text-muted-foreground font-medium leading-relaxed opacity-70">{sous}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-4">{actions}</div>}
