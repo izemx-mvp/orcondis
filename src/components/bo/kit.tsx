@@ -256,7 +256,7 @@ export function Champ({
         value={value} 
         placeholder={placeholder} 
         onChange={(e) => onChange(e.target.value)} 
-        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 h-12 px-6"
+        className="rounded-2xl border-border/60 focus-visible:ring-primary/20 bg-muted/20 h-12 px-6 shadow-sm transition-all duration-300 focus-visible:border-primary/50"
       />
     </div>
   );
@@ -280,7 +280,7 @@ export function ChampSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex h-12 w-full rounded-xl border border-border/60 bg-muted/10 px-6 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
+        className="flex h-12 w-full rounded-2xl border border-border/60 bg-muted/20 px-6 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all shadow-sm focus:border-primary/50"
       >
         <option value="">— Sélectionner —</option>
         {opts.map((o) => (
@@ -311,7 +311,7 @@ export function ChampTexte({
         rows={rows} 
         value={value} 
         onChange={(e) => onChange(e.target.value)} 
-        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 p-4 min-h-[90px]"
+        className="rounded-2xl border-border/60 focus-visible:ring-primary/20 bg-muted/20 p-4 min-h-[90px] shadow-sm transition-all duration-300 focus-visible:border-primary/50"
       />
     </div>
   );
@@ -356,7 +356,7 @@ export function FormDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn(
-        "max-h-[90vh] overflow-y-auto rounded-[2rem] border border-white/20 dark:border-white/10 bg-white dark:bg-surface shadow-elevated p-0 gap-0",
+        "max-h-[90vh] overflow-y-auto rounded-[3rem] border border-white/20 dark:border-white/10 bg-white/90 dark:bg-surface/90 shadow-elevated p-0 gap-0 backdrop-blur-3xl",
         large ? "max-w-4xl" : "max-w-md"
       )}>
         <DialogHeader className="p-10 border-b border-border bg-muted/20">
@@ -368,13 +368,13 @@ export function FormDialog({
           <Button 
             variant="ghost" 
             onClick={() => onOpenChange(false)}
-            className="rounded-xl font-bold px-8 h-12"
+            className="rounded-2xl font-black uppercase tracking-widest px-8 h-12 hover:bg-muted/50 transition-all active:scale-95"
           >
             Fermer
           </Button>
           {onSubmit && (
             <Button
-              className="rounded-xl font-bold px-10 h-12 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+              className="rounded-2xl font-black uppercase tracking-widest px-10 h-12 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-[1.05] active:scale-95"
               onClick={() => {
                 onSubmit();
                 onOpenChange(false);
