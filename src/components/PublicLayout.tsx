@@ -22,8 +22,8 @@ export function Logo({ backoffice = false, className }: { backoffice?: boolean; 
           <img 
             src="/assets/orcondis-logo.png" 
             alt="ORCONDIS" 
-            className="h-10 w-auto object-contain"
-            style={{ maxWidth: '160px' }}
+            className="h-8 w-auto object-contain"
+            style={{ maxWidth: '140px' }}
           />
         </div>
         <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-primary transition-colors">
@@ -39,8 +39,8 @@ export function Logo({ backoffice = false, className }: { backoffice?: boolean; 
         <img 
           src="/assets/orcondis-logo.png" 
           alt="ORCONDIS" 
-          className="h-14 md:h-16 lg:h-20 w-auto object-contain transition-all"
-          style={{ maxWidth: '210px' }}
+          className="h-10 md:h-12 w-auto object-contain transition-all"
+          style={{ maxWidth: '180px' }}
         />
       </div>
     </div>
@@ -51,19 +51,19 @@ export function PublicLayout({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
+    <div className="flex min-h-screen flex-col bg-background transition-colors duration-500">
+      <header className="sticky top-0 z-40 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6">
           <Link to="/site">
             <Logo />
           </Link>
-          <nav className="hidden items-center gap-1 lg:flex bg-muted/20 p-1 rounded-2xl border border-border/50">
+          <nav className="hidden items-center gap-1 lg:flex bg-muted/40 dark:bg-navy/40 p-1 rounded-2xl border border-border/40">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.to === "/site" }}
-                activeProps={{ className: "bg-white dark:bg-navy shadow-sm text-primary" }}
+                activeProps={{ className: "bg-white dark:bg-surface shadow-sm text-primary" }}
                 className="rounded-xl px-4 py-2 text-sm font-bold text-muted-foreground transition-all hover:text-navy hover:scale-105"
               >
                 {item.label}
@@ -115,8 +115,8 @@ export function PublicLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-1">{children}</main>
 
-      <footer className="border-t border-border bg-navy text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.02),transparent)]" />
+      <footer className="border-t border-border/10 bg-navy text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(255,255,255,0.03),transparent)]" />
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-6 py-20 relative z-10 md:grid-cols-4">
           <div className="md:col-span-2">
             <Logo className="items-start" />
