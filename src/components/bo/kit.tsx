@@ -28,8 +28,8 @@ export function PageHeader({
   return (
     <div className="flex flex-wrap items-end justify-between gap-6 mb-8 animate-in fade-in slide-in-from-top-4 duration-700">
       <div className="max-w-3xl">
-        <h1 className="text-3xl font-black tracking-tighter text-navy sm:text-4xl leading-[0.9]">{titre}</h1>
-        {sous && <p className="mt-2 text-base text-muted-foreground font-medium leading-relaxed opacity-70">{sous}</p>}
+        <h1 className="text-4xl font-black tracking-tighter text-navy sm:text-5xl leading-[0.9]">{titre}</h1>
+        {sous && <p className="mt-3 text-lg text-muted-foreground font-medium leading-relaxed opacity-70">{sous}</p>}
       </div>
       {actions && <div className="flex flex-wrap items-center gap-4">{actions}</div>}
     </div>
@@ -55,13 +55,13 @@ export function StatCard({
     critique: "text-destructive",
   };
   return (
-    <div className="rounded-[1.25rem] border-none bg-white/70 backdrop-blur-xl p-6 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
+    <div className="rounded-[1.5rem] border-none bg-white/70 backdrop-blur-xl p-8 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
       <div className="absolute top-0 left-0 w-full h-1 bg-primary/10 group-hover:bg-primary transition-all duration-500" />
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-3">{label}</p>
+      <p className="text-[12px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">{label}</p>
       <div className="flex items-baseline gap-2">
-        <p className={`text-3xl font-black tracking-tighter ${tons[ton]}`}>{valeur}</p>
+        <p className={`text-4xl font-black tracking-tighter ${tons[ton]}`}>{valeur}</p>
       </div>
-      {detail && <p className="mt-2 text-[11px] font-bold text-muted-foreground/50 tracking-tight">{detail}</p>}
+      {detail && <p className="mt-3 text-[13px] font-bold text-muted-foreground/50 tracking-tight">{detail}</p>}
     </div>
   );
 }
@@ -79,14 +79,14 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-[1.25rem] border-none bg-white/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
+    <section className={cn("rounded-[1.5rem] border-none bg-white/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
       {(titre || actions) && (
-        <header className="flex flex-wrap items-center justify-between gap-4 bg-muted/20 px-6 py-4 border-b border-border/40">
-          {titre && <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
-          {actions && <div className="flex items-center gap-4">{actions}</div>}
+        <header className="flex flex-wrap items-center justify-between gap-4 bg-muted/20 px-8 py-6 border-b border-border/40">
+          {titre && <h2 className="text-[12px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
+          {actions && <div className="flex items-center gap-6">{actions}</div>}
         </header>
       )}
-      <div className="p-6">{children}</div>
+      <div className="p-8">{children}</div>
     </section>
   );
 }
@@ -167,11 +167,11 @@ export function DataTable<T extends { id: string }>({
 }) {
   return (
     <div className="overflow-x-auto rounded-[1rem] border-none bg-white/50 backdrop-blur-xl shadow-elevated">
-      <table className="w-full text-[13px] border-collapse">
-        <thead className="bg-muted/30 text-left text-[11px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
+      <table className="w-full text-[15px] border-collapse">
+        <thead className="bg-muted/30 text-left text-[12px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
           <tr>
             {colonnes.map((c) => (
-              <th key={c.cle} className={`px-6 py-4 ${c.align === "right" ? "text-right" : ""}`}>
+              <th key={c.cle} className={`px-8 py-5 ${c.align === "right" ? "text-right" : ""}`}>
                 {c.titre}
               </th>
             ))}
@@ -190,7 +190,7 @@ export function DataTable<T extends { id: string }>({
               {colonnes.map((c) => (
                 <td
                   key={c.cle}
-                  className={`px-6 py-4 align-middle font-bold text-navy/80 tracking-tight ${c.align === "right" ? "text-right" : ""}`}
+                  className={`px-8 py-5 align-middle font-bold text-navy/80 tracking-tight ${c.align === "right" ? "text-right" : ""}`}
                 >
                   {c.rendu(l)}
                 </td>
@@ -214,7 +214,7 @@ export function DataTable<T extends { id: string }>({
 export function Statut({ children, ton, className }: { children: ReactNode; ton?: string; className?: string }) {
   return (
     <Badge variant="outline" className={cn(
-      "px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-tight transition-all shadow-sm",
+      "px-3 py-1 rounded-md text-[12px] font-bold uppercase tracking-tight transition-all shadow-sm",
       ton ?? "border-border bg-muted/30 text-muted-foreground",
       className
     )}>
@@ -250,13 +250,13 @@ export function Champ({
 }) {
   return (
     <div className="space-y-2">
-      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
+      <Label className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
       <Input 
         type={type} 
         value={value} 
         placeholder={placeholder} 
         onChange={(e) => onChange(e.target.value)} 
-        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 h-10 px-4"
+        className="rounded-xl border-border/60 focus-visible:ring-primary/20 bg-muted/10 h-12 px-6"
       />
     </div>
   );
@@ -276,11 +276,11 @@ export function ChampSelect({
   const opts = options.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   return (
     <div className="space-y-2">
-      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
+      <Label className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="flex h-10 w-full rounded-xl border border-border/60 bg-muted/10 px-4 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
+        className="flex h-12 w-full rounded-xl border border-border/60 bg-muted/10 px-6 py-2 text-base ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-all"
       >
         <option value="">— Sélectionner —</option>
         {opts.map((o) => (
@@ -306,7 +306,7 @@ export function ChampTexte({
 }) {
   return (
     <div className="space-y-2">
-      <Label className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
+      <Label className="text-[12px] font-bold uppercase tracking-widest text-muted-foreground/70 ml-1">{label}</Label>
       <Textarea 
         rows={rows} 
         value={value} 
@@ -359,22 +359,22 @@ export function FormDialog({
         "max-h-[90vh] overflow-y-auto rounded-2xl border-none shadow-elevated p-0 gap-0",
         large ? "max-w-4xl" : "max-w-md"
       )}>
-        <DialogHeader className="p-6 border-b border-border bg-muted/20">
-          <DialogTitle className="text-xl font-black tracking-tight text-navy">{titre}</DialogTitle>
-          {description && <DialogDescription className="text-[13px] font-medium text-muted-foreground mt-1">{description}</DialogDescription>}
+        <DialogHeader className="p-10 border-b border-border bg-muted/20">
+          <DialogTitle className="text-2xl font-black tracking-tight text-navy">{titre}</DialogTitle>
+          {description && <DialogDescription className="text-[15px] font-medium text-muted-foreground mt-2">{description}</DialogDescription>}
         </DialogHeader>
-        <div className="p-6 space-y-4">{children}</div>
-        <DialogFooter className="p-6 border-t border-border bg-muted/10 gap-3">
+        <div className="p-10 space-y-6">{children}</div>
+        <DialogFooter className="p-10 border-t border-border bg-muted/10 gap-4">
           <Button 
             variant="ghost" 
             onClick={() => onOpenChange(false)}
-            className="rounded-xl font-bold px-6"
+            className="rounded-xl font-bold px-8 h-12"
           >
             Fermer
           </Button>
           {onSubmit && (
             <Button
-              className="rounded-xl font-bold px-8 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
+              className="rounded-xl font-bold px-10 h-12 shadow-sm hover:shadow-md transition-all hover:scale-[1.02]"
               onClick={() => {
                 onSubmit();
                 onOpenChange(false);

@@ -272,25 +272,25 @@ function CoursesPage() {
   // Colonnes de la table
   const colonnes: Colonne<CourseOps>[] = [
     { cle: "numero", titre: "N°", rendu: (c) => <span className="font-bold text-navy">{c.numero}</span> },
-    { cle: "date", titre: "Date", rendu: (c) => <div className="text-[12px]">
-        <p className="font-medium">{format(parseISO(c.dateCourse), "dd/MM")}</p>
-        <p className="text-muted-foreground">{c.heureFixe || c.trancheHoraire.split(' ')[0]}</p>
+    { cle: "date", titre: "Date", rendu: (c) => <div className="text-[14px]">
+        <p className="font-bold">{format(parseISO(c.dateCourse), "dd MMM")}</p>
+        <p className="text-muted-foreground font-medium">{c.heureFixe || c.trancheHoraire.split(' ')[0]}</p>
       </div> },
     { cle: "client", titre: "Client / Corresp.", rendu: (c) => <div>
-        <p className="font-medium text-[13px]">{l.clientNom(c.clientId)}</p>
-        <p className="text-[10px] text-muted-foreground uppercase">{c.correspondant}</p>
+        <p className="font-bold text-[15px]">{l.clientNom(c.clientId)}</p>
+        <p className="text-[12px] text-muted-foreground font-black uppercase tracking-wider">{c.correspondant}</p>
       </div> },
     { cle: "commande", titre: "Service / Commande", rendu: (c) => <div className="max-w-[150px]">
-        <p className="text-[12px] font-medium truncate">{c.service || c.typeCourse}</p>
-        <p className="text-[10px] text-muted-foreground truncate">{c.message}</p>
+        <p className="text-[14px] font-bold truncate">{c.service || c.typeCourse}</p>
+        <p className="text-[12px] text-muted-foreground truncate font-medium">{c.message}</p>
       </div> },
     { cle: "type", titre: "Type/Genre", rendu: (c) => <div className="text-[11px]">
         <p>{c.typeCourse}</p>
         <p className="text-muted-foreground">{c.genreCourse}</p>
       </div> },
     { cle: "trajet", titre: "Retrait → Dest.", rendu: (c) => <div className="text-[11px]">
-        <p className="font-medium text-navy">Ret: {c.retrait.zone}</p>
-        <p className="text-muted-foreground">Dest: {c.destinations[0]?.zone || "—"}</p>
+        <p className="font-bold text-navy">Ret: {c.retrait.zone}</p>
+        <p className="text-muted-foreground font-medium">Dest: {c.destinations[0]?.zone || "—"}</p>
       </div> },
     { cle: "coursier", titre: "Coursier", rendu: (c) => <div className="text-[13px]">
         {c.coursierId ? (
@@ -305,7 +305,7 @@ function CoursesPage() {
          c.dispatch.statut === "Programmée" ? <Clock className="w-4 h-4 text-warning" /> :
          c.dispatch.statut === "Refusée" ? <XCircle className="w-4 h-4 text-destructive" /> :
          <span className="text-[9px] text-muted-foreground">—</span>}
-        <span className="text-[9px] text-muted-foreground mt-0.5">{c.dispatch.statut}</span>
+        <span className="text-[10px] font-bold text-muted-foreground mt-1 uppercase tracking-tighter">{c.dispatch.statut}</span>
       </div> },
     { cle: "statut", titre: "Statut", rendu: (c) => <Statut ton={toneCourse(c.statut)}>{c.statut}</Statut> },
     {
@@ -314,16 +314,16 @@ function CoursesPage() {
       align: "right",
       rendu: (c) => (
         <div className="flex flex-wrap justify-end gap-1" onClick={(e) => e.stopPropagation()}>
-          <Button size="sm" variant="ghost" className="h-8 text-[12px] px-2" onClick={() => ouvrirDetail(c)}>Voir</Button>
-          <Button size="sm" variant="ghost" className="h-8 text-[12px] px-2" onClick={() => ouvrirEdition(c)}>Modifier</Button>
+          <Button size="sm" variant="ghost" className="h-10 text-[13px] px-3 font-bold" onClick={() => ouvrirDetail(c)}>Voir</Button>
+          <Button size="sm" variant="ghost" className="h-10 text-[13px] px-3 font-bold" onClick={() => ouvrirEdition(c)}>Modifier</Button>
           {!c.coursierId ? (
-            <Button size="sm" variant="outline" className="h-8 text-[11px] px-2" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
+            <Button size="sm" variant="outline" className="h-10 text-[12px] px-3 font-bold" onClick={() => { setCoursierChoisi(""); affectationDialog.ouvrir(c); }}>Affecter</Button>
           ) : (
-            <Button size="sm" variant="ghost" className="h-8 text-[11px] px-2" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
+            <Button size="sm" variant="ghost" className="h-10 text-[12px] px-3 font-bold" onClick={() => { setCoursierChoisi(""); setMotif(""); setCommentaire(""); reaffectationDialog.ouvrir(c); }}>
               Réaffecter
             </Button>
           )}
-          <Button size="sm" variant="ghost" className="h-8 text-[11px] px-2 text-muted-foreground" onClick={() => archiver("courses", c.id, !c.archive)}>
+          <Button size="sm" variant="ghost" className="h-10 text-[12px] px-3 font-bold text-muted-foreground" onClick={() => archiver("courses", c.id, !c.archive)}>
             {c.archive ? "Restaurer" : "Archiver"}
           </Button>
         </div>
