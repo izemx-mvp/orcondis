@@ -86,7 +86,7 @@ function Dashboard() {
         }
       />
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
         <StatCard label="Urgences" valeur={stats.urgentes} ton="alerte" detail={`${stats.bloquees} bloquée(s)`} />
         <StatCard
@@ -109,7 +109,7 @@ function Dashboard() {
       </div>
 
 
-      <div className="grid gap-6 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
+      <div className="grid gap-8 lg:grid-cols-2 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-500">
         <Panel
           titre="Facturation"
           actions={
