@@ -118,7 +118,7 @@ function Demande() {
       <PublicLayout>
         <section className="relative overflow-hidden py-24 sm:py-32 flex flex-col items-center">
           <AnimatedBackground variant="restrained" />
-          <div className="surface-card p-12 lg:p-16 text-center max-w-xl mx-auto shadow-elevated border-none bg-white/70 backdrop-blur-xl rounded-[3rem] animate-in zoom-in-95 duration-500">
+          <div className="elevated-card p-12 lg:p-16 text-center max-w-xl mx-auto border-none bg-white/70 dark:bg-surface/70 backdrop-blur-3xl rounded-[3rem] animate-in zoom-in-95 duration-500">
             <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-success/10 text-success mb-8">
               <CheckCircle2 className="h-12 w-12" />
             </div>
@@ -165,7 +165,7 @@ function Demande() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="surface-card p-10 lg:p-16 shadow-elevated border-none bg-white/70 backdrop-blur-xl rounded-[3rem] relative overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
+          <form onSubmit={handleSubmit} className="elevated-card p-10 lg:p-16 border-none bg-white/70 dark:bg-surface/70 backdrop-blur-3xl rounded-[3rem] relative overflow-hidden animate-in fade-in slide-in-from-bottom-8 duration-700">
             <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-primary via-info to-primary animate-pulse" />
             
             <div className="space-y-12">
