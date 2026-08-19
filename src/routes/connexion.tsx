@@ -4,6 +4,7 @@ import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
 
 export const Route = createFileRoute("/connexion")({
   head: () => ({

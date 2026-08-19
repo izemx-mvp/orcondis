@@ -17,8 +17,9 @@ export function ThemeToggle() {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="icon"
+      className="rounded-xl border-border/40 bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 transition-all duration-300"
       onClick={toggle}
       aria-label={isDark ? "Passer en mode clair" : "Passer en mode sombre"}
       title={isDark ? "Mode clair" : "Mode sombre"}
