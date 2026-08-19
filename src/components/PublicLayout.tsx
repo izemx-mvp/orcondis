@@ -57,14 +57,14 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <Link to="/site">
             <Logo />
           </Link>
-          <nav className="hidden items-center gap-1 lg:flex bg-muted/40 dark:bg-navy/40 p-1 rounded-2xl border border-border/40">
+          <nav className="hidden items-center gap-1 lg:flex bg-muted/20 dark:bg-white/5 p-1 rounded-2xl border border-border/40 backdrop-blur-md">
             {NAV.map((item) => (
               <Link
                 key={item.to}
                 to={item.to}
                 activeOptions={{ exact: item.to === "/site" }}
                 activeProps={{ className: "bg-white dark:bg-surface shadow-sm text-primary" }}
-                className="rounded-xl px-4 py-2 text-sm font-bold text-muted-foreground transition-all hover:text-navy hover:scale-105"
+                className="rounded-xl px-4 py-2 text-[12px] uppercase tracking-wider font-black text-muted-foreground transition-all hover:text-primary hover:bg-white/50 hover:scale-105"
               >
                 {item.label}
               </Link>

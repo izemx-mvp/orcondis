@@ -55,9 +55,9 @@ export function StatCard({
     critique: "text-destructive",
   };
   return (
-    <div className="rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/70 dark:bg-surface/80 backdrop-blur-xl p-8 shadow-elevated hover:shadow-hover transition-all group overflow-hidden relative group">
-      <div className="absolute top-0 left-0 w-full h-1 bg-primary/20 group-hover:bg-primary transition-all duration-500" />
-      <p className="text-[12px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mb-4">{label}</p>
+    <div className="rounded-[2rem] border border-border/10 dark:border-white/5 bg-white/70 dark:bg-surface/80 backdrop-blur-2xl p-8 shadow-elevated hover:shadow-hover hover:-translate-y-1.5 transition-all group overflow-hidden relative duration-500">
+      <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-700" />
+      <p className="text-[11px] font-black uppercase tracking-[0.25em] text-muted-foreground/50 mb-4">{label}</p>
       <div className="flex items-baseline gap-2">
         <p className={cn("text-4xl font-black tracking-tighter", tons[ton])}>{valeur}</p>
       </div>
@@ -79,7 +79,7 @@ export function Panel({
   className?: string;
 }) {
   return (
-    <section className={cn("rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/60 dark:bg-surface/60 backdrop-blur-xl shadow-elevated overflow-hidden", className)}>
+    <section className={cn("rounded-[2rem] border border-border/10 dark:border-white/5 bg-white/60 dark:bg-surface/60 backdrop-blur-2xl shadow-elevated overflow-hidden hover:shadow-hover transition-all duration-500", className)}>
       {(titre || actions) && (
         <header className="flex flex-wrap items-center justify-between gap-4 bg-muted/20 px-8 py-6 border-b border-border/40">
           {titre && <h2 className="text-[12px] font-black uppercase tracking-[0.3em] text-navy/60">{titre}</h2>}
@@ -166,9 +166,9 @@ export function DataTable<T extends { id: string }>({
   onRowClick?: (row: T) => void;
 }) {
   return (
-    <div className="overflow-x-auto rounded-[1.5rem] border border-border/10 dark:border-white/5 bg-white/50 dark:bg-surface/50 backdrop-blur-xl shadow-elevated">
+    <div className="overflow-x-auto rounded-[2rem] border border-border/10 dark:border-white/5 bg-white/50 dark:bg-surface/50 backdrop-blur-2xl shadow-elevated transition-all duration-500">
       <table className="w-full text-[15px] border-collapse">
-        <thead className="bg-muted/30 text-left text-[12px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
+        <thead className="bg-muted/30 text-left text-[11px] font-black uppercase tracking-[0.3em] text-navy/40 border-b border-border/40">
           <tr>
             {colonnes.map((c) => (
               <th key={c.cle} className={`px-8 py-5 ${c.align === "right" ? "text-right" : ""}`}>
@@ -182,7 +182,7 @@ export function DataTable<T extends { id: string }>({
             <tr
               key={l.id}
               className={cn(
-                "group transition-all hover:bg-white/80 hover:scale-[1.002] duration-300",
+                "group transition-all hover:bg-white/90 dark:hover:bg-white/5 hover:scale-[1.002] duration-300",
                 onRowClick ? "cursor-pointer" : ""
               )}
               onClick={onRowClick ? () => onRowClick(l) : undefined}

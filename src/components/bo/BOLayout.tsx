@@ -202,9 +202,9 @@ export function BOLayout({ children }: { children: ReactNode }) {
                   to={n.to}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "group flex items-center gap-4 rounded-xl px-6 py-4 text-sm font-black transition-all duration-300",
+                    "group flex items-center gap-4 rounded-xl px-6 py-4 text-[13px] font-black transition-all duration-500 uppercase tracking-wide",
                     actif 
-                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.02] border-none" 
+                      ? "bg-primary text-white shadow-xl shadow-primary/30 scale-[1.05] border-none -translate-y-0.5" 
                       : "text-sidebar-foreground/60 hover:bg-white/5 hover:text-white hover:translate-x-2 border border-transparent"
                   )}
                 >
