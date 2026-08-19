@@ -4,6 +4,7 @@ import { PublicLayout } from "@/components/PublicLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { AnimatedBackground } from "@/components/ui/design-system/AnimatedBackground";
 
 export const Route = createFileRoute("/connexion")({
   head: () => ({
@@ -25,41 +26,42 @@ function Connexion() {
   const [email, setEmail] = useState("y.bennani@orcondis.ma");
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <section className="mx-auto flex w-full max-w-md flex-col px-4 sm:px-6">
+    <div className="flex min-h-screen items-center justify-center bg-navy relative overflow-hidden">
+      <AnimatedBackground variant="expressive" className="opacity-30" />
+      <section className="mx-auto flex w-full max-w-md flex-col px-4 sm:px-6 relative z-10">
         <div className="flex flex-col items-center mb-10 group">
-          <div className="bg-white p-4 rounded-2xl shadow-xl shadow-navy/5 transition-all group-hover:scale-105 duration-500 mb-4">
-            <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-16 w-auto object-contain" />
+          <div className="bg-white p-6 rounded-[2rem] shadow-[0_20px_60px_rgba(0,0,0,0.4)] transition-all group-hover:scale-105 duration-700 mb-8">
+            <img src="/assets/orcondis-logo.png" alt="ORCONDIS" className="h-20 w-auto object-contain" />
           </div>
-          <h1 className="text-xl font-black text-navy tracking-tight">Connexion au Back-Office</h1>
-          <p className="text-sm text-muted-foreground font-medium">
-            Accès réservé à l'équipe ORCONDIS
+          <h1 className="text-2xl font-black text-white tracking-tighter uppercase mb-2">Connexion au Back-Office</h1>
+          <p className="text-base text-white/50 font-bold uppercase tracking-[0.2em]">
+            Accès réservé ORCONDIS
           </p>
         </div>
-        <div className="surface-card p-6 shadow-elevated border-none bg-white/80 backdrop-blur-xl rounded-2xl">
+        <div className="elevated-card p-10 border-none bg-white/80 dark:bg-surface/80 backdrop-blur-3xl rounded-[2.5rem] shadow-2xl">
           <form
-            className="mt-4 space-y-4"
+            className="mt-6 space-y-6"
             onSubmit={(e) => {
               e.preventDefault();
               navigate({ to: "/backoffice/dashboard" });
             }}
           >
-            <div>
-              <Label htmlFor="email" className="text-[13px] font-semibold">Email professionnel</Label>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-[11px] font-black uppercase tracking-[0.2em] text-navy/40 dark:text-white/40 ml-1">Email professionnel</Label>
               <Input
                 id="email"
                 type="email"
-                className="mt-1 h-10"
+                className="h-14 rounded-2xl bg-white/50 border-border/40 focus:ring-primary/20 px-6 font-black"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div>
-              <Label htmlFor="mdp" className="text-[13px] font-semibold">Mot de passe</Label>
-              <Input id="mdp" type="password" className="mt-1 h-10" defaultValue="orcondis" required />
+            <div className="space-y-2">
+              <Label htmlFor="mdp" className="text-[11px] font-black uppercase tracking-[0.2em] text-navy/40 dark:text-white/40 ml-1">Mot de passe</Label>
+              <Input id="mdp" type="password" className="h-14 rounded-2xl bg-white/50 border-border/40 focus:ring-primary/20 px-6 font-black" defaultValue="orcondis" required />
             </div>
-            <Button type="submit" className="w-full h-10 font-bold">
+            <Button type="submit" className="w-full h-16 font-black uppercase tracking-widest text-lg rounded-2xl shadow-2xl shadow-primary/30 transition-all hover:scale-[1.05] active:scale-95 border-none">
               Se connecter
             </Button>
           </form>

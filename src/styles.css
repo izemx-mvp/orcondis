@@ -69,7 +69,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-panel: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-elevated: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --shadow-elevated: 0 20px 40px -10px rgb(0 0 0 / 0.1), 0 10px 20px -5px rgb(0 0 0 / 0.05);
+  --shadow-hover: 0 30px 60px -12px rgb(0 0 0 / 0.15), 0 18px 36px -8px rgb(0 0 0 / 0.08);
 }
 
 :root {
@@ -168,7 +169,7 @@
 @layer base {
   * {
     border-color: var(--color-border);
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   body {
@@ -227,17 +228,32 @@
 @utility surface-card {
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-card);
   overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility elevated-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-elevated);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility elevated-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-hover);
 }
 
 @utility glass-card {
   background-color: rgb(255 255 255 / 0.7);
   backdrop-filter: blur(8px);
   border: 1px solid rgb(255 255 255 / 0.2);
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   box-shadow: var(--shadow-panel);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark .glass-card {
@@ -254,4 +270,23 @@
 .animate-pulse-slow {
   animation: pulse-slow 8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
+
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.05); }
+}
+
+.animate-slide-up {
+  animation: slide-up 15s linear infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 20s ease-in-out infinite;
+}
+
 

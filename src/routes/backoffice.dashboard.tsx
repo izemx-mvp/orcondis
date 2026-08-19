@@ -76,15 +76,24 @@ function Dashboard() {
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <PageHeader
-        titre="Tableau de bord"
-        sous="Vue consolidée des opérations, de la facturation et des paiements."
-        actions={
-          <Button asChild size="default" className="rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all px-6">
-            <Link to="/backoffice/whatsapp">Messagerie WhatsApp</Link>
-          </Button>
-        }
-      />
+      <div className="relative overflow-hidden rounded-[2.5rem] bg-navy p-12 text-white shadow-2xl shadow-navy/20">
+        <div className="absolute top-0 right-0 h-64 w-64 bg-primary/20 blur-[100px] animate-pulse-slow" />
+        <div className="relative z-10 flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-3xl">
+            <h1 className="text-4xl font-black tracking-tighter text-white sm:text-5xl leading-[0.9]">
+              Tableau de bord
+            </h1>
+            <p className="mt-3 text-lg text-white/60 font-medium leading-relaxed">
+              Vue consolidée des opérations, de la facturation et des paiements.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <Button asChild size="default" className="rounded-xl font-black uppercase tracking-widest shadow-xl shadow-primary/30 hover:scale-[1.05] transition-all px-8 h-14 bg-white text-navy hover:bg-white/90 border-none">
+              <Link to="/backoffice/whatsapp">Messagerie WhatsApp</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-200">
         <StatCard label="Missions actives" valeur={stats.courses.length} detail={`${stats.nonAffectees} à affecter`} />
